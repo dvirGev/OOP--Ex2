@@ -1,11 +1,22 @@
-import api.DirectedWeightedGraph;
-import api.DirectedWeightedGraphAlgorithms;
+import api.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Locale;
 
 /**
  * This class is the main class for Ex2 - your implementation will be tested using this class.
  */
 public class Ex2 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParseException {
+
         System.out.println("hello");
     }
     /**
@@ -13,11 +24,19 @@ public class Ex2 {
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      * @return
      */
-    public static DirectedWeightedGraph getGrapg(String json_file) {
+    public static DirectedWeightedGraph getGrapg(String json_file) throws IOException, ParseException {
         DirectedWeightedGraph ans = null;
-        // ****** Add your code here ******
-        //
-        // ********************************
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader("data/G1.json"));
+        JSONObject Jobj =(JSONObject) obj;
+        JSONArray edges = (JSONArray) Jobj.get("Nodes");
+        //JSONObject edges = (JSONObject) Jobj.get("Nodes");
+        for (Object o:edges)
+        {
+            JSONObject temp = (JSONObject) o;
+            System.out.println(3* Integer.parseInt(((JSONObject)o).get("id").toString()));
+
+        }
         return ans;
     }
     /**
@@ -43,4 +62,5 @@ public class Ex2 {
         //
         // ********************************
     }
+
 }

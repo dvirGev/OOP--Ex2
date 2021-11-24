@@ -1,11 +1,9 @@
+import api.*;
+import com.google.gson.GsonBuilder;
+import api.DirectedWeightedGraph;
+
 import java.io.FileReader;
 import java.util.Iterator;
-
-import api.DirectedWeightedGraph;
-import api.EdgeData;
-import api.NodeData;
-
-import com.google.gson.*;
 
 public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     public MyDirectedWeightedGraph(String jsonFile) {
