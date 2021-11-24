@@ -14,7 +14,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
             GsonBuilder gb = new GsonBuilder();
         }
         catch (Exception e) {
-            
+            System.out.println("hello word");
         }
     }
 
