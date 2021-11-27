@@ -12,7 +12,7 @@ public class MyEdgeData implements EdgeData {
         this.dest = dest;
         this.weight = weight;
         this.info = null;
-        this.tag = null;
+        this.tag = Integer.parseInt(null);
 
     }
     /**
