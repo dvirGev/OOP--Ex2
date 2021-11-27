@@ -10,11 +10,12 @@ public class My_NodeData implements NodeData {
     HashMap <Integer,EdgeData> edgeDst;
     GeoLocation location;
 
-    public My_NodeData(int key)
+    public My_NodeData(int key, String loc)
     {
         this.key = key;
         edge = new HashMap<>();
         edgeDst = new HashMap<>();
+        location = new My_GeoLocation(loc);
     }
     @Override
     public int getKey() {
@@ -28,7 +29,10 @@ public class My_NodeData implements NodeData {
 
     @Override
     public void setLocation(GeoLocation p) {
-        location = new GeoLocation(p);
+        if(p instanceof My_GeoLocation){
+            location = new GeoLocation(p);
+        }
+
     }
 
     @Override
