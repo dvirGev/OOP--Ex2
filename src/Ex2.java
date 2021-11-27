@@ -35,7 +35,6 @@ public class Ex2 {
         {
             JSONObject temp = (JSONObject) o;
             System.out.println(Integer.parseInt(((JSONObject)o).get("id").toString()));
-
         }
         return ans;
     }
