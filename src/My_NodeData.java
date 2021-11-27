@@ -1,4 +1,3 @@
-import api.EdgeData;
 import api.GeoLocation;
 import api.NodeData;
 
@@ -7,16 +6,16 @@ import java.util.HashMap;
 
 public class My_NodeData implements NodeData {
     private int key;
-    private HashMap <Integer, MyEdgeData> edgeSrc;
-    private HashMap <Integer,MyEdgeData> edgeDst;
+    private HashMap <Integer, MyEdgeData> edgeSend;
+    private HashMap <Integer,MyEdgeData> edgeRecived;
     private GeoLocation location;
     Color c = Color.white;
 
     public My_NodeData(int key, String loc)
     {
         this.key = key;
-        edgeSrc = new HashMap<>();
-        edgeDst = new HashMap<>();
+        edgeSend = new HashMap<>();
+        edgeRecived = new HashMap<>();
         location = new My_GeoLocation(loc);
     }
     @Override
@@ -25,13 +24,16 @@ public class My_NodeData implements NodeData {
     }
     public void addSMap(Integer dst ,MyEdgeData e)
     {
-        this.edgeSrc.put(dst,e);
+        this.edgeSend.put(dst,e);
     }
     public void addDMap(Integer src ,MyEdgeData e)
     {
-        this.edgeDst.put(src,e);
+        this.edgeRecived.put(src,e);
     }
-
+    public void RemoveEdge(int key)
+    {
+        this.
+    }
     @Override
     public GeoLocation getLocation() {
         return location;
