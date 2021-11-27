@@ -46,9 +46,9 @@ public class Ex2 {
             MyEdgeData e = new MyEdgeData(src,
                     Integer.parseInt(temp.get("w").toString()),dst);
             My_NodeData s = (My_NodeData) ans.getNode(src);
-            s.addSMap(dst, e);
+            s.addSend(dst, e);
             My_NodeData d = (My_NodeData) ans.getNode(dst);
-            s.addDMap(dst, e);
+            s.addRecived(dst, e);
         }
         return ans;
     }

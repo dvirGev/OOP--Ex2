@@ -22,10 +22,12 @@ public class My_NodeData implements NodeData {
     public int getKey() {
         return key;
     }
-    public void addSMap(Integer dst ,MyEdgeData e) { this.edgeSend.put(dst,e); }
-    public void addDMap(Integer src ,MyEdgeData e)
+    public void addSend(MyEdgeData e) { 
+        this.edgeSend.put(e.dest, e);
+    }
+    public void addRecived(MyEdgeData e)
     {
-        this.edgeRecived.put(src,e);
+        this.edgeRecived.put(e.src, e);
     }
     public void RemoveEdge(int key)
     {
