@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class My_NodeData implements NodeData {
     private int key;
-    private HashMap <Integer, EdgeData> edge;
+    private HashMap <Integer, EdgeData> edgeSrc;
     private HashMap <Integer,EdgeData> edgeDst;
     private GeoLocation location;
     Color c = Color.white;

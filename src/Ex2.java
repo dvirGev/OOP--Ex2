@@ -36,6 +36,12 @@ public class Ex2 {
         {
             JSONObject temp = (JSONObject) o;
             My_NodeData n = new My_NodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
+            ans.addNode(n);
+        }
+        for (Object o:edges)
+        {
+            JSONObject temp = (JSONObject) o;
+            MyEdgeData e = new MyEdgeData()
         }
         return ans;
     }
