@@ -3,6 +3,7 @@ import api.EdgeData;
 public class MyEdgeData implements EdgeData {
     int src;
     int dest;
+    int asdasd;
     double weight;
     String info;
     int tag;
