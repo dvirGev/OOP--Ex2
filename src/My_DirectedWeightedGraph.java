@@ -8,7 +8,7 @@ import api.EdgeData;
 import api.NodeData;
 
 public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
-    HashMap <Integer, My_NodeData> nodes;
+    private HashMap <Integer, My_NodeData> nodes;
 
     public My_DirectedWeightedGraph() {
         nodes = new HashMap<>();
@@ -20,7 +20,7 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public EdgeData getEdge(int src, int dest) {
-        return nodes.get(src).edge.get(dest);
+        return nodes.get(src).edgeSrc.get(dest);
     }
 
     @Override
@@ -33,8 +33,9 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public void connect(int src, int dest, double w) {
-        // TODO Auto-generated method stub
-        
+        MyEdgeData edge = new MyEdgeData(src, dest, w);
+        nodes.get(src).edgeSrc.put(dest, edge);
+        nodes.get(dest).edgeSrc.put(src, edge);
     }
 
     @Override
@@ -57,7 +58,13 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public NodeData removeNode(int key) {
-        // TODO Auto-generated method stub
+        My_NodeData node = nodes.get(key);
+        HashMap<Integer, MyEdgeData> edges = node.edgeSrc;
+        edges.forEach((key, value) -> {
+
+            nodes.get(value.getDest()).edgeDest = null;
+          });
+
         return null;
     }
 
