@@ -4,6 +4,7 @@ public class MyEdgeData implements EdgeData {
     int src;
     int dest;
     double weight;
+    int asdas;
     String info;
     int tag;
 
