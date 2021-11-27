@@ -1,9 +1,21 @@
-package api;
+import api.EdgeData;
+import api.GeoLocation;
+import api.NodeData;
 
 import java.util.HashMap;
 
 public class My_NodeData implements NodeData {
-    HashMap
+    int key;
+    HashMap <Integer, EdgeData> edge;
+    HashMap <Integer,EdgeData> edgeDst;
+    GeoLocation location;
+
+    public My_NodeData(int key)
+    {
+        this.key = key;
+        edge = new HashMap<>();
+        edgeDst = new HashMap<>();
+    }
     @Override
     public int getKey() {
         return 0;
@@ -16,7 +28,7 @@ public class My_NodeData implements NodeData {
 
     @Override
     public void setLocation(GeoLocation p) {
-
+        location = new GeoLocation(p);
     }
 
     @Override

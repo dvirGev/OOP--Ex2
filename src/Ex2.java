@@ -28,8 +28,9 @@ public class Ex2 {
         DirectedWeightedGraph ans = null;
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("data/G1.json"));
-        JSONObject Jobj =(JSONObject) obj;
-        JSONArray edges = (JSONArray) Jobj.get("Nodes");
+        JSONObject jobj =(JSONObject) obj;
+        JSONArray edges = (JSONArray) jobj.get("Edges");
+        JSONArray nodes = (JSONArray) jobj.get("Nodes");
         //JSONObject edges = (JSONObject) Jobj.get("Nodes");
         for (Object o:edges)
         {
