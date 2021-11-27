@@ -3,7 +3,10 @@ package api;
 import java.util.HashMap;
 
 public class My_NodeData implements NodeData {
-    HashMap
+    HashMap <Integer,EdgeData> edge = new HashMap();
+    HashMap <Integer,EdgeData> edgeDst = new HashMap();
+    int key;
+
     @Override
     public int getKey() {
         return 0;
