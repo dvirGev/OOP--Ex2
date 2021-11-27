@@ -9,7 +9,7 @@ public class My_GeoLocation implements GeoLocation {
         this.y = Double.parseDouble(arrOfStr[1]);
         this.z = Double.parseDouble(arrOfStr[2]);
     }
-    
+
     public My_GeoLocation(GeoLocation other) {
         this.x = other.x();
         this.y = other.y();
@@ -38,5 +38,8 @@ public class My_GeoLocation implements GeoLocation {
         double z = Math.pow(g.z() - this.z, 2);
         return Math.sqrt(x + y + z);
     }
-
+    @Override
+    public String toString() {
+        return "X = " + x + ", Y = " + y + ", Z = " + z;
+    }
 }
