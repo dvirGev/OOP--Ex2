@@ -29,10 +29,7 @@ public class My_NodeData implements NodeData {
 
     @Override
     public void setLocation(GeoLocation p) {
-        if(p instanceof My_GeoLocation){
-            location = new GeoLocation(p);
-        }
-
+        this.location = new My_GeoLocation(p);
     }
 
     @Override

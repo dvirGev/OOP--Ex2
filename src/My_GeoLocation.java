@@ -1,9 +1,9 @@
 import api.GeoLocation;
 
-public class My_GeoLocaion implements GeoLocation {
+public class My_GeoLocation implements GeoLocation {
     double x, y, z;
 
-    public My_GeoLocaion(String geo) {
+    public My_GeoLocation(String geo) {
         String[] arrOfStr = geo.split(",");
         this.x = Double.parseDouble(arrOfStr[0]);
         this.y = Double.parseDouble(arrOfStr[1]);
