@@ -27,7 +27,7 @@ public class Ex2 {
     public static DirectedWeightedGraph getGrapg(String json_file) throws IOException, ParseException {
         DirectedWeightedGraph ans = null;
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader("data/G1.json"));
+        Object obj = parser.parse(new FileReader(json_file));
         JSONObject jobj =(JSONObject) obj;
         JSONArray edges = (JSONArray) jobj.get("Edges");
         JSONArray nodes = (JSONArray) jobj.get("Nodes");
@@ -41,7 +41,14 @@ public class Ex2 {
         for (Object o:edges)
         {
             JSONObject temp = (JSONObject) o;
-            MyEdgeData e = new MyEdgeData()
+            int src = Integer.parseInt(temp.get("src").toString());
+            int dst = Integer.parseInt(temp.get("dst").toString());
+            MyEdgeData e = new MyEdgeData(src,
+                    Integer.parseInt(temp.get("w").toString()),dst);
+            My_NodeData s = (My_NodeData) ans.getNode(src);
+            s.addSMap(dst, e);
+            My_NodeData d = (My_NodeData) ans.getNode(dst);
+            s.addDMap(dst, e);
         }
         return ans;
     }

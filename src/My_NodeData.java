@@ -7,21 +7,29 @@ import java.util.HashMap;
 
 public class My_NodeData implements NodeData {
     private int key;
-    private HashMap <Integer, EdgeData> edgeSrc;
-    private HashMap <Integer,EdgeData> edgeDst;
+    private HashMap <Integer, MyEdgeData> edgeSrc;
+    private HashMap <Integer,MyEdgeData> edgeDst;
     private GeoLocation location;
     Color c = Color.white;
 
     public My_NodeData(int key, String loc)
     {
         this.key = key;
-        edge = new HashMap<>();
+        edgeSrc = new HashMap<>();
         edgeDst = new HashMap<>();
         location = new My_GeoLocation(loc);
     }
     @Override
     public int getKey() {
         return key;
+    }
+    public void addSMap(Integer dst ,MyEdgeData e)
+    {
+        this.edgeSrc.put(dst,e);
+    }
+    public void addDMap(Integer src ,MyEdgeData e)
+    {
+        this.edgeDst.put(src,e);
     }
 
     @Override
