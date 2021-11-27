@@ -22,17 +22,24 @@ public class My_NodeData implements NodeData {
     public int getKey() {
         return key;
     }
-    public void addSMap(Integer dst ,MyEdgeData e)
-    {
-        this.edgeSend.put(dst,e);
-    }
+    public void addSMap(Integer dst ,MyEdgeData e) { this.edgeSend.put(dst,e); }
     public void addDMap(Integer src ,MyEdgeData e)
     {
         this.edgeRecived.put(src,e);
     }
+
+    public HashMap<Integer, MyEdgeData> getEdgeSend() {
+        return edgeSend;
+    }
+
+    public HashMap<Integer, MyEdgeData> getEdgeRecived() {
+        return edgeRecived;
+    }
+
     public void RemoveEdge(int key)
     {
-        this.
+        this.edgeRecived.remove(key);
+        this.edgeSend.remove(key);
     }
     @Override
     public GeoLocation getLocation() {
