@@ -32,10 +32,10 @@ public class Ex2 {
         JSONArray edges = (JSONArray) jobj.get("Edges");
         JSONArray nodes = (JSONArray) jobj.get("Nodes");
         //JSONObject edges = (JSONObject) Jobj.get("Nodes");
-        for (Object o:edges)
+        for (Object o:nodes)
         {
             JSONObject temp = (JSONObject) o;
-            System.out.println(Integer.parseInt(((JSONObject)o).get("id").toString()));
+            My_NodeData n = new My_NodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
         }
         return ans;
     }
