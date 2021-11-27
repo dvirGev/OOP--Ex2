@@ -8,13 +8,12 @@ import api.NodeData;
 
 public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     private HashMap <Integer, My_NodeData> nodes;
-    private HashMap <Vector<Integer>, My_NodeData> edges;
-    private int edgeSize , mc;
+    private HashMap <Vector<Integer>,  MyEdgeData> edges;
+    private int mc;
 
     public My_DirectedWeightedGraph() {
         nodes = new HashMap<>();
         edges = new HashMap<>();
-        edgeSize = 0;
         mc = 0;
     }
     @Override
@@ -24,7 +23,8 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public EdgeData getEdge(int src, int dest) {
-        return nodes.get(src).edgeSend.get(dest);
+        Vector<Integer> vector = buildVector(src, dest);
+        return edges.get(vector);
     }
 
     @Override
@@ -39,9 +39,8 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     @Override
     public void connect(int src, int dest, double w) {
         MyEdgeData edge = new MyEdgeData(src, dest, w);
-        nodes.get(dest).addSend(edge);
-        nodes.get(src).addRecived(edge);
-        ++edgeSize;
+        Vector<Integer> vector = buildVector(src, dest);
+        edges.put(vector, edge);
         ++mc;
     }
 
@@ -66,14 +65,10 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     @Override
     public NodeData removeNode(int key) {
         My_NodeData node = nodes.remove(key);
-        HashMap <Integer, MyEdgeData> list =  node.edgeRecived;
-        list.forEach((key2, value) -> {
-            nodes.get(value.src).edgeSend.remove(value.dest);
-            --edgeSize;
-        });
-        list =  node.edgeSend;
-        list.forEach((key2, value) -> {
-            nodes.get(value.dest).edgeRecived.remove(value.src);
+        edges.forEach((key2, value) -> {
+            if (value.dest == key || value.src == key) {
+                edges.remove(key2);
+            }
         });
         mc++;
         return node;
@@ -81,10 +76,9 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public EdgeData removeEdge(int src, int dest) {
-        --edgeSize;
-        nodes.get(src).edgeSend.remove(dest);
+        Vector<Integer> vector = buildVector(src, dest);
         mc++;
-        return nodes.get(dest).edgeRecived.remove(src);
+        return edges.remove(vector);
     }
 
     @Override
@@ -94,7 +88,7 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public int edgeSize() {
-        return edgeSize;
+        return edges.size();
     }
 
     @Override
@@ -102,5 +96,10 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
         // TODO Auto-generated method stub
         return mc;
     }
-    
+    private Vector<Integer> buildVector(int  src, int dest) {
+        Vector<Integer> vector = new Vector<>();
+        vector.add(src);
+        vector.add(dest);
+        return vector;
+    }
 }

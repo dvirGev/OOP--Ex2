@@ -51,6 +51,9 @@ public class Ex2 {
             s.addRecived(dst, e);
         }
         return ans;
+        /*אביעד היקר:
+        אתה צריך לקרוא את הג'יסון כך שככל פעם שאתה קורא קודקוד אתה צריך לעשות  מיגרף נקודה אדד
+        וכל פעם שאתה קורא צלע אתה צריך לעשות מיגרף נקודה קונקט */
     }
     /**
      * This static function will be used to test your implementation

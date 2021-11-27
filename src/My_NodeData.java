@@ -6,33 +6,17 @@ import java.util.HashMap;
 
 public class My_NodeData implements NodeData {
     private int key;
-    public  HashMap <Integer, MyEdgeData> edgeSend;
-    public  HashMap <Integer,MyEdgeData> edgeRecived;
     private GeoLocation location;
     Color c = Color.white;
 
     public My_NodeData(int key, String loc)
     {
         this.key = key;
-        edgeSend = new HashMap<>();
-        edgeRecived = new HashMap<>();
         location = new My_GeoLocation(loc);
     }
     @Override
     public int getKey() {
         return key;
-    }
-    public void addSend(MyEdgeData e) { 
-        this.edgeSend.put(e.dest, e);
-    }
-    public void addRecived(MyEdgeData e)
-    {
-        this.edgeRecived.put(e.src, e);
-    }
-    public void RemoveEdge(int key)
-    {
-        this.edgeRecived.remove(key);
-        this.edgeSend.remove(key);
     }
     @Override
     public GeoLocation getLocation() {
