@@ -27,15 +27,6 @@ public class My_NodeData implements NodeData {
     {
         this.edgeRecived.put(src,e);
     }
-
-    public HashMap<Integer, MyEdgeData> getEdgeSend() {
-        return edgeSend;
-    }
-
-    public HashMap<Integer, MyEdgeData> getEdgeRecived() {
-        return edgeRecived;
-    }
-
     public void RemoveEdge(int key)
     {
         this.edgeRecived.remove(key);
