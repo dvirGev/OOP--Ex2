@@ -34,8 +34,8 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     @Override
     public void connect(int src, int dest, double w) {
         MyEdgeData edge = new MyEdgeData(src, dest, w);
-        nodes.get(src).edgeSrc.put(dest, edge);
-        nodes.get(dest).edgeSrc.put(src, edge);
+        nodes.get(dest).addSMap(dst, edge);
+        nodes.get(src).addDMap(src, edge);
     }
 
     @Override
