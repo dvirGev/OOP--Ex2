@@ -34,8 +34,7 @@ public class Ex2 {
         for (Object o:edges)
         {
             JSONObject temp = (JSONObject) o;
-            System.out.println(3* Integer.parseInt(((JSONObject)o).get("id").toString()));
-
+            System.out.println(Integer.parseInt(((JSONObject)o).get("id").toString()));
         }
         return ans;
     }
