@@ -20,7 +20,7 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public EdgeData getEdge(int src, int dest) {
-        return nodes.get(src).edgeSrc.get(dest);
+        return nodes.get(src).edgeSend.get(dest);
     }
 
     @Override
