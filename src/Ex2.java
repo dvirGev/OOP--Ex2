@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 public class Ex2 {
     public static void main(String[] args) throws IOException, ParseException {
-
+        getGrapg("data/G1.json");
         System.out.println("hello");
     }
     /**
@@ -34,7 +34,7 @@ public class Ex2 {
         for (Object o:edges)
         {
             JSONObject temp = (JSONObject) o;
-            System.out.println(3* Integer.parseInt(((JSONObject)o).get("id").toString()));
+            System.out.println(Integer.parseInt(((JSONObject)o).get("id").toString()));
 
         }
         return ans;
