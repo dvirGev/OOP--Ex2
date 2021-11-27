@@ -2,13 +2,15 @@ import api.EdgeData;
 import api.GeoLocation;
 import api.NodeData;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class My_NodeData implements NodeData {
-    int key;
-    HashMap <Integer, EdgeData> edge;
-    HashMap <Integer,EdgeData> edgeDst;
-    GeoLocation location;
+    private int key;
+    private HashMap <Integer, EdgeData> edge;
+    private HashMap <Integer,EdgeData> edgeDst;
+    private GeoLocation location;
+    Color c = Color.white;
 
     public My_NodeData(int key, String loc)
     {
@@ -19,12 +21,12 @@ public class My_NodeData implements NodeData {
     }
     @Override
     public int getKey() {
-        return 0;
+        return key;
     }
 
     @Override
     public GeoLocation getLocation() {
-        return null;
+        return location;
     }
 
     @Override
