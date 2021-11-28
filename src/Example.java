@@ -10,8 +10,8 @@ public class Example {
         graph.addNode(new My_NodeData(1, "1,1,1"));
         graph.addNode(new My_NodeData(2, "2,2,2"));
 
-        graph.connect(0, 1, 1);
         graph.connect(0, 2, 1);
+        graph.connect(0, 1, 1);
         graph.connect(1, 2, 1);
 
         //move all nodes in grath
