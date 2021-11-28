@@ -13,9 +13,14 @@ public class MyEdgeData implements EdgeData {
         this.weight = weight;
         this.info = null;
         this.tag = Integer.MIN_VALUE;
-
     }
-
+    public MyEdgeData(MyEdgeData other) {
+        this.src = other.src;
+        this.dest = other.dest;
+        this.weight = other.weight;
+        this.info = null;
+        this.tag = Integer.MIN_VALUE;
+    }
     /**
      * The id of the source node of this edge.
      *
