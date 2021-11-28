@@ -3,8 +3,10 @@ import api.DirectedWeightedGraphAlgorithms;
 import api.EdgeData;
 import api.NodeData;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * This interface represents a Directed (positive) Weighted Graph Theory Algorithms including:
@@ -34,7 +36,6 @@ public class My_Directed_Weighted_Graph_Algorithms implements DirectedWeightedGr
     @Override
     public void init(DirectedWeightedGraph g) {
         graph = (My_DirectedWeightedGraph)g;
-
     }
     /**
      * Returns the underlying graph of which this class works.
@@ -74,7 +75,23 @@ public class My_Directed_Weighted_Graph_Algorithms implements DirectedWeightedGr
     @Override
     public boolean isConnected()
     {
-        return false;
+        HashMap<Integer,Boolean> c = new HashMap<Integer, Boolean>();
+        Iterator<NodeData> iterNode = graph.nodeIter();
+        Iterator<EdgeData> iterEdge = graph.edgeIter();
+        while (iterNode.hasNext())
+        {
+            NodeData n = iterNode.next();
+            c.put(n.getKey(),Boolean.FALSE);
+        }
+        while (iterEdge.hasNext())
+        {
+            if(c.isEmpty()) return true;
+            EdgeData edge  = iterEdge.next();
+            c.remove(edge.getDest());
+        }
+        if(!c.isEmpty()) return false;
+        return true;
+
     }
 
     /**
@@ -85,9 +102,7 @@ public class My_Directed_Weighted_Graph_Algorithms implements DirectedWeightedGr
      * @return
      */
     @Override
-    public double shortestPathDist(int src, int dest) {
-        return 0;
-    }
+    public double shortestPathDist(int src, int dest) { return 0;}
 
     /**
      * Computes the the shortest path between src to dest - as an ordered List of nodes:

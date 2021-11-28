@@ -26,10 +26,10 @@ public class Ex2 {
         }
         System.out.println("------------");
         //move all edges start node 0
-        Iterator<EdgeData> iterEdge = graph.edgeIter(0);
+        Iterator<EdgeData> iterEdge = graph.edgeIter(1);
         while (iterEdge.hasNext()) {
             MyEdgeData edge = (MyEdgeData) iterEdge.next();
-            System.out.println(edge.dest);
+            System.out.println(edge);
         }
 
     }
@@ -54,13 +54,13 @@ public class Ex2 {
         for (Object o:edges)
         {
             JSONObject temp = (JSONObject) o;
-            if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
-            {
+//            if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
+//            {
                 int src = Integer.parseInt(temp.get("src").toString());
                 int dest = Integer.parseInt(temp.get("dest").toString());
                 double w =Double.parseDouble(temp.get("w").toString());
                 ans.connect(src,dest,w);
-            }
+//            }
         }
         return ans;
     }
