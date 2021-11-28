@@ -9,22 +9,40 @@ import java.util.Vector;
 
 public class My_NodeData implements NodeData {
     private int key;
+    public HashMap<Integer, MyEdgeData> edgeSend;
+    public HashMap<Integer, MyEdgeData> edgeRecived;
     private GeoLocation location;
     public HashMap <Integer,  EdgeData> fromMe;
     public HashMap <Integer,  EdgeData> toMe;
     Color c = Color.white;
 
-    public My_NodeData(int key, String loc)
-    {
+    public My_NodeData(int key, String loc) {
         this.key = key;
+        edgeSend = new HashMap<>();
+        edgeRecived = new HashMap<>();
         location = new My_GeoLocation(loc);
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
     }
+
     @Override
     public int getKey() {
         return key;
     }
+
+    public void addSMap(Integer dst, MyEdgeData e) {
+        this.edgeSend.put(dst, e);
+    }
+
+    public void addDMap(Integer src, MyEdgeData e) {
+        this.edgeRecived.put(src, e);
+    }
+
+    public void RemoveEdge(int key) {
+        this.edgeRecived.remove(key);
+        this.edgeSend.remove(key);
+    }
+
     @Override
     public GeoLocation getLocation() {
         return location;

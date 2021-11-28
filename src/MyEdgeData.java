@@ -7,7 +7,7 @@ public class MyEdgeData implements EdgeData {
     String info;
     int tag;
 
-    public MyEdgeData(int src, int dest, double weight){
+    public MyEdgeData(int src, int dest, double weight) {
         this.src = src;
         this.dest = dest;
         this.weight = weight;
@@ -15,8 +15,10 @@ public class MyEdgeData implements EdgeData {
         this.tag = Integer.parseInt(null);
 
     }
+
     /**
      * The id of the source node of this edge.
+     *
      * @return
      */
     @Override
@@ -26,6 +28,7 @@ public class MyEdgeData implements EdgeData {
 
     /**
      * The id of the destination node of this edge
+     *
      * @return
      */
     @Override
@@ -43,6 +46,7 @@ public class MyEdgeData implements EdgeData {
 
     /**
      * Returns the remark (meta data) associated with this edge.
+     *
      * @return
      */
     @Override
@@ -52,6 +56,7 @@ public class MyEdgeData implements EdgeData {
 
     /**
      * Allows changing the remark (meta data) associated with this edge.
+     *
      * @param s
      */
     @Override
@@ -63,6 +68,7 @@ public class MyEdgeData implements EdgeData {
     /**
      * Temporal data (aka color: e,g, white, gray, black)
      * which can be used be algorithms
+     *
      * @return
      */
     @Override
@@ -73,6 +79,7 @@ public class MyEdgeData implements EdgeData {
     /**
      * This method allows setting the "tag" value for temporal marking an edge - common
      * practice for marking by algorithms.
+     *
      * @param t - the new value of the tag
      */
     @Override

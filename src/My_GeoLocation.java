@@ -38,6 +38,7 @@ public class My_GeoLocation implements GeoLocation {
         double z = Math.pow(g.z() - this.z, 2);
         return Math.sqrt(x + y + z);
     }
+
     @Override
     public String toString() {
         return "X = " + x + ", Y = " + y + ", Z = " + z;
