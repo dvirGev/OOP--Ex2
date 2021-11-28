@@ -9,6 +9,11 @@ public class My_GeoLocation implements GeoLocation {
         this.y = Double.parseDouble(arrOfStr[1]);
         this.z = Double.parseDouble(arrOfStr[2]);
     }
+    public My_GeoLocation(My_GeoLocation other) {
+        this.x = other.x;
+        this.y = other.y;
+        this.z = other.z;
+    }
 
     public My_GeoLocation(GeoLocation other) {
         this.x = other.x();

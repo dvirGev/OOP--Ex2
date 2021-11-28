@@ -22,6 +22,14 @@ public class My_NodeData implements NodeData {
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
     }
+    public My_NodeData(My_NodeData other) {
+        this.key = other.key;
+        fromMe = new HashMap<>();
+        toMe = new HashMap<>();
+        location = new My_GeoLocation(other.location);
+        fromMe = new HashMap<>();
+        toMe = new HashMap<>();
+    }
 
     @Override
     public int getKey() {
