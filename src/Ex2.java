@@ -17,7 +17,6 @@ import java.util.Locale;
 public class Ex2 {
     public static void main(String[] args) throws IOException, ParseException {
         getGrapg("data/G1.json");
-        System.out.println("hello");
     }
     /**
      * This static function will be used to test your implementation
