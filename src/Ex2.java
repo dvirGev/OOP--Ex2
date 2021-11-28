@@ -45,7 +45,6 @@ public class Ex2 {
         JSONObject jobj =(JSONObject) obj;
         JSONArray edges = (JSONArray) jobj.get("Edges");
         JSONArray nodes = (JSONArray) jobj.get("Nodes");
-        //JSONObject edges = (JSONObject) Jobj.get("Nodes");
         for (Object o:nodes)
         {
             JSONObject temp = (JSONObject) o;
@@ -55,15 +54,15 @@ public class Ex2 {
         for (Object o:edges)
         {
             JSONObject temp = (JSONObject) o;
-            int src = Integer.parseInt(temp.get("src").toString());
-            int dest = Integer.parseInt(temp.get("dest").toString());
-            double weight = Double.parseDouble(temp.get("w").toString());
-            ans.connect(src, dest, weight);
+            if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
+            {
+                int src = Integer.parseInt(temp.get("src").toString());
+                int dst = Integer.parseInt(temp.get("dest").toString());
+                double w =Double.parseDouble(temp.get("w").toString());
+                ans.connect(src,dst,w);
+            }
         }
         return ans;
-        /*אביעד היקר:
-        אתה צריך לקרוא את הג'יסון כך שככל פעם שאתה קורא קודקוד אתה צריך לעשות  מיגרף נקודה אדד
-        וכל פעם שאתה קורא צלע אתה צריך לעשות מיגרף נקודה קונקט */
     }
     /**
      * This static function will be used to test your implementation
