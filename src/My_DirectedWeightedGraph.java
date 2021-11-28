@@ -1,14 +1,17 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
+import java.util.Map.Entry;
 
 import api.DirectedWeightedGraph;
 import api.EdgeData;
 import api.NodeData;
 
 public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
-    private HashMap <Integer, My_NodeData> nodes;
-    private HashMap <Vector<Integer>,  MyEdgeData> edges;
+    private HashMap <Integer, NodeData> nodes;
+    private HashMap <Vector<Integer>,  EdgeData> edges;
     private int mc;
 
     public My_DirectedWeightedGraph() {
@@ -41,19 +44,21 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
         MyEdgeData edge = new MyEdgeData(src, dest, w);
         Vector<Integer> vector = buildVector(src, dest);
         edges.put(vector, edge);
+        My_NodeData  node =  (My_NodeData)nodes.get(src);
+        node.fromMe.put(dest, edge);
+        node = (My_NodeData)nodes.get(dest);
+        node.toMe.put(src, edge);
         ++mc;
     }
 
     @Override
     public Iterator<NodeData> nodeIter() {
-        // TODO Auto-generated method stub
-        return null;
+        return nodes.values().iterator();
     }
 
     @Override
     public Iterator<EdgeData> edgeIter() {
-        // TODO Auto-generated method stub
-        return null;
+        return edges.values().iterator();
     }
 
     @Override
@@ -64,12 +69,11 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public NodeData removeNode(int key) {
-        My_NodeData node = nodes.remove(key);
-        edges.forEach((key2, value) -> {
-            if (value.dest == key || value.src == key) {
-                edges.remove(key2);
-            }
-        });
+        My_NodeData node = (My_NodeData)nodes.remove(key);
+        ArrayList<Vector<Integer>> list = node.edges;
+        for (int i = 0; i < list.size(); i++) {
+            edges.remove(list.get(i));
+        }
         ++mc;
         return node;
     }

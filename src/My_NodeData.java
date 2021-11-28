@@ -1,18 +1,25 @@
+import api.EdgeData;
 import api.GeoLocation;
 import api.NodeData;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 public class My_NodeData implements NodeData {
     private int key;
     private GeoLocation location;
+    public HashMap <Integer,  EdgeData> fromMe;
+    public HashMap <Integer,  EdgeData> toMe;
     Color c = Color.white;
 
     public My_NodeData(int key, String loc)
     {
         this.key = key;
         location = new My_GeoLocation(loc);
+        fromMe = new HashMap<>();
+        toMe = new HashMap<>();
     }
     @Override
     public int getKey() {
