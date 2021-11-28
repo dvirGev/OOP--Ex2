@@ -70,11 +70,18 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     @Override
     public NodeData removeNode(int key) {
         My_NodeData node = (My_NodeData)nodes.remove(key);
-        ArrayList<Vector<Integer>> list = node.edges;
-        for (int i = 0; i < list.size(); i++) {
-            edges.remove(list.get(i));
-        }
-        ++mc;
+        node.fromMe.forEach((key2, value) -> {
+            Vector<Integer> vector = buildVector(key, key2);
+            edges.remove(vector);
+            My_NodeData dest = (My_NodeData) nodes.get(key2);
+            dest.toMe.remove(key);
+        });
+        node.toMe.forEach((key2, value) -> {
+            Vector<Integer> vector = buildVector(key, key2);
+            edges.remove(vector);
+            My_NodeData dest = (My_NodeData) nodes.get(key);
+            dest.toMe.remove(key2);
+        });
         return node;
     }
 
