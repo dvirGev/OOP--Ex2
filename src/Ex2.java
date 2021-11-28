@@ -11,12 +11,27 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Locale;
 
+import java.util.Iterator;
+
 /**
  * This class is the main class for Ex2 - your implementation will be tested using this class.
  */
 public class Ex2 {
     public static void main(String[] args) throws IOException, ParseException {
-        getGrapg("data/G1.json");
+        My_DirectedWeightedGraph graph = (My_DirectedWeightedGraph) getGrapg("data/G1.json");
+        Iterator<NodeData> iterNode = graph.nodeIter();
+        while (iterNode.hasNext()) {
+            My_NodeData node = (My_NodeData)iterNode.next();
+            System.out.println(node.getKey());
+        }
+        System.out.println("------------");
+        //move all edges start node 0
+        Iterator<EdgeData> iterEdge = graph.edgeIter(0);
+        while (iterEdge.hasNext()) {
+            MyEdgeData edge = (MyEdgeData) iterEdge.next();
+            System.out.println(edge.dest);
+        }
+
     }
     /**
      * This static function will be used to test your implementation
@@ -24,7 +39,7 @@ public class Ex2 {
      * @return
      */
     public static DirectedWeightedGraph getGrapg(String json_file) throws IOException, ParseException {
-        DirectedWeightedGraph ans = null;
+        DirectedWeightedGraph ans = new My_DirectedWeightedGraph();
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(json_file));
         JSONObject jobj =(JSONObject) obj;
@@ -41,13 +56,9 @@ public class Ex2 {
         {
             JSONObject temp = (JSONObject) o;
             int src = Integer.parseInt(temp.get("src").toString());
-            int dst = Integer.parseInt(temp.get("dst").toString());
-            MyEdgeData e = new MyEdgeData(src,
-                    Integer.parseInt(temp.get("w").toString()),dst);
-            My_NodeData s = (My_NodeData) ans.getNode(src);
-            s.addSend(dst, e);
-            My_NodeData d = (My_NodeData) ans.getNode(dst);
-            s.addRecived(dst, e);
+            int dest = Integer.parseInt(temp.get("dest").toString());
+            double weight = Double.parseDouble(temp.get("w").toString());
+            ans.connect(src, dest, weight);
         }
         return ans;
         /*אביעד היקר:
