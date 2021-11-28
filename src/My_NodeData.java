@@ -16,8 +16,8 @@ public class My_NodeData implements NodeData {
 
     public My_NodeData(int key, String loc) {
         this.key = key;
-        edgeSend = new HashMap<>();
-        edgeRecived = new HashMap<>();
+        fromMe = new HashMap<>();
+        toMe = new HashMap<>();
         location = new My_GeoLocation(loc);
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
