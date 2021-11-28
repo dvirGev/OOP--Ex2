@@ -63,8 +63,8 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        // TODO Auto-generated method stub
-        return null;
+        My_NodeData node = (My_NodeData)nodes.get(node_id);
+        return node.fromMe.values().iterator();
     }
 
     @Override

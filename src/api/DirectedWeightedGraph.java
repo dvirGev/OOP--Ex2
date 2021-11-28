@@ -40,7 +40,7 @@ public interface DirectedWeightedGraph {
 	public void connect(int src, int dest, double w);
 	/**
 	 * This method returns an Iterator for the
-	 * collection representing all the nodes in the graph.
+	 * 	 * collection representing all the nodes in the graph.
 	 * Note: if the graph was changed since the iterator was constructed - a RuntimeException should be thrown.
 	 * @return Iterator<node_data>
 	 */
