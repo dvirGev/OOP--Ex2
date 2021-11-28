@@ -70,14 +70,14 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
                 edges.remove(key2);
             }
         });
-        mc++;
+        ++mc;
         return node;
     }
 
     @Override
     public EdgeData removeEdge(int src, int dest) {
         Vector<Integer> vector = buildVector(src, dest);
-        mc++;
+        ++mc;
         return edges.remove(vector);
     }
 
@@ -93,7 +93,6 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public int getMC() {
-        // TODO Auto-generated method stub
         return mc;
     }
     private Vector<Integer> buildVector(int  src, int dest) {
