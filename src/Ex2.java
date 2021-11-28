@@ -6,10 +6,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * This class is the main class for Ex2 - your implementation will be tested using this class.
@@ -43,17 +41,16 @@ public class Ex2 {
             JSONObject temp = (JSONObject) o;
             int src = Integer.parseInt(temp.get("src").toString());
             int dst = Integer.parseInt(temp.get("dst").toString());
-            MyEdgeData e = new MyEdgeData(src,
-                    Integer.parseInt(temp.get("w").toString()),dst);
-            My_NodeData s = (My_NodeData) ans.getNode(src);
-            s.addSend(dst, e);
-            My_NodeData d = (My_NodeData) ans.getNode(dst);
-            s.addRecived(dst, e);
+            double w = Integer.parseInt(temp.get("w").toString());
+            ans.connect(src,dst,w);
+//            MyEdgeData e = new MyEdgeData(src,
+//                    Integer.parseInt(temp.get("w").toString()),dst);
+//            My_NodeData s = (My_NodeData) ans.getNode(src);
+//            s.addSend(dst, e);
+//            My_NodeData d = (My_NodeData) ans.getNode(dst);
+//            s.addRecived(dst, e);
         }
         return ans;
-        /*אביעד היקר:
-        אתה צריך לקרוא את הג'יסון כך שככל פעם שאתה קורא קודקוד אתה צריך לעשות  מיגרף נקודה אדד
-        וכל פעם שאתה קורא צלע אתה צריך לעשות מיגרף נקודה קונקט */
     }
     /**
      * This static function will be used to test your implementation
