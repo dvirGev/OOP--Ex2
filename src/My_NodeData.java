@@ -13,7 +13,7 @@ public class My_NodeData implements NodeData {
     public HashMap <Integer,  EdgeData> fromMe;
     public HashMap <Integer,  EdgeData> toMe;
     Color c = Color.white;
-
+    //constructor
     public My_NodeData(int key, String loc) {
         this.key = key;
         fromMe = new HashMap<>();
@@ -22,6 +22,7 @@ public class My_NodeData implements NodeData {
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
     }
+    //copy constructor
     public My_NodeData(My_NodeData other) {
         this.key = other.key;
         fromMe = new HashMap<>();
