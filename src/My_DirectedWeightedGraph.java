@@ -10,6 +10,14 @@ import api.EdgeData;
 import api.NodeData;
 
 public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
+    public HashMap<Integer, NodeData> getNodes() {
+        return nodes;
+    }
+
+    public HashMap<Vector<Integer>, EdgeData> getEdges() {
+        return edges;
+    }
+
     private HashMap <Integer, NodeData> nodes;
     private HashMap <Vector<Integer>,  EdgeData> edges;
     private int mc;
