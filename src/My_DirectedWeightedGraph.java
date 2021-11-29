@@ -9,9 +9,9 @@ import api.DirectedWeightedGraph;
 import api.EdgeData;
 import api.NodeData;
 
-public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
-    private HashMap <Integer, NodeData> nodes;
-    private HashMap <Vector<Integer>,  EdgeData> edges;
+public class My_DirectedWeightedGraph implements DirectedWeightedGraph {
+    private HashMap<Integer, NodeData> nodes;
+    private HashMap<Vector<Integer>, EdgeData> edges;
     private int mc;
 
     public My_DirectedWeightedGraph() {
@@ -19,6 +19,7 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
         edges = new HashMap<>();
         mc = 0;
     }
+
     @Override
     public NodeData getNode(int key) {
         return nodes.get(key);
@@ -35,6 +36,9 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
         if(n.getClass() !=  My_NodeData.class) {
             throw new RuntimeException("the NodeData class error");
         }
+        if (nodes.get(n.getKey()) != null) {
+            throw new RuntimeException("the Node key already exists");
+        }
         nodes.put(n.getKey(), (My_NodeData)n);
         ++mc;
     }
@@ -43,10 +47,11 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     public void connect(int src, int dest, double w) {
         MyEdgeData edge = new MyEdgeData(src, dest, w);
         Vector<Integer> vector = buildVector(src, dest);
+        edges.remove(vector);
         edges.put(vector, edge);
-        My_NodeData  node =  (My_NodeData)nodes.get(src);
+        My_NodeData node = (My_NodeData) nodes.get(src);
         node.fromMe.put(dest, edge);
-        node = (My_NodeData)nodes.get(dest);
+        node = (My_NodeData) nodes.get(dest);
         node.toMe.put(src, edge);
         ++mc;
     }
@@ -63,13 +68,13 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        My_NodeData node = (My_NodeData)nodes.get(node_id);
+        My_NodeData node = (My_NodeData) nodes.get(node_id);
         return node.fromMe.values().iterator();
     }
 
     @Override
     public NodeData removeNode(int key) {
-        My_NodeData node = (My_NodeData)nodes.remove(key);
+        My_NodeData node = (My_NodeData) nodes.remove(key);
         node.fromMe.forEach((key2, value) -> {
             Vector<Integer> vector = buildVector(key, key2);
             edges.remove(vector);
@@ -88,9 +93,9 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     @Override
     public EdgeData removeEdge(int src, int dest) {
         Vector<Integer> vector = buildVector(src, dest);
-        My_NodeData node = (My_NodeData)nodes.get(src);
+        My_NodeData node = (My_NodeData) nodes.get(src);
         node.fromMe.remove(dest);
-        node = (My_NodeData)nodes.get(dest);
+        node = (My_NodeData) nodes.get(dest);
         node.fromMe.remove(src);
         ++mc;
         return edges.remove(vector);
@@ -110,7 +115,8 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
     public int getMC() {
         return mc;
     }
-    private Vector<Integer> buildVector(int  src, int dest) {
+
+    private Vector<Integer> buildVector(int src, int dest) {
         Vector<Integer> vector = new Vector<>();
         vector.add(src);
         vector.add(dest);

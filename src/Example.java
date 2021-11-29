@@ -9,16 +9,18 @@ public class Example {
         graph.addNode(new My_NodeData(0, "0,0,0"));
         graph.addNode(new My_NodeData(1, "1,1,1"));
         graph.addNode(new My_NodeData(2, "2,2,2"));
+        
 
         graph.connect(0, 2, 1);
         graph.connect(0, 1, 1);
         graph.connect(1, 2, 1);
-
+        graph.connect(1, 2, 1);
         //move all nodes in grath
         Iterator<NodeData> iterNode = graph.nodeIter();
         while (iterNode.hasNext()) {
             My_NodeData node = (My_NodeData)iterNode.next();
             System.out.println(node.getKey());
+            //graph.addNode(new My_NodeData(3, "0,0,0"));
         }
         System.out.println("------------");
         //move all edges start node 0
