@@ -9,9 +9,9 @@ import api.DirectedWeightedGraph;
 import api.EdgeData;
 import api.NodeData;
 
-public class My_DirectedWeightedGraph implements DirectedWeightedGraph {
-    private HashMap<Integer, NodeData> nodes;
-    private HashMap<Vector<Integer>, EdgeData> edges;
+public class My_DirectedWeightedGraph implements DirectedWeightedGraph{
+    private HashMap <Integer, NodeData> nodes;
+    private HashMap <Vector<Integer>,  EdgeData> edges;
     private int mc;
 
     public My_DirectedWeightedGraph() {
@@ -19,7 +19,13 @@ public class My_DirectedWeightedGraph implements DirectedWeightedGraph {
         edges = new HashMap<>();
         mc = 0;
     }
+    public HashMap<Integer, NodeData> getNodes() {
+        return nodes;
+    }
 
+    public HashMap<Vector<Integer>, EdgeData> getEdges() {
+        return edges;
+    }
     @Override
     public NodeData getNode(int key) {
         return nodes.get(key);

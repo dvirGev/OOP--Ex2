@@ -19,18 +19,7 @@ import java.util.Iterator;
 public class Ex2 {
     public static void main(String[] args) throws IOException, ParseException {
         My_DirectedWeightedGraph graph = (My_DirectedWeightedGraph) getGrapg("data/G1.json");
-        Iterator<NodeData> iterNode = graph.nodeIter();
-        while (iterNode.hasNext()) {
-            My_NodeData node = (My_NodeData)iterNode.next();
-            System.out.println(node.getKey());
-        }
-        System.out.println("------------");
-        //move all edges start node 0
-        Iterator<EdgeData> iterEdge = graph.edgeIter(1);
-        while (iterEdge.hasNext()) {
-            MyEdgeData edge = (MyEdgeData) iterEdge.next();
-            System.out.println(edge);
-        }
+        runGUI("data/G1.json");
 
     }
     /**
@@ -81,11 +70,10 @@ public class Ex2 {
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      *
      */
-    public static void runGUI(String json_file) {
+    public static void runGUI(String json_file) throws IOException, ParseException {
         DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
-        // ****** Add your code here ******
-        //
-        // ********************************
+        My_DirectedWeightedGraph graph = (My_DirectedWeightedGraph) getGrapg("data/G1.json");
+        new MyFrame(graph);
     }
 
 }
