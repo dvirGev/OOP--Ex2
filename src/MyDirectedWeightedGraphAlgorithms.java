@@ -3,10 +3,7 @@ import api.DirectedWeightedGraphAlgorithms;
 import api.EdgeData;
 import api.NodeData;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * This interface represents a Directed (positive) Weighted Graph Theory Algorithms including:
@@ -33,9 +30,47 @@ import java.util.Vector;
  */
 public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private DirectedWeightedGraph graph;
+    private double[][] shortPath;
     @Override
     public void init(DirectedWeightedGraph g) {
         graph = g;
+        MyDirectedWeightedGraph temp = (MyDirectedWeightedGraph)g;
+        int size =temp.getNodes().size()+1; //the index 0 in the matrix will be unrelevant
+        this.shortPath = new double[size][size];  ///Lines is the src, columns the dst.
+        Iterator<EdgeData> iterEdge = graph.edgeIter();
+        while(iterEdge.hasNext()) //type all the edge in the matrix
+        {
+            MyEdgeData n = (MyEdgeData) iterEdge.next(); //make the my profile edge
+            if (this.shortPath[n.getSrc()][n.getDest()]!=0) // if the nodes connected already..there is two edge between them
+            {
+                // check what is the min weight to get between them
+                this.shortPath[n.getSrc()][n.getDest()] = (this.shortPath[n.getSrc()][n.getDest()] > n.getWeight()) ? this.shortPath[n.getSrc()][n.getDest()]:n.getWeight() ;
+            }
+            else {
+                // if they aren't connected, so set weight
+                this.shortPath[n.getSrc()][n.getDest()] = n.getWeight() ;
+            }
+        }
+        int k=1;
+        // moving from the lines&Columns 1 to the end and find the shortest path.
+        while(k>=size)
+        {
+            for (int i=1; i<size;i++)
+            {
+                for (int j=1; j<size; j++)
+                {
+                    if(i!=j && j!=k &&k!=i)
+                    {
+                        if(this.shortPath[i][k]!=0 && this.shortPath[k][j]!=0)   //from src i to dst j if we visit k
+                        {
+                            this.shortPath[i][j] = (this.shortPath[i][j]==0) ? this.shortPath[i][k]+this.shortPath[k][j]: Math.min(this.shortPath[i][j],this.shortPath[i][k]+this.shortPath[k][j]);
+                        }
+                    }
+                }
+            }
+            k++; //update the k value;
+        }
+        System.out.println(Arrays.deepToString(this.shortPath));
     }
     /**
      * Returns the underlying graph of which this class works.
@@ -102,7 +137,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      * @return
      */
     @Override
-    public double shortestPathDist(int src, int dest) { return 0;}
+    public double shortestPathDist(int src, int dest) {
+        double ans =this.shortPath[src][dest];
+        return ((ans==0) ? -1:ans);
+    }
 
     /**
      * Computes the the shortest path between src to dest - as an ordered List of nodes:
@@ -116,7 +154,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         return null;
-    }
+    } // i need to do some changes to save the path. will be continue;
 
     /**
      * Finds the NodeData which minimizes the max distance to all the other nodes.
