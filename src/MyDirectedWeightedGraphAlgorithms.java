@@ -32,10 +32,10 @@ import java.util.Vector;
  * @param
  */
 public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphAlgorithms {
-    MyDirectedWeightedGraph graph;
+    private DirectedWeightedGraph graph;
     @Override
     public void init(DirectedWeightedGraph g) {
-        graph = (MyDirectedWeightedGraph)g;
+        graph = g;
     }
     /**
      * Returns the underlying graph of which this class works.
