@@ -52,19 +52,19 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public DirectedWeightedGraph copy() {
-        DirectedWeightedGraph new_graph = new MyDirectedWeightedGraph();
+        DirectedWeightedGraph newGraph = new MyDirectedWeightedGraph();
         Iterator<NodeData> iterNode = graph.nodeIter();
         while (iterNode.hasNext()) {
             MyNodeData node = (MyNodeData)iterNode.next();
-            NodeData new_node = new MyNodeData(node);
-            new_graph.addNode(new_node);
+            NodeData newNode = new MyNodeData(node);
+            newGraph.addNode(newNode);
         }
         Iterator<EdgeData> iterEdge = graph.edgeIter();
         while (iterNode.hasNext()) {
             EdgeData edge  = iterEdge.next();
-            new_graph.connect(edge.getSrc(), edge.getDest(), edge.getWeight());
+            newGraph.connect(edge.getSrc(), edge.getDest(), edge.getWeight());
         }
-        return new_graph;
+        return newGraph;
     }
 
     /**
@@ -161,5 +161,21 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public boolean load(String file) {
         return false;
+    }
+
+    private DirectedWeightedGraph reverseGraph(DirectedWeightedGraph graph) {
+        DirectedWeightedGraph newGraph = new MyDirectedWeightedGraph();
+        Iterator<NodeData> iterNode = graph.nodeIter();
+        while (iterNode.hasNext()) {
+            MyNodeData node = (MyNodeData)iterNode.next();
+            NodeData newNode = new MyNodeData(node);
+            newGraph.addNode(newNode);
+        }
+        Iterator<EdgeData> iterEdge = graph.edgeIter();
+        while (iterNode.hasNext()) {
+            EdgeData edge  = iterEdge.next();
+            newGraph.connect(edge.getDest(), edge.getSrc(), edge.getWeight());
+        }
+        return newGraph;
     }
 }

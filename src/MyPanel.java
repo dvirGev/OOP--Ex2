@@ -44,7 +44,6 @@ public class MyPanel extends JPanel {
     }
 
     private void findEdge() {
-
         Iterator<NodeData> n = graph.nodeIter();
         NodeData node = n.next();
         minX = node.getLocation().x();
