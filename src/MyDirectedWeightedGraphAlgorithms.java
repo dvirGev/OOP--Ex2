@@ -113,7 +113,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         //set evry tag of node to 0 and find the first node
         Iterator<NodeData> iter = graph.nodeIter();
         NodeData first = iter.next();
-        int id = first.getKey();
         first.setTag(0);
         while (iter.hasNext()) iter.next().setTag(0);
 
@@ -132,7 +131,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         DirectedWeightedGraph myReverseGraph = reverseGraph();
         iter = myReverseGraph.nodeIter();
         first = iter.next();
-        id = first.getKey();
         first.setTag(0);
         while (iter.hasNext()) iter.next().setTag(0);
         //apply DFS on the reverseGraph
