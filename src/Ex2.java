@@ -18,8 +18,8 @@ import java.util.Iterator;
  */
 public class Ex2 {
     public static void main(String[] args) throws IOException, ParseException {
-        MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg("data/G3.json");
-        runGUI("data/G3.json");
+        DirectedWeightedGraph graph = getGrapg("data/G1.json");
+        runGUI("data/G1.json");
 
     }
     /**
@@ -37,7 +37,7 @@ public class Ex2 {
         for (Object o:nodes)
         {
             JSONObject temp = (JSONObject) o;
-            MyNodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
+            NodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
             ans.addNode(n);
         }
         for (Object o:edges)
@@ -71,7 +71,7 @@ public class Ex2 {
      *
      */
     public static void runGUI(String json_file) throws IOException, ParseException {
-        DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
+        //DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
         MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg(json_file);
         new MyFrame(graph);
     }

@@ -14,14 +14,14 @@ public class MyNodeData implements NodeData {
     private HashMap <Integer,  EdgeData> fromMe;
     private HashMap <Integer,  EdgeData> toMe;
     private Color c = Color.white;
+    private int tag;
     //constructor
     public MyNodeData(int key, String loc) {
         this.key = key;
-        fromMe = new HashMap<>();
-        toMe = new HashMap<>();
         location = new MyGeoLocation(loc);
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
+        tag = 0;
     }
     //copy constructor
     public MyNodeData(MyNodeData other) {
@@ -92,11 +92,11 @@ public class MyNodeData implements NodeData {
 
     @Override
     public int getTag() {
-        return 0;
+        return tag;
     }
 
     @Override
     public void setTag(int t) {
-
+        tag = t;
     }
 }

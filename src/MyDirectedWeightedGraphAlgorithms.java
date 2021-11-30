@@ -70,7 +70,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             k++; //update the k value;
         }
-        System.out.println(Arrays.deepToString(this.shortPath));
+        //System.out.println(Arrays.deepToString(this.shortPath));
     }
     /**
      * Returns the underlying graph of which this class works.
@@ -95,7 +95,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             newGraph.addNode(newNode);
         }
         Iterator<EdgeData> iterEdge = graph.edgeIter();
-        while (iterNode.hasNext()) {
+        while (iterEdge.hasNext()) {
             EdgeData edge  = iterEdge.next();
             newGraph.connect(edge.getSrc(), edge.getDest(), edge.getWeight());
         }
@@ -110,23 +110,42 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public boolean isConnected()
     {
-        HashMap<Integer,Boolean> c = new HashMap<Integer, Boolean>();
-        Iterator<NodeData> iterNode = graph.nodeIter();
-        Iterator<EdgeData> iterEdge = graph.edgeIter();
-        while (iterNode.hasNext())
-        {
-            NodeData n = iterNode.next();
-            c.put(n.getKey(),Boolean.FALSE);
-        }
-        while (iterEdge.hasNext())
-        {
-            if(c.isEmpty()) return true;
-            EdgeData edge  = iterEdge.next();
-            c.remove(edge.getDest());
-        }
-        if(!c.isEmpty()) return false;
-        return true;
+        //set evry tag of node to 0 and find the first node
+        Iterator<NodeData> iter = graph.nodeIter();
+        NodeData first = iter.next();
+        int id = first.getKey();
+        first.setTag(0);
+        while (iter.hasNext()) iter.next().setTag(0);
 
+        //apply DFS on the graph
+        DFSUtil(graph, first);
+        //Checks if there is a node that has not been visited
+        iter = graph.nodeIter();
+        while(iter.hasNext()) {
+            if (iter.next().getTag() == 0) {
+                return false;
+            }
+        }
+        System.out.println();
+        
+        //set evry tag of node to 0 and find the first node in the reverseGraph
+        DirectedWeightedGraph myReverseGraph = reverseGraph();
+        iter = myReverseGraph.nodeIter();
+        first = iter.next();
+        id = first.getKey();
+        first.setTag(0);
+        while (iter.hasNext()) iter.next().setTag(0);
+        //apply DFS on the reverseGraph
+        DFSUtil(myReverseGraph, first);
+        //Checks if there is a node that has not been visited in the reverseGraph
+        iter = myReverseGraph.nodeIter();
+        while(iter.hasNext()) {
+            if (iter.next().getTag() == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -201,7 +220,27 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         return false;
     }
 
-    private DirectedWeightedGraph reverseGraph(DirectedWeightedGraph graph) {
+    //do DFS Algorithms
+    private void DFSUtil(DirectedWeightedGraph myGraph ,NodeData node)
+    {
+        // Mark the current node as visited and print it
+        node.setTag(1);
+        System.out.print(node.getKey() + " ");
+
+        // Recur for all the vertices adjacent to this
+        // vertex
+        Iterator<EdgeData> iter = myGraph.edgeIter(node.getKey());
+        while (iter.hasNext())
+        {
+            EdgeData edge = iter.next();
+            NodeData nodeSon = myGraph.getNode(edge.getDest());
+            if (nodeSon.getTag() == 0) {
+                DFSUtil(myGraph, nodeSon);
+            }
+        }
+    }
+    //creat new graph that is reverse graph
+    private DirectedWeightedGraph reverseGraph() {
         DirectedWeightedGraph newGraph = new MyDirectedWeightedGraph();
         Iterator<NodeData> iterNode = graph.nodeIter();
         while (iterNode.hasNext()) {
@@ -210,7 +249,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             newGraph.addNode(newNode);
         }
         Iterator<EdgeData> iterEdge = graph.edgeIter();
-        while (iterNode.hasNext()) {
+        while (iterEdge.hasNext()) {
             EdgeData edge  = iterEdge.next();
             newGraph.connect(edge.getDest(), edge.getSrc(), edge.getWeight());
         }
