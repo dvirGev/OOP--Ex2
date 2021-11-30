@@ -18,8 +18,8 @@ import java.util.Iterator;
  */
 public class Ex2 {
     public static void main(String[] args) throws IOException, ParseException {
-        My_DirectedWeightedGraph graph = (My_DirectedWeightedGraph) getGrapg("data/G2.json");
-        runGUI("data/G2.json");
+        MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg("data/G3.json");
+        runGUI("data/G3.json");
 
     }
     /**
@@ -28,7 +28,7 @@ public class Ex2 {
      * @return
      */
     public static DirectedWeightedGraph getGrapg(String json_file) throws IOException, ParseException {
-        DirectedWeightedGraph ans = new My_DirectedWeightedGraph();
+        DirectedWeightedGraph ans = new MyDirectedWeightedGraph();
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(json_file));
         JSONObject jobj =(JSONObject) obj;
@@ -37,19 +37,19 @@ public class Ex2 {
         for (Object o:nodes)
         {
             JSONObject temp = (JSONObject) o;
-            My_NodeData n = new My_NodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
+            MyNodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
             ans.addNode(n);
         }
         for (Object o:edges)
         {
             JSONObject temp = (JSONObject) o;
-//            if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
-//            {
+           if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
+           {
                 int src = Integer.parseInt(temp.get("src").toString());
                 int dest = Integer.parseInt(temp.get("dest").toString());
                 double w =Double.parseDouble(temp.get("w").toString());
                 ans.connect(src,dest,w);
-//            }
+           }
         }
         return ans;
     }
@@ -72,7 +72,7 @@ public class Ex2 {
      */
     public static void runGUI(String json_file) throws IOException, ParseException {
         DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
-        My_DirectedWeightedGraph graph = (My_DirectedWeightedGraph) getGrapg(json_file);
+        MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg(json_file);
         new MyFrame(graph);
     }
 
