@@ -5,20 +5,21 @@ import api.NodeData;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Vector;
 
 public class MyNodeData implements NodeData {
     private int key;
     private GeoLocation location;
-    public HashMap <Integer,  EdgeData> fromMe;
-    public HashMap <Integer,  EdgeData> toMe;
-    Color c = Color.white;
+    private HashMap <Integer,  EdgeData> fromMe;
+    private HashMap <Integer,  EdgeData> toMe;
+    private Color c = Color.white;
     //constructor
     public MyNodeData(int key, String loc) {
         this.key = key;
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
-        location = new My_GeoLocation(loc);
+        location = new MyGeoLocation(loc);
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
     }
@@ -27,11 +28,34 @@ public class MyNodeData implements NodeData {
         this.key = other.key;
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
-        location = new My_GeoLocation(other.location);
+        location = new MyGeoLocation(other.location);
         fromMe = new HashMap<>();
         toMe = new HashMap<>();
     }
-
+    public void addFromeMe(int key, EdgeData edge) {
+        fromMe.put(key, edge);
+    }
+    public void addToMe(int key, EdgeData edge) {
+        toMe.put(key, edge);
+    }
+    public EdgeData getFromeMe(int key) {
+        return fromMe.get(key);
+    }
+    public EdgeData toFromeMe(int key) {
+        return toMe.get(key);
+    }
+    public Iterator<EdgeData> getFromMeIterator() {
+        return fromMe.values().iterator();
+    }
+    public Iterator<EdgeData> getToMeIterator() {
+        return toMe.values().iterator();
+    }
+    public EdgeData removeFromMe(int key) {
+        return fromMe.remove(key);
+    }
+    public EdgeData removeToMe(int key) {
+        return toMe.remove(key);
+    }
     @Override
     public int getKey() {
         return key;
@@ -43,7 +67,7 @@ public class MyNodeData implements NodeData {
 
     @Override
     public void setLocation(GeoLocation p) {
-        this.location = new My_GeoLocation(p);
+        this.location = new MyGeoLocation(p);
     }
 
     @Override

@@ -56,9 +56,9 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph{
         edges.remove(vector);
         edges.put(vector, edge);
         MyNodeData node = (MyNodeData) nodes.get(src);
-        node.fromMe.put(dest, edge);
+        node.addFromeMe(dest, edge);
         node = (MyNodeData) nodes.get(dest);
-        node.toMe.put(src, edge);
+        node.addToMe(src, edge);
         ++mc;
     }
 
@@ -75,24 +75,28 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph{
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
         MyNodeData node = (MyNodeData) nodes.get(node_id);
-        return node.fromMe.values().iterator();
+        return node.getFromMeIterator();
     }
 
     @Override
     public NodeData removeNode(int key) {
         MyNodeData node = (MyNodeData) nodes.remove(key);
-        node.fromMe.forEach((key2, value) -> {
-            Vector<Integer> vector = buildVector(key, key2);
+        Iterator<EdgeData> iter = node.getFromMeIterator();
+        while(iter.hasNext()){
+            EdgeData edge = iter.next();
+            Vector<Integer> vector = buildVector(edge.getSrc(), edge.getDest());
             edges.remove(vector);
-            MyNodeData dest = (MyNodeData) nodes.get(key2);
-            dest.toMe.remove(key);
-        });
-        node.toMe.forEach((key2, value) -> {
-            Vector<Integer> vector = buildVector(key, key2);
+            MyNodeData dest = (MyNodeData) nodes.get(edge.getDest());
+            dest.removeToMe(edge.getDest());
+        }
+        iter = node.getToMeIterator();
+        while(iter.hasNext()){
+            EdgeData edge = iter.next();
+            Vector<Integer> vector = buildVector(edge.getSrc(), edge.getDest());
             edges.remove(vector);
-            MyNodeData dest = (MyNodeData) nodes.get(key);
-            dest.toMe.remove(key2);
-        });
+            MyNodeData dest = (MyNodeData) nodes.get(edge.getSrc());
+            dest.removeToMe(edge.getSrc());
+        }
         return node;
     }
 
@@ -100,9 +104,9 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph{
     public EdgeData removeEdge(int src, int dest) {
         Vector<Integer> vector = buildVector(src, dest);
         MyNodeData node = (MyNodeData) nodes.get(src);
-        node.fromMe.remove(dest);
+        node.removeFromMe(dest);
         node = (MyNodeData) nodes.get(dest);
-        node.fromMe.remove(src);
+        node.removeToMe(src);
         ++mc;
         return edges.remove(vector);
     }

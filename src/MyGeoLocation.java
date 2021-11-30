@@ -1,21 +1,21 @@
 import api.GeoLocation;
 
-public class My_GeoLocation implements GeoLocation {
+public class MyGeoLocation implements GeoLocation {
     private double x, y, z;
 
-    public My_GeoLocation(String geo) {
+    public MyGeoLocation(String geo) {
         String[] arrOfStr = geo.split(",");
         this.x = Double.parseDouble(arrOfStr[0]);
         this.y = Double.parseDouble(arrOfStr[1]);
         this.z = Double.parseDouble(arrOfStr[2]);
     }
-    public My_GeoLocation(My_GeoLocation other) {
+    public MyGeoLocation(MyGeoLocation other) {
         this.x = other.x;
         this.y = other.y;
         this.z = other.z;
     }
 
-    public My_GeoLocation(GeoLocation other) {
+    public MyGeoLocation(GeoLocation other) {
         this.x = other.x();
         this.y = other.y();
         this.z = other.z();

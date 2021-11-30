@@ -1,3 +1,4 @@
+import api.DirectedWeightedGraph;
 import api.EdgeData;
 import api.NodeData;
 import javax.swing.*;
@@ -21,9 +22,9 @@ public class MyPanel extends JPanel {
     // private double FRAME_SIZE;
 
     //static int GAME_UNITS;
-    My_DirectedWeightedGraph graph;
+    private DirectedWeightedGraph graph;
 
-    MyPanel(My_DirectedWeightedGraph ans) {
+    MyPanel(DirectedWeightedGraph ans) {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(screenSize);
         this.setBackground(Color.GRAY);
@@ -101,7 +102,7 @@ public class MyPanel extends JPanel {
             g.setColor(Color.CYAN);
             //g.drawLine((int)srcX, (int)srcY, (int)destX, (int)destY);
             drawArrowLine(g, (int)srcX, (int)srcY, (int)destX, (int)destY, 30, 7);
-            System.out.println(edge);
+            //System.out.println(edge);
         }
     }
 

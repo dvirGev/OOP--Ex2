@@ -1,11 +1,11 @@
 import api.EdgeData;
 
 public class MyEdgeData implements EdgeData {
-    int src;
-    int dest;
-    double weight;
-    String info;
-    int tag;
+    private int src;
+    private int dest;
+    private double weight;
+    private String info;
+    private int tag;
 
     public MyEdgeData(int src, int dest, double weight) {
         this.src = src;
