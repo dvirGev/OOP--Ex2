@@ -20,7 +20,7 @@ public class MyPanel extends JPanel {
     // private int FRAME_ZISE;
     // private double FRAME_SIZE;
 
-    static int GAME_UNITS;
+    //static int GAME_UNITS;
     My_DirectedWeightedGraph graph;
 
     MyPanel(My_DirectedWeightedGraph ans) {
@@ -63,10 +63,10 @@ public class MyPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawLines(g);
+        //drawArrowLine(g, 20, 20, 200, 200, 30, 7);
+        //drawLines(g);
         drawEdges(g);
         drawNodes(g);
-        
     }
 
     public void drawNodes(Graphics g) {
@@ -89,16 +89,17 @@ public class MyPanel extends JPanel {
             EdgeData edge = iter.next();
 
             double srcX = graph.getNode(edge.getSrc()).getLocation().x();
-            srcX = ((srcX - minX) * unitX) + 8;
+            srcX = ((srcX - minX) * unitX) + 12;
             double srcY = graph.getNode(edge.getSrc()).getLocation().y();
-            srcY = ((srcY - minY) * unitY) + 15;
+            srcY = ((srcY - minY) * unitY) + 12;
 
             double destX = graph.getNode(edge.getDest()).getLocation().x();
-            destX = ((destX - minX) * unitX) + 8;
+            destX = ((destX - minX) * unitX) + 12;
             double destY = graph.getNode(edge.getDest()).getLocation().y();
-            destY = ((destY - minY) * unitY) + 15;
+            destY = ((destY - minY) * unitY) + 12;
 
             g.setColor(Color.CYAN);
+            //g.drawLine((int)srcX, (int)srcY, (int)destX, (int)destY);
             drawArrowLine(g, (int)srcX, (int)srcY, (int)destX, (int)destY, 30, 7);
             System.out.println(edge);
         }
