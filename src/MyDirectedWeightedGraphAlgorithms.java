@@ -1,9 +1,15 @@
 import api.DirectedWeightedGraph;
 import api.DirectedWeightedGraphAlgorithms;
 import api.EdgeData;
+import api.GeoLocation;
 import api.NodeData;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * This interface represents a Directed (positive) Weighted Graph Theory Algorithms including:
@@ -197,12 +203,66 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     /**
      * Saves this weighted (directed) graph to the given
      * file name - in JSON format
-     * @param file - the file name (may include a relative path).
+     * @param jsonFile - the file name (may include a relative path).
      * @return true - iff the file was successfully saved
      */
     @Override
     public boolean save(String file) {
-        return false;
+        FileWriter jsonFile;
+        Map<String, JSONArray> mainMap = new HashMap<>();
+        
+        JSONArray edgeArray = new JSONArray();
+        Iterator<EdgeData> iterEdges = graph.edgeIter();
+        while (iterEdges.hasNext()) {
+            EdgeData edge = iterEdges.next();
+            Map<String, String> edgeMap = new HashMap<>();
+            edgeMap.put("src", edge.getSrc() + "");
+            edgeMap.put("w", edge.getWeight() + "");
+            edgeMap.put("dest", edge.getDest() + "");
+            JSONObject obj = new JSONObject();
+            obj.putAll(edgeMap);
+            edgeArray.add(obj);
+        }
+        mainMap.put("Edges", edgeArray);
+        
+        JSONArray nodeArray = new JSONArray();
+        Iterator<NodeData> iterNodes = graph.nodeIter();
+        while (iterNodes.hasNext()) {
+            NodeData node = iterNodes.next();
+            GeoLocation pos = node.getLocation();
+            Map<String, String> nodesMap = new HashMap<>();
+            nodesMap.put("pos", pos.x() + "," + pos.y() + "," + pos.z());
+            nodesMap.put("id", node.getKey() + "");
+            JSONObject obj = new JSONObject();
+            obj.putAll(nodesMap);
+            nodeArray.add(obj);
+        }
+        mainMap.put("Nodes", nodeArray);
+
+        try {
+ 
+            // Constructs a FileWriter given a file name, using the platform's default charset
+            jsonFile = new FileWriter(file);
+            JSONObject temp = new JSONObject();
+            temp.putAll(mainMap);
+            jsonFile.write(temp.toJSONString());
+            jsonFile.flush();
+            jsonFile.close();
+ 
+        } catch (IOException e) {
+            //e.printStackTrace();
+            return false;
+        }
+        // } finally {
+ 
+        //     try {
+                
+        //     } catch (IOException e) {
+        //         // TODO Auto-generated catch block
+        //         e.printStackTrace();
+        //     }
+        // }
+        return true;
     }
 
     /**
@@ -215,7 +275,13 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public boolean load(String file) {
-        return false;
+        try {
+            DirectedWeightedGraph newGraph = Ex2.getGrapg(file);
+            graph = newGraph;
+        }catch(Exception e) {
+            return false;
+        }
+        return true;
     }
 
     //do DFS Algorithms

@@ -20,9 +20,9 @@ import java.util.Iterator;
 /**
  * This class is the main class for Ex2 - your implementation will be tested using this class.
  */
-// data/G1.json
+
 public class Ex2 {
-    public static String json_file;
+    public static String json_file; //= "data/G1.json";
     public static void main(String[] args) {
         OpenScrean openScrean =new OpenScrean();
         while (openScrean.isVisible()) {
@@ -30,51 +30,43 @@ public class Ex2 {
         }
         System.out.println(json_file);
 
-        DirectedWeightedGraph graph = getGrapg(json_file);
-        try {
-            runGUI(json_file);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            
-            String message = "File name not found :(";
-            JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-            System.exit(0);
-        }
+        DirectedWeightedGraphAlgorithms graph = new MyDirectedWeightedGraphAlgorithms();
+        graph.load(json_file);
+        //graph.save("json_file.json");
+        runGUI(json_file);
+        
     }
     /**
      * This static function will be used to test your implementation
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      * @return
+     * @throws ParseException
+     * @throws IOException
+     * @throws FileNotFoundException
      */
-    public static DirectedWeightedGraph getGrapg(String json_file)  {
+    public static DirectedWeightedGraph getGrapg(String json_file) throws FileNotFoundException, IOException, ParseException  {
         DirectedWeightedGraph ans = new MyDirectedWeightedGraph();
         JSONParser parser = new JSONParser();
-        try {
-            Object obj = parser.parse(new FileReader(json_file));
-            JSONObject jobj =(JSONObject) obj;
-            JSONArray edges = (JSONArray) jobj.get("Edges");
-            JSONArray nodes = (JSONArray) jobj.get("Nodes");
-            for (Object o:nodes)
-            {
-                JSONObject temp = (JSONObject) o;
-                NodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
-                ans.addNode(n);
-            }
-            for (Object o:edges)
-            {
-                JSONObject temp = (JSONObject) o;
-               if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
-               {
-                    int src = Integer.parseInt(temp.get("src").toString());
-                    int dest = Integer.parseInt(temp.get("dest").toString());
-                    double w =Double.parseDouble(temp.get("w").toString());
-                    ans.connect(src,dest,w);
-               }
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        Object obj = parser.parse(new FileReader(json_file));
+        JSONObject jobj =(JSONObject) obj;
+        JSONArray edges = (JSONArray) jobj.get("Edges");
+        JSONArray nodes = (JSONArray) jobj.get("Nodes");
+        for (Object o:nodes)
+        {
+            JSONObject temp = (JSONObject) o;
+            NodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
+            ans.addNode(n);
+        }
+        for (Object o:edges)
+        {
+            JSONObject temp = (JSONObject) o;
+           if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
+           {
+                int src = Integer.parseInt(temp.get("src").toString());
+                int dest = Integer.parseInt(temp.get("dest").toString());
+                double w =Double.parseDouble(temp.get("w").toString());
+                ans.connect(src,dest,w);
+           }
         }
         return ans;
     }
@@ -97,8 +89,15 @@ public class Ex2 {
      */
     public static void runGUI(String json_file) {
         //DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
-        MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg(json_file);
-        new MyFrame(graph);
+        try {
+            MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg(json_file);
+            new MyFrame(graph);
+        } catch (Exception e) {
+            String message = "File name not found :(";
+            JOptionPane.showMessageDialog(new JFrame(), message, "File Erro", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
 }
