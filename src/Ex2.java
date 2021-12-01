@@ -26,7 +26,7 @@ public class Ex2 {
     public static void main(String[] args) {
         OpenScrean openScrean =new OpenScrean();
         while (openScrean.isVisible()) {
-            System.out.println();
+            System.out.println();//Please delete this line 
         }
         System.out.println(json_file);
 
