@@ -35,9 +35,11 @@ public class Ex2 {
             runGUI(json_file);
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            //e.printStackTrace();
+            
             String message = "File name not found :(";
             JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            System.exit(0);
         }
     }
     /**
