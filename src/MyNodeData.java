@@ -24,37 +24,10 @@ public class MyNodeData implements NodeData {
         tag = 0;
     }
     //copy constructor
-    public MyNodeData(MyNodeData other) {
-        this.key = other.key;
-        fromMe = new HashMap<>();
+    public MyNodeData(NodeData other) {
+        this.key = other.getKey();
+        location = new MyGeoLocation(other.getLocation());
         toMe = new HashMap<>();
-        location = new MyGeoLocation(other.location);
-        fromMe = new HashMap<>();
-        toMe = new HashMap<>();
-    }
-    public void addFromeMe(int key, EdgeData edge) {
-        fromMe.put(key, edge);
-    }
-    public void addToMe(int key, EdgeData edge) {
-        toMe.put(key, edge);
-    }
-    public EdgeData getFromeMe(int key) {
-        return fromMe.get(key);
-    }
-    public EdgeData toFromeMe(int key) {
-        return toMe.get(key);
-    }
-    public Iterator<EdgeData> getFromMeIterator() {
-        return fromMe.values().iterator();
-    }
-    public Iterator<EdgeData> getToMeIterator() {
-        return toMe.values().iterator();
-    }
-    public EdgeData removeFromMe(int key) {
-        return fromMe.remove(key);
-    }
-    public EdgeData removeToMe(int key) {
-        return toMe.remove(key);
     }
     @Override
     public int getKey() {

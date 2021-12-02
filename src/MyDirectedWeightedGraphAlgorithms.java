@@ -97,7 +97,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         DirectedWeightedGraph newGraph = new MyDirectedWeightedGraph();
         Iterator<NodeData> iterNode = graph.nodeIter();
         while (iterNode.hasNext()) {
-            MyNodeData node = (MyNodeData)iterNode.next();
+            NodeData node = iterNode.next();
             NodeData newNode = new MyNodeData(node);
             newGraph.addNode(newNode);
         }
@@ -326,7 +326,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         DirectedWeightedGraph newGraph = new MyDirectedWeightedGraph();
         Iterator<NodeData> iterNode = graph.nodeIter();
         while (iterNode.hasNext()) {
-            MyNodeData node = (MyNodeData)iterNode.next();
+            NodeData node = iterNode.next();
             NodeData newNode = new MyNodeData(node);
             newGraph.addNode(newNode);
         }
