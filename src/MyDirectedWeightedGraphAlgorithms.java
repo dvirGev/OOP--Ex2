@@ -6,6 +6,7 @@ import api.NodeData;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.*;
 
 import org.json.simple.JSONArray;
@@ -186,6 +187,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public NodeData center() {
+        if(!isConnected()){
+            return null;
+        }
         return null;
     }
 
@@ -203,7 +207,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     /**
      * Saves this weighted (directed) graph to the given
      * file name - in JSON format
-     * @param jsonFile - the file name (may include a relative path).
+     * param jasonFile - the file name (may include a relative path).
      * @return true - iff the file was successfully saved
      */
     @Override
@@ -318,5 +322,50 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             newGraph.connect(edge.getDest(), edge.getSrc(), edge.getWeight());
         }
         return newGraph;
+    }
+    /*
+    the algo need just get from the graph nodeSize we can also give him graph,
+    and it takes the nodeSize
+     */
+    private static ArrayList<int[]> permutationsMain(int nodesize){
+        int[] arr = new int[nodesize];
+        ArrayList<int[]> permutations = new ArrayList<int[]>();
+        int k = 0;
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i;
+        }
+        permute(permutations,arr,k);
+        return permutations;
+    }
+    /*
+    the algorithm to add all the permutations to arrayList
+     */
+    private static void permute(ArrayList<int[]> arrayList, int[] arr, int k) {
+        for (int i = k; i < arr.length ; i++) {
+            swap(arr,i,k);
+            permute(arrayList, arr,k+1);
+            swap(arr,k,i);
+        }
+        if (k == arr.length-1){
+            arrayList.add(deepCopy(arr));
+        }
+    }
+    /*
+    deep copy just for the array list add new array and not the same array
+     */
+    private static int[] deepCopy(int[] arr){
+        int[] newArr = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            newArr[i] = arr[i];
+        }
+        return newArr;
+    }
+    /*
+    simple swap between two index
+     */
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
