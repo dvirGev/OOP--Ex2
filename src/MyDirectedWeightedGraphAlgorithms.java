@@ -189,8 +189,20 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     public NodeData center() {
         if(!isConnected()){
             return null;
+        }//someone did this?
+        int ansKey = graph.nodeIter().next().getKey(); //get the fist node
+        double ansMaxPath = Double.MAX_VALUE;
+        for (int src = 0; src < shortPath.length; src++) {
+            double maxPath = Double.MIN_VALUE;
+            for (int dest = 0; dest < shortPath.length; dest++) {
+                maxPath = Math.max(maxPath, shortPath[src][dest]);
+            }
+            if (ansMaxPath < maxPath) {
+                ansMaxPath = maxPath;
+                ansKey = src;
+            }
         }
-        return null;
+        return graph.getNode(ansKey);
     }
 
     /**
