@@ -15,6 +15,7 @@ import javax.management.RuntimeErrorException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -23,16 +24,23 @@ import java.util.Iterator;
 
 public class Ex2 {
     public static String json_file; //= "data/G1.json";
+    public static HashMap<String, DirectedWeightedGraph> graphs;
     public static void main(String[] args) {
-        OpenScrean openScrean =new OpenScrean();
-        while (openScrean.isVisible()) {
-            System.out.println();//Please delete this line 
-        }
-        System.out.println(json_file);
-
-        DirectedWeightedGraphAlgorithms graph = new MyDirectedWeightedGraphAlgorithms();
-        graph.load(json_file);
-        //graph.save("json_file.json");
+        graphs = new HashMap<>();
+        do {
+            OpenScrean openScrean =new OpenScrean();
+            while (openScrean.isVisible()) {
+                System.out.println();//Please delete this line 
+            }
+            System.out.println(json_file);
+            try {
+                graphs.put(json_file, getGrapg(json_file));
+            } catch (Exception e) {
+                String message = "File name not found :( \n Please try agian:";
+                JOptionPane.showMessageDialog(new JFrame(), message, "File Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } while(graphs.get(json_file) == null);
         runGUI(json_file);
         
     }
@@ -89,15 +97,7 @@ public class Ex2 {
      */
     public static void runGUI(String json_file) {
         //DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
-        try {
-            MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg(json_file);
-            new MyFrame(graph);
-        } catch (Exception e) {
-            String message = "File name not found :(";
-            JOptionPane.showMessageDialog(new JFrame(), message, "File Erro", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-            System.exit(0);
-        }
+        new MyFrame(graphs.get(json_file));
     }
 
 }
