@@ -195,7 +195,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         for (int src = 0; src < shortPath.length; src++) {
             double maxPath = Double.MIN_VALUE;
             for (int dest = 0; dest < shortPath.length; dest++) {
-                maxPath = Math.max(maxPath, shortPath[src][dest]);
+                if (src != dest) {
+                    maxPath = Math.max(maxPath, shortPath[src][dest]);
+                }
             }
             if (ansMaxPath < maxPath) {
                 ansMaxPath = maxPath;

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch permute",
+            "request": "launch",
+            "mainClass": "permute",
+            "projectName": "OOP--Ex2_672c06d1"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

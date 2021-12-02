@@ -30,7 +30,7 @@ public class Ex2 {
         do {
             OpenScrean openScrean =new OpenScrean();
             while (openScrean.isVisible()) {
-                System.out.println();//Please delete this line 
+                System.out.print("");//Please delete this line 
             }
             System.out.println(json_file);
             try {
