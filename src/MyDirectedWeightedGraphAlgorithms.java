@@ -137,7 +137,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public double shortestPathDist(int src, int dest) {
         Vector vector = buildVector(src, dest);
-        this.floydWarshall = new FloydWarshallAlgorithm(); //check if there is any changes in the graph.
+        if(this.floydWarshall.update())
+        {
+            this.floydWarshall = new FloydWarshallAlgorithm();
+        }
         double dist = floydWarshall.shortPathDis.get(vector);
         return (dist != Double.MAX_VALUE)? dist: -1;
     }
@@ -154,7 +157,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         Vector vector = buildVector(src, dest);
-        this.floydWarshall = new FloydWarshallAlgorithm(); //check if there is any changes in the graph.
+        if(this.floydWarshall.update())
+        {
+            this.floydWarshall = new FloydWarshallAlgorithm();
+        } //check if there is any changes in the graph.
         return floydWarshall.shortPathNodes.get(vector);
 
     }
@@ -169,6 +175,43 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public NodeData center() {
+
+        /**
+         * 1. we want to check if the graph is connect and we know the short path to from v to other one;
+         * 2. we search the vertex that need minimum Radios to get to all the others vertical.
+         * 2. we will be move about every vertical and search who have the min wight(Radious) for the biggest distance;
+         * 3. save this index and return him.
+         * if the graph not connect it will retun NUll.
+         */
+        if(isConnected())
+        {
+            double min =Double.MAX_VALUE;
+            // will be the vertical with the min radios value to the most far vertical.
+            int index = -1;
+            if(this.floydWarshall.update())  // there is some changes in the graph at the last time we chack the short path.
+            {
+                this.floydWarshall = new FloydWarshallAlgorithm();
+            }
+            Iterator<NodeData> node = graph.nodeIter();
+            // will move on every node and check if its potential to be the center
+            while(node.hasNext()) {
+                double max = 0;
+                NodeData src = node.next();
+                //check the short path with all the other nodes
+                Iterator<NodeData> temp = graph.nodeIter();
+                while (temp.hasNext()) {
+                    NodeData dst = node.next();
+                    if (graph.getEdge(src.getKey(), dst.getKey()) != null) {
+                        max = (graph.getEdge(src.getKey(), dst.getKey()).getWeight() > max) ? graph.getEdge(src.getKey(), dst.getKey()).getWeight() : max;
+                    }
+                }
+                    if (min > max) {
+                        min = max;
+                        index = src.getKey();
+                    }
+                }
+            if(index !=-1) return graph.getNode(index);
+        }
         // if (!isConnected()) {
         //     return null;
         // } // someone did this?
@@ -385,11 +428,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         public HashMap<Vector<Integer>, ArrayList<NodeData>> shortPathNodes;
         int update =-1;
 
+        public boolean update()
+        {
+            return (update!=graph.getMC());
+        }
         FloydWarshallAlgorithm() {
-            if(graph.getMC()==this.update) ///check if the maps already update if they are not check again;
-            {
-                return;
-            }
             update = graph.getMC();
             initMaps();
             //rebuild the HashMaps to check again the shortest path to again
