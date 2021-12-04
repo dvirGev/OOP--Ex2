@@ -35,12 +35,12 @@ public class MyPanel extends JPanel {
         unitX = screenSize.getWidth() / Math.abs(maxX - minX) - 1100;
         unitY = screenSize.getHeight() / Math.abs(maxY - minY) - 7500;
 
-        System.out.println("minX " + minX);
-        System.out.println("minY " + minY);
-        System.out.println("maxX " + maxX);
-        System.out.println("maxY " + maxY);
-        System.out.println("unitX " + unitX);
-        System.out.println("unitY " + unitY);
+        // System.out.println("minX " + minX);
+        // System.out.println("minY " + minY);
+        // System.out.println("maxX " + maxX);
+        // System.out.println("maxY " + maxY);
+        // System.out.println("unitX " + unitX);
+        // System.out.println("unitY " + unitY);
     }
 
     private void findEdge() {

@@ -11,23 +11,48 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.management.RuntimeErrorException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
  * This class is the main class for Ex2 - your implementation will be tested using this class.
  */
-public class Ex2 {
-    public static void main(String[] args) throws IOException, ParseException {
-        MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg("data/G3.json");
-        runGUI("data/G3.json");
 
+public class Ex2 {
+    public static String json_file; //= "data/G1.json";
+    public static HashMap<String, DirectedWeightedGraph> graphs;
+    public static void main(String[] args) {
+        graphs = new HashMap<>();
+        do {
+            OpenScrean openScrean =new OpenScrean();
+            while (openScrean.isVisible()) {
+                System.out.print("");//Please delete this line 
+            }
+            System.out.println(json_file);
+            try {
+                graphs.put(json_file, getGrapg(json_file));
+            } catch (Exception e) {
+                String message = "File name not found :( \n Please try agian:";
+                JOptionPane.showMessageDialog(new JFrame(), message, "File Erro", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } while(graphs.get(json_file) == null);
+        runGUI(json_file);
+        
     }
     /**
      * This static function will be used to test your implementation
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      * @return
+     * @throws ParseException
+     * @throws IOException
+     * @throws FileNotFoundException
      */
-    public static DirectedWeightedGraph getGrapg(String json_file) throws IOException, ParseException {
+    public static DirectedWeightedGraph getGrapg(String json_file) throws FileNotFoundException, IOException, ParseException  {
         DirectedWeightedGraph ans = new MyDirectedWeightedGraph();
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(json_file));
@@ -37,7 +62,7 @@ public class Ex2 {
         for (Object o:nodes)
         {
             JSONObject temp = (JSONObject) o;
-            MyNodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
+            NodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
             ans.addNode(n);
         }
         for (Object o:edges)
@@ -70,10 +95,9 @@ public class Ex2 {
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      *
      */
-    public static void runGUI(String json_file) throws IOException, ParseException {
-        DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
-        MyDirectedWeightedGraph graph = (MyDirectedWeightedGraph) getGrapg(json_file);
-        new MyFrame(graph);
+    public static void runGUI(String json_file) {
+        //DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
+        new MyFrame(graphs.get(json_file));
     }
 
 }
