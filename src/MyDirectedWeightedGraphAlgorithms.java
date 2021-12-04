@@ -205,31 +205,12 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                         max = (graph.getEdge(src.getKey(), dst.getKey()).getWeight() > max) ? graph.getEdge(src.getKey(), dst.getKey()).getWeight() : max;
                     }
                 }
-                    if (min > max) {
+                    if(min > max) {
                         min = max;
-                        index = src.getKey();
-                    }
+                        index = src.getKey(); }
                 }
             if(index !=-1) return graph.getNode(index);
         }
-        // if (!isConnected()) {
-        //     return null;
-        // } // someone did this?
-        // int ansKey = graph.nodeIter().next().getKey(); // get the fist node
-        // double ansMaxPath = Double.MAX_VALUE;
-        // for (int src = 0; src < shortPath.length; src++) {
-        //     double maxPath = Double.MIN_VALUE;
-        //     for (int dest = 0; dest < shortPath.length; dest++) {
-        //         if (src != dest) {
-        //             maxPath = Math.max(maxPath, shortPath[src][dest]);
-        //         }
-        //     }
-        //     if (ansMaxPath < maxPath) {
-        //         ansMaxPath = maxPath;
-        //         ansKey = src;
-        //     }
-        // }
-        // return graph.getNode(ansKey);
         return null;
     }
 
