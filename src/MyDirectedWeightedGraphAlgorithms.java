@@ -380,9 +380,16 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     private class FloydWarshallAlgorithm {
         public HashMap<Vector<Integer>, Double> shortPathDis;
         public HashMap<Vector<Integer>, ArrayList<NodeData>> shortPathNodes;
+        int update =-1;
 
         FloydWarshallAlgorithm() {
+            if(graph.getMC()==this.update) ///check if the maps already update if they are not check again;
+            {
+                return;
+            }
+            update = graph.getMC();
             initMaps();
+            //rebuild the HashMaps to check again the shortest path to again
 
             Iterator<NodeData> iter1 = graph.nodeIter();
             while (iter1.hasNext()) {
@@ -399,7 +406,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                         Vector kDest = buildVector(k, dest);
                         if (shortPathDis.get(srcK) != Double.MAX_VALUE && shortPathDis.get(kDest) != Double.MAX_VALUE) {
                             double sum = shortPathDis.get(srcK) + shortPathDis.get(srcK);
-                            if (shortPathDis.get(srcDest) < sum) {
+                            if (shortPathDis.get(srcDest) > sum) {
                                 shortPathDis.remove(srcDest);
                                 shortPathDis.put(srcDest, sum);
                                 shortPathNodes.get(srcDest).add(graph.getNode(k));
