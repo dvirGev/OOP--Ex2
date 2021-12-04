@@ -137,6 +137,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public double shortestPathDist(int src, int dest) {
         Vector vector = buildVector(src, dest);
+        this.floydWarshall = new FloydWarshallAlgorithm(); //check if there is any changes in the graph.
         double dist = floydWarshall.shortPathDis.get(vector);
         return (dist != Double.MAX_VALUE)? dist: -1;
     }
@@ -153,7 +154,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         Vector vector = buildVector(src, dest);
+        this.floydWarshall = new FloydWarshallAlgorithm(); //check if there is any changes in the graph.
         return floydWarshall.shortPathNodes.get(vector);
+
     }
 
     /**
