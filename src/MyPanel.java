@@ -8,17 +8,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-<<<<<<< HEAD
 import java.awt.event.*;    
 import java.io.*; 
 
 public class MyPanel extends JPanel implements ActionListener {
-=======
-/**
- * panel obj for the GUI
- */
-public class MyPanel extends JPanel {
->>>>>>> fbf86bb8b48a61083e60654527c7ce2ee33fabe0
     // static int SCREEN_WIDTH;
     // static int SCREEN_HIGHT;
     // static int UNIT_SIZE ;
