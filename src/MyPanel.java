@@ -7,7 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class MyPanel extends JPanel {
+import java.awt.event.*;    
+import java.io.*; 
+
+public class MyPanel extends JPanel implements ActionListener {
     // static int SCREEN_WIDTH;
     // static int SCREEN_HIGHT;
     // static int UNIT_SIZE ;
@@ -18,6 +21,10 @@ public class MyPanel extends JPanel {
     private double unitX;
     private double unitY;
     private Dimension screenSize;
+
+    private JMenuBar mb;    
+    private JMenu grapgOp;    
+    private JMenuItem nodeSize; 
     // private int FRAME_ZISE;
     // private double FRAME_SIZE;
 
@@ -35,6 +42,16 @@ public class MyPanel extends JPanel {
         unitX = screenSize.getWidth() / Math.abs(maxX - minX) - 1100;
         unitY = screenSize.getHeight() / Math.abs(maxY - minY) - 7500;
 
+                  
+        nodeSize=new JMenuItem("Size Of Nodes");    
+        nodeSize.addActionListener(this);         
+        grapgOp=new JMenu("Graph");    
+        grapgOp.add(nodeSize);             
+        mb=new JMenuBar();  
+        mb.setBounds(0, 0, 800, 20);
+        
+        mb.add(grapgOp);                         
+        add(mb);
         // System.out.println("minX " + minX);
         // System.out.println("minY " + minY);
         // System.out.println("maxX " + maxX);
@@ -142,5 +159,14 @@ public class MyPanel extends JPanel {
     
         g.drawLine(x1, y1, x2, y2);
         g.fillPolygon(xpoints, ypoints, 3);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == nodeSize) {
+            String message = "The Size Of The Nodes In The Graph is: " + graph.nodeSize();
+            JOptionPane.showMessageDialog(new JFrame(), message, "Size Of Nodes", JOptionPane.DEFAULT_OPTION);
+        }
+        
     }
 }
