@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 
 public class Ex2 {
-    public static String json_file; //= "data/G1.json";
+    public static String json_file ="data/G1.json" ; //= "data/G1.json";
     public static HashMap<String, DirectedWeightedGraph> graphs;
 
     public static void main(String[] args) {
@@ -28,17 +28,18 @@ public class Ex2 {
         do {
             OpenScreen openScrean = new OpenScreen();
             while (openScrean.isVisible()) {
-                System.out.print("");//Please delete this line 
+                System.out.print("");//Please delete this line
             }
             System.out.println(json_file);
             try {
                 graphs.put(json_file, getGrapg(json_file));
             } catch (Exception e) {
-                String message = "File name not found :( \n Please try agian:";
+                String message = "File name not found :( \n Please try again:";
                 JOptionPane.showMessageDialog(new JFrame(), message, "File Erro", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         } while (graphs.get(json_file) == null);
+
         runGUI(json_file);
 
     }
@@ -82,11 +83,9 @@ public class Ex2 {
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      * @return
      */
-    public static DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file) {
-        DirectedWeightedGraphAlgorithms ans = null;
-        // ****** Add your code here ******
-        //
-        // ********************************
+    public static DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file) throws IOException, ParseException {
+        DirectedWeightedGraphAlgorithms ans = new MyDirectedWeightedGraphAlgorithms();
+        ans.init(getGrapg(json_file));
         return ans;
     }
 
