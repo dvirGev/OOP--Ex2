@@ -9,34 +9,43 @@ import codes.*;
 import org.junit.jupiter.api.Test;
 
 public class MyDirectedWeightedGraphTest {
-    MyDirectedWeightedGraph graph;
+    DirectedWeightedGraph graph;
     MyDirectedWeightedGraphAlgorithms algoGraph;
 
     MyDirectedWeightedGraphTest() {
-        graph = new MyDirectedWeightedGraph();
+//        graph = new MyDirectedWeightedGraph();
+        graph = Ex2.getGrapg("data/G1.json");
         algoGraph = new MyDirectedWeightedGraphAlgorithms();
         algoGraph.init(graph);
-        addNodeToGrpth(5);
-        for (int i = 1; i <=5 ; i++) {
-            for (int j = 1; j <=5 ; j++) {
-                if (i != j){
-                    graph.connect(i,j,1);
-                }
-            }
-        }
-        StringBuilder s = new StringBuilder();
-        for (NodeData node: algoGraph.shortestPath(1,4)) {
-            s.append(node.getKey());
-        }
-        System.out.println(s + " I'm string builder");
+//        addNodeToGrpth(5);
+//        for (int i = 1; i <=5 ; i++) {
+//            for (int j = 1; j <=5 ; j++) {
+//                if (i != j){
+//                    graph.connect(i,j,1);
+//                }
+//            }
+//        }
+//        StringBuilder s = new StringBuilder();
+//        for (NodeData node: algoGraph.shortestPath(1,4)) {
+//            s.append(node.getKey());
+//        }
     }
 
-//    public static void main(String[] args) {
-//        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
-//        test.graph.removeEdge(1,3);
-//
-//
-//    }
+    public static void main(String[] args) {
+        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
+        System.out.println(test.graph.nodeSize());
+        System.out.println(test.algoGraph.isConnected());
+        System.out.println(test.algoGraph.shortestPathDist(0,4));
+        System.out.println(test.algoGraph.shortestPath(0,10));
+//        for (NodeData node:test.algoGraph.shortestPath(0,10)) {
+//            System.out.println(node.getKey());
+//        }
+        System.out.println(test.algoGraph.center());
+
+
+
+
+    }
 
     @Test
     void testAddNode() {
