@@ -2,31 +2,67 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Random;
 
+import api.DirectedWeightedGraph;
+import api.NodeData;
 import org.junit.jupiter.api.Test;
 
 public class MyDirectedWeightedGraphTest {
     MyDirectedWeightedGraph graph;
+    MyDirectedWeightedGraphAlgorithms algoGraph;
 
     MyDirectedWeightedGraphTest() {
         graph = new MyDirectedWeightedGraph();
-        MyDirectedWeightedGraphAlgorithms algoGraph = new MyDirectedWeightedGraphAlgorithms();
+        algoGraph = new MyDirectedWeightedGraphAlgorithms();
         algoGraph.init(graph);
-        System.out.println(algoGraph);
-        addNodeToGrpth(10);
-
-
+        addNodeToGrpth(5);
+        for (int i = 1; i <=5 ; i++) {
+            for (int j = 1; j <=5 ; j++) {
+                if (i != j){
+                    graph.connect(i,j,1);
+                }
+            }
+        }
+        StringBuilder s = new StringBuilder();
+        for (NodeData node: algoGraph.shortestPath(1,4)) {
+            s.append(node.getKey());
+        }
+        System.out.println(s + " I'm string builder");
     }
+
+//    public static void main(String[] args) {
+//        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
+//        test.graph.removeEdge(1,3);
+//
+//
+//    }
 
     @Test
     void testAddNode() {
-        System.out.println(graph.nodeSize());
-        assertEquals(10, graph.nodeSize());
+//        System.out.println(graph.nodeSize());
+        assertEquals(5, graph.nodeSize());
     }
 
-    // @Test
-    // void testConnect() {
+     @Test
+     void testConnect() {
+//         System.out.println(algoGraph.isConnected());
+         MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
+         assertEquals(true, test1.algoGraph.isConnected());
+         MyDirectedWeightedGraphTest test2 = new MyDirectedWeightedGraphTest();
+         for (int i = 1; i <2 ; i++) {
+             for (int j = 2; j < 6; j++) {
+                 test2.graph.removeEdge(i,j);
+                 test2.graph.removeEdge(j,i);
+             }
+         }
+         assertEquals(false, test2.algoGraph.isConnected());
 
-    // }
+     }
+    @Test
+    void testShortestPath() {
+//        System.out.println(algoGraph.shortestPathDist(2,3));
+        assertEquals(1.0, algoGraph.shortestPathDist(2,3));
+
+    }
 
     // @Test
     // void testEdgeIter() {
@@ -78,13 +114,13 @@ public class MyDirectedWeightedGraphTest {
 
     // }
     private void addNodeToGrpth(int size) {
-        Random rand = new Random();
-        for (int i = 0; i < size; i++) {
+        for (int i = 1; i <= size; i++) {
             int randId;
             do {
-                randId = rand.nextInt(size + 1);
+                randId = i;
             } while (graph.getNode(randId) != null);
             String location = randId + "," + randId + ",0";
+            System.out.println(location);
             MyNodeData newNode = new MyNodeData(randId, location);
             graph.addNode(newNode);
         }

@@ -93,7 +93,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         }
         System.out.println();
 
-        // set evry tag of node to 0 and find the first node in the reverseGraph
+        // set every tag of node to 0 and find the first node in the reverseGraph
         DirectedWeightedGraph myReverseGraph = reverseGraph();
         iter = myReverseGraph.nodeIter();
         first = iter.next();
@@ -296,7 +296,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     private void DFSUtil(DirectedWeightedGraph myGraph, NodeData node) {
         // Mark the current node as visited and print it
         node.setTag(1);
-        System.out.print(node.getKey() + " ");
+//        System.out.print(node.getKey() + " ");
 
         // Recur for all the vertices adjacent to this
         // vertex
