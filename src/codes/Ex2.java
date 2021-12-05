@@ -24,10 +24,11 @@ import java.util.HashMap;
  */
 
 public class Ex2 {
-    public static String json_file; // = "data/G1.json";
+    public static String json_file = "data/G1.json";
 
     public static void main(String[] args) {
         MyDirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
+        graphAlgo.init(getGrapg(json_file));
         do {
             OpenScreen openScrean = new OpenScreen();
             while (openScrean.isActive()|| openScrean.isVisible());
@@ -42,6 +43,10 @@ public class Ex2 {
             }
         } while (graphAlgo.getGraph() == null);
         new MyFrame(graphAlgo);
+        graphAlgo.init(getGrapg(json_file));
+        graphAlgo.center();
+
+
 
     }
 

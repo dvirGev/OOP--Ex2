@@ -175,7 +175,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                 //check the short path with all the other nodes
                 Iterator<NodeData> temp = graph.nodeIter();
                 while (temp.hasNext()) {
-                    NodeData dst = node.next();
+                    NodeData dst = temp.next();
                     if (graph.getEdge(src.getKey(), dst.getKey()) != null) {
                         max = (graph.getEdge(src.getKey(), dst.getKey()).getWeight() > max) ? graph.getEdge(src.getKey(), dst.getKey()).getWeight() : max;
                     }
