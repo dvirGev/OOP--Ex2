@@ -1,4 +1,5 @@
 package codes;
+
 import api.*;
 import codes.*;
 import gui.*;
@@ -7,7 +8,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,31 +19,29 @@ import javax.swing.JOptionPane;
 import java.util.HashMap;
 
 /**
- * This class is the main class for Ex2 - your implementation will be tested using this class.
+ * This class is the main class for Ex2 - your implementation will be tested
+ * using this class.
  */
 
 public class Ex2 {
-    public static String json_file ="data/G1.json" ; //= "data/G1.json";
-    public static HashMap<String, DirectedWeightedGraph> graphs;
+    public static String json_file; // = "data/G1.json";
 
     public static void main(String[] args) {
-        graphs = new HashMap<>();
+        MyDirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
         do {
             OpenScreen openScrean = new OpenScreen();
-            while (openScrean.isVisible()) {
-                System.out.print("");//Please delete this line
-            }
+            while (openScrean.isActive()|| openScrean.isVisible());
             System.out.println(json_file);
             try {
-                graphs.put(json_file, getGrapg(json_file));
+                MyDirectedWeightedGraph graph = readGRaphFromJson(json_file);
+                graphAlgo.init(graph);
             } catch (Exception e) {
                 String message = "File name not found :( \n Please try again:";
                 JOptionPane.showMessageDialog(new JFrame(), message, "File Error", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
-        } while (graphs.get(json_file) == null);
-
-        runGUI(json_file);
+        } while (graphAlgo.getGraph() == null);
+        new MyFrame(graphAlgo);
 
     }
 
@@ -52,12 +50,44 @@ public class Ex2 {
      *
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      * @return
-     * @throws ParseException
-     * @throws IOException
-     * @throws FileNotFoundException
+     **/
+    public static DirectedWeightedGraph getGrapg(String json_file) {
+        DirectedWeightedGraph graph;
+        try {
+            graph = readGRaphFromJson(json_file);
+        } catch (Exception e) {
+            e.printStackTrace();
+            graph = new MyDirectedWeightedGraph();
+        }
+        return graph;
+    }
+
+    /**
+     * This static function will be used to test your implementation
+     *
+     * @param json_file - a json file (e.g., G1.json - G3.gson)
+     * @return
      */
-    public static DirectedWeightedGraph getGrapg(String json_file) throws FileNotFoundException, IOException, ParseException {
-        DirectedWeightedGraph ans = new MyDirectedWeightedGraph();
+    public static DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file) {
+        DirectedWeightedGraph graph = getGrapg(json_file);
+        DirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
+        graphAlgo.init(graph);
+        return graphAlgo;
+    }
+
+    /**
+     * This static function will run your GUI using the json fime.
+     *
+     * @param json_file - a json file (e.g., G1.json - G3.gson)
+     */
+    public static void runGUI(String json_file) {
+        DirectedWeightedGraphAlgorithms graphAlgo = getGrapgAlgo(json_file);
+        new MyFrame(graphAlgo);
+    }
+
+    public static MyDirectedWeightedGraph readGRaphFromJson(String json_file)
+            throws FileNotFoundException, IOException, ParseException {
+        MyDirectedWeightedGraph ans = new MyDirectedWeightedGraph();
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(json_file));
         JSONObject jobj = (JSONObject) obj;
@@ -79,27 +109,4 @@ public class Ex2 {
         }
         return ans;
     }
-
-    /**
-     * This static function will be used to test your implementation
-     *
-     * @param json_file - a json file (e.g., G1.json - G3.gson)
-     * @return
-     */
-    public static DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file) throws IOException, ParseException {
-        DirectedWeightedGraphAlgorithms ans = new MyDirectedWeightedGraphAlgorithms();
-        ans.init(getGrapg(json_file));
-        return ans;
-    }
-
-    /**
-     * This static function will run your GUI using the json fime.
-     *
-     * @param json_file - a json file (e.g., G1.json - G3.gson)
-     */
-    public static void runGUI(String json_file) {
-        //DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
-        new MyFrame(graphs.get(json_file));
-    }
-
 }
