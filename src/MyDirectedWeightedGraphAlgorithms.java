@@ -389,40 +389,18 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         public HashMap<Vector<Integer>, ArrayList<NodeData>> shortPathNodes;
         int update = -1;
 
-        public boolean update() {
-            return (update != graph.getMC());
+        public FloydWarshallAlgorithm() {
+            doFloyd();
         }
 
-        FloydWarshallAlgorithm() {
-            update = graph.getMC();
-            initMaps();
-            //rebuild the HashMaps to check again the shortest path to again
-
-            Iterator<NodeData> iter1 = graph.nodeIter();
-            while (iter1.hasNext()) {
-                int k = iter1.next().getKey();
-                Iterator<NodeData> iter2 = graph.nodeIter();
-                while (iter2.hasNext()) {
-                    int src = iter2.next().getKey();
-                    Iterator<NodeData> iter3 = graph.nodeIter();
-                    while (iter3.hasNext()) {
-                        int dest = iter3.next().getKey();
-
-                        Vector srcDest = buildVector(src, dest);
-                        Vector srcK = buildVector(src, k);
-                        Vector kDest = buildVector(k, dest);
-                        if (shortPathDis.get(srcK) != Double.MAX_VALUE && shortPathDis.get(kDest) != Double.MAX_VALUE) {
-                            double sum = shortPathDis.get(srcK) + shortPathDis.get(srcK);
-                            if (shortPathDis.get(srcDest) > sum) {
-                                shortPathDis.remove(srcDest);
-                                shortPathDis.put(srcDest, sum);
-                                shortPathNodes.get(srcDest).add(graph.getNode(k));
-                            }
-                        }
-                    }
-                }
+        public void update() {
+            if (update == graph.getMC()){
+                return;
             }
+            doFloyd();
         }
+
+        
 
         private void initMaps() {
             shortPathDis = new HashMap<>();
@@ -439,6 +417,37 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
                     shortPathDis.put(vector, weight);
                     shortPathNodes.put(vector, new ArrayList<>());
+                    //shortPathNodes.get(vector).add(graph.getNode(src));
+                }
+            }
+        }
+
+        private void doFloyd() {
+            update = graph.getMC();
+            initMaps();
+            //rebuild the HashMaps to check again the shortest path to again
+            Iterator<NodeData> iter1 = graph.nodeIter();
+            while (iter1.hasNext()) {
+                int k = iter1.next().getKey();
+                Iterator<NodeData> iter2 = graph.nodeIter();
+                while (iter2.hasNext()) {
+                    int src = iter2.next().getKey();
+                    Iterator<NodeData> iter3 = graph.nodeIter();
+                    while (iter3.hasNext()) {
+                        int dest = iter3.next().getKey();
+
+                        Vector srcDest = buildVector(src, dest);
+                        Vector srcK = buildVector(src, k);
+                        Vector kDest = buildVector(k, dest);
+                        if (shortPathDis.get(srcK) != Double.MAX_VALUE && shortPathDis.get(kDest) != Double.MAX_VALUE) {
+                            double sum = shortPathDis.get(srcK) + shortPathDis.get(kDest);
+                            if (shortPathDis.get(srcDest) > sum) {
+                                shortPathDis.remove(srcDest);
+                                shortPathDis.put(srcDest, sum);
+                                shortPathNodes.get(srcDest).add(graph.getNode(k));
+                            }
+                        }
+                    }
                 }
             }
         }
