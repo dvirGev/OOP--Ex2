@@ -1,6 +1,7 @@
-import api.EdgeData;
-import api.GeoLocation;
-import api.NodeData;
+package codes;
+
+import api.*;
+import codes.*;
 
 import java.awt.*;
 import java.util.ArrayList;

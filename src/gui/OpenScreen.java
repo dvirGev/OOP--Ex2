@@ -1,11 +1,15 @@
+package gui;
 import java.awt.event.*;
 import javax.swing.*;
+
+import codes.Ex2;
+
 import java.awt.*;
 
 /**
  * create open screen
  */
-class OpenScreen extends JFrame implements ActionListener {
+public class OpenScreen extends JFrame implements ActionListener {
     static JTextField name;
     static JFrame f;
     static JButton button;
@@ -13,7 +17,7 @@ class OpenScreen extends JFrame implements ActionListener {
     String ans;
 
     // default constructor
-    OpenScreen() {
+    public OpenScreen() {
         // create a new frame to store text field and button
         super("Open Screan");
         // create a label to display text

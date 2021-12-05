@@ -1,3 +1,5 @@
+package codes;
+
 import api.GeoLocation;
 
 /**

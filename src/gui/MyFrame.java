@@ -1,3 +1,4 @@
+package gui;
 import api.DirectedWeightedGraph;
 //import api.NodeData;
 
@@ -8,7 +9,7 @@ import java.awt.*;
 public class MyFrame extends JFrame{
                 
 
-    MyFrame(DirectedWeightedGraph ans){
+    public MyFrame(DirectedWeightedGraph ans){
         super();
         //this.add(new PanelelForMe());
         MyPanel myPanel = new MyPanel(ans);

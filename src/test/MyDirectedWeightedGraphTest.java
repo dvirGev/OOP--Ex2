@@ -1,9 +1,11 @@
+package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Random;
 
-import api.DirectedWeightedGraph;
-import api.NodeData;
+import api.*;
+import codes.*;
+
 import org.junit.jupiter.api.Test;
 
 public class MyDirectedWeightedGraphTest {
