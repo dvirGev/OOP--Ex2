@@ -122,9 +122,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public double shortestPathDist(int src, int dest) {
         Vector vector = buildVector(src, dest);
-        if (this.floydWarshall.update()) {
-            this.floydWarshall = new FloydWarshallAlgorithm();
-        }
+        this.floydWarshall.update();
         double dist = floydWarshall.shortPathDis.get(vector);
         return (dist != Double.MAX_VALUE) ? dist : -1;
     }
@@ -140,9 +138,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         Vector vector = buildVector(src, dest);
-        if (this.floydWarshall.update()) {
-            this.floydWarshall = new FloydWarshallAlgorithm();
-        } //check if there is any changes in the graph.
+        this.floydWarshall.update();
+         //check if there is any changes in the graph.
         return floydWarshall.shortPathNodes.get(vector);
 
     }
@@ -167,10 +164,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             double min = Double.MAX_VALUE;
             // will be the vertical with the min radios value to the most far vertical.
             int index = -1;
-            if (this.floydWarshall.update())  // there is some changes in the graph at the last time we chack the short path.
-            {
-                this.floydWarshall = new FloydWarshallAlgorithm();
-            }
+            this.floydWarshall.update();  // there is some changes in the graph at the last time we chack the short path.
             Iterator<NodeData> node = graph.nodeIter();
             // will move on every node and check if its potential to be the center
             while (node.hasNext()) {
@@ -296,8 +290,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     private void DFSUtil(DirectedWeightedGraph myGraph, NodeData node) {
         // Mark the current node as visited and print it
         node.setTag(1);
-//        System.out.print(node.getKey() + " ");
-
         // Recur for all the vertices adjacent to this
         // vertex
         Iterator<EdgeData> iter = myGraph.edgeIter(node.getKey());

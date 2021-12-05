@@ -1,3 +1,4 @@
+
 import api.*;
 
 import org.json.simple.JSONArray;
@@ -35,7 +36,7 @@ public class Ex2 {
                 graphs.put(json_file, getGrapg(json_file));
             } catch (Exception e) {
                 String message = "File name not found :( \n Please try again:";
-                JOptionPane.showMessageDialog(new JFrame(), message, "File Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(new JFrame(), message, "File Error", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         } while (graphs.get(json_file) == null);
