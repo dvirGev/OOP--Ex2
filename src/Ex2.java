@@ -9,14 +9,11 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Locale;
 
-import javax.management.RuntimeErrorException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * This class is the main class for Ex2 - your implementation will be tested using this class.
@@ -25,10 +22,11 @@ import java.util.Iterator;
 public class Ex2 {
     public static String json_file; //= "data/G1.json";
     public static HashMap<String, DirectedWeightedGraph> graphs;
+
     public static void main(String[] args) {
         graphs = new HashMap<>();
         do {
-            OpenScrean openScrean =new OpenScrean();
+            OpenScreen openScrean = new OpenScreen();
             while (openScrean.isVisible()) {
                 System.out.print("");//Please delete this line 
             }
@@ -40,46 +38,47 @@ public class Ex2 {
                 JOptionPane.showMessageDialog(new JFrame(), message, "File Erro", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
-        } while(graphs.get(json_file) == null);
+        } while (graphs.get(json_file) == null);
         runGUI(json_file);
-        
+
     }
+
     /**
      * This static function will be used to test your implementation
+     *
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      * @return
      * @throws ParseException
      * @throws IOException
      * @throws FileNotFoundException
      */
-    public static DirectedWeightedGraph getGrapg(String json_file) throws FileNotFoundException, IOException, ParseException  {
+    public static DirectedWeightedGraph getGrapg(String json_file) throws FileNotFoundException, IOException, ParseException {
         DirectedWeightedGraph ans = new MyDirectedWeightedGraph();
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(json_file));
-        JSONObject jobj =(JSONObject) obj;
+        JSONObject jobj = (JSONObject) obj;
         JSONArray edges = (JSONArray) jobj.get("Edges");
         JSONArray nodes = (JSONArray) jobj.get("Nodes");
-        for (Object o:nodes)
-        {
+        for (Object o : nodes) {
             JSONObject temp = (JSONObject) o;
-            NodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()),temp.get("pos").toString());
+            NodeData n = new MyNodeData(Integer.parseInt(temp.get("id").toString()), temp.get("pos").toString());
             ans.addNode(n);
         }
-        for (Object o:edges)
-        {
+        for (Object o : edges) {
             JSONObject temp = (JSONObject) o;
-           if((temp.get("src")!=null) && temp.get("dest")!=null && temp.get("w")!=null)
-           {
+            if ((temp.get("src") != null) && temp.get("dest") != null && temp.get("w") != null) {
                 int src = Integer.parseInt(temp.get("src").toString());
                 int dest = Integer.parseInt(temp.get("dest").toString());
-                double w =Double.parseDouble(temp.get("w").toString());
-                ans.connect(src,dest,w);
-           }
+                double w = Double.parseDouble(temp.get("w").toString());
+                ans.connect(src, dest, w);
+            }
         }
         return ans;
     }
+
     /**
      * This static function will be used to test your implementation
+     *
      * @param json_file - a json file (e.g., G1.json - G3.gson)
      * @return
      */
@@ -90,10 +89,11 @@ public class Ex2 {
         // ********************************
         return ans;
     }
+
     /**
      * This static function will run your GUI using the json fime.
-     * @param json_file - a json file (e.g., G1.json - G3.gson)
      *
+     * @param json_file - a json file (e.g., G1.json - G3.gson)
      */
     public static void runGUI(String json_file) {
         //DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
