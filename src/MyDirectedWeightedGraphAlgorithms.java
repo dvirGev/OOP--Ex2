@@ -14,28 +14,22 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
- * This interface represents a Directed (positive) Weighted Graph Theory Algorithms including:
+ * represents a Directed (positive) Weighted Graph Theory Algorithms including:
  * 0. clone(); (copy)
  * 1. init(graph);
  * 2. isConnected(); // strongly (all ordered pais connected)
  * 3. double shortestPathDist(int src, int dest);
  * 4. List<NodeData> shortestPath(int src, int dest);
  * 5. NodeData center(); // finds the NodeData which minimizes the max distance to all the other nodes.
- *                       // Assuming the graph isConnected, elese return null. See: https://en.wikipedia.org/wiki/Graph_center
+ * // Assuming the graph isConnected, elese return null. See: https://en.wikipedia.org/wiki/Graph_center
  * 6. List<NodeData> tsp(List<NodeData> cities); // computes a list of consecutive nodes which go over all the nodes in cities.
- *                                               // See: https://en.wikipedia.org/wiki/Travelling_salesman_problem
+ * // See: https://en.wikipedia.org/wiki/Travelling_salesman_problem
  * 7. save(file); // JSON file
  * 8. load(file); // JSON file
- *
- *
- * @author boaz.benmoshe
- *
  */
 
 /**
  * Inits the graph on which this set of algorithms operates on.
- * 
- * @param
  */
 public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private DirectedWeightedGraph graph;
@@ -49,8 +43,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
     /**
      * Returns the underlying graph of which this class works.
-     * 
-     * @return
      */
     @Override
     public DirectedWeightedGraph getGraph() {
@@ -59,8 +51,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
     /**
      * Computes a deep copy of this weighted graph.
-     * 
-     * @return
      */
     @Override
     public DirectedWeightedGraph copy() {
@@ -80,11 +70,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     }
 
     /**
-     * Returns true if and only if (iff) there is a valid path from each node to
-     * each
-     * other node. NOTE: assume directional graph (all n*(n-1) ordered pairs).
-     * 
-     * @return
+     * Returns true if and only if (iff) there is a valid path from each node to each other node.
+     * NOTE: assume directional graph (all n*(n-1) ordered pairs).
      */
     @Override
     public boolean isConnected() {
@@ -129,20 +116,17 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     /**
      * Computes the length of the shortest path between src to dest
      * Note: if no such path --> returns -1
-     * 
      * @param src  - start node
      * @param dest - end (target) node
-     * @return
      */
     @Override
     public double shortestPathDist(int src, int dest) {
         Vector vector = buildVector(src, dest);
-        if(this.floydWarshall.update())
-        {
+        if (this.floydWarshall.update()) {
             this.floydWarshall = new FloydWarshallAlgorithm();
         }
         double dist = floydWarshall.shortPathDis.get(vector);
-        return (dist != Double.MAX_VALUE)? dist: -1;
+        return (dist != Double.MAX_VALUE) ? dist : -1;
     }
 
     /**
@@ -152,13 +136,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      * Note if no such path --> returns null;
      * @param src - start node
      * @param dest - end (target) node
-     * @return
      */
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         Vector vector = buildVector(src, dest);
-        if(this.floydWarshall.update())
-        {
+        if (this.floydWarshall.update()) {
             this.floydWarshall = new FloydWarshallAlgorithm();
         } //check if there is any changes in the graph.
         return floydWarshall.shortPathNodes.get(vector);
@@ -167,11 +149,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
     /**
      * Finds the NodeData which minimizes the max distance to all the other nodes.
-     * Assuming the graph isConnected, elese return null. See:
-     * https://en.wikipedia.org/wiki/Graph_center
-     * 
-     * @return the Node data to which the max shortest path to all the other nodes
-     *         is minimized.
+     * Assuming the graph isConnected, elese return null. See: https://en.wikipedia.org/wiki/Graph_center
+     * return the Node data to which the max shortest path to all the other nodes
+     * is minimized.
      */
     @Override
     public NodeData center() {
@@ -183,18 +163,17 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
          * 3. save this index and return him.
          * if the graph not connect it will retun NUll.
          */
-        if(isConnected())
-        {
-            double min =Double.MAX_VALUE;
+        if (isConnected()) {
+            double min = Double.MAX_VALUE;
             // will be the vertical with the min radios value to the most far vertical.
             int index = -1;
-            if(this.floydWarshall.update())  // there is some changes in the graph at the last time we chack the short path.
+            if (this.floydWarshall.update())  // there is some changes in the graph at the last time we chack the short path.
             {
                 this.floydWarshall = new FloydWarshallAlgorithm();
             }
             Iterator<NodeData> node = graph.nodeIter();
             // will move on every node and check if its potential to be the center
-            while(node.hasNext()) {
+            while (node.hasNext()) {
                 double max = 0;
                 NodeData src = node.next();
                 //check the short path with all the other nodes
@@ -205,11 +184,12 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                         max = (graph.getEdge(src.getKey(), dst.getKey()).getWeight() > max) ? graph.getEdge(src.getKey(), dst.getKey()).getWeight() : max;
                     }
                 }
-                    if(min > max) {
-                        min = max;
-                        index = src.getKey(); }
+                if (min > max) {
+                    min = max;
+                    index = src.getKey();
                 }
-            if(index !=-1) return graph.getNode(index);
+            }
+            if (index != -1) return graph.getNode(index);
         }
         return null;
     }
@@ -230,8 +210,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      * Saves this weighted (directed) graph to the given
      * file name - in JSON format
      * param jasonFile - the file name (may include a relative path).
-     * 
-     * @return true - iff the file was successfully saved
+     * return true - iff the file was successfully saved
      */
     @Override
     public boolean save(String file) {
@@ -298,7 +277,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      * if the file was successfully loaded - the underlying graph
      * of this class will be changed (to the loaded one), in case the
      * graph was not loaded the original graph should remain "as is".
-     * 
+     *
      * @param file - file name of JSON file
      * @return true - iff the graph was successfully loaded.
      */
@@ -404,15 +383,16 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         return vector;
     }
 
+    // do Floyd-Warshall Algorithm
     private class FloydWarshallAlgorithm {
         public HashMap<Vector<Integer>, Double> shortPathDis;
         public HashMap<Vector<Integer>, ArrayList<NodeData>> shortPathNodes;
-        int update =-1;
+        int update = -1;
 
-        public boolean update()
-        {
-            return (update!=graph.getMC());
+        public boolean update() {
+            return (update != graph.getMC());
         }
+
         FloydWarshallAlgorithm() {
             update = graph.getMC();
             initMaps();
@@ -427,7 +407,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                     Iterator<NodeData> iter3 = graph.nodeIter();
                     while (iter3.hasNext()) {
                         int dest = iter3.next().getKey();
-                        
+
                         Vector srcDest = buildVector(src, dest);
                         Vector srcK = buildVector(src, k);
                         Vector kDest = buildVector(k, dest);
@@ -443,6 +423,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                 }
             }
         }
+
         private void initMaps() {
             shortPathDis = new HashMap<>();
             shortPathNodes = new HashMap<>();
@@ -454,11 +435,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                     int dest = iter2.next().getKey();
 
                     Vector vector = buildVector(src, dest);
-                    double weight = (graph.getEdge(src, dest) == null)? Double.MAX_VALUE: graph.getEdge(src, dest).getWeight(); 
+                    double weight = (graph.getEdge(src, dest) == null) ? Double.MAX_VALUE : graph.getEdge(src, dest).getWeight();
 
                     shortPathDis.put(vector, weight);
                     shortPathNodes.put(vector, new ArrayList<>());
-                }  
+                }
             }
         }
     }

@@ -5,8 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * frame obj for the GUI
+ */
 public class MyFrame extends JFrame {
-    MyFrame(DirectedWeightedGraph ans){
+    MyFrame(DirectedWeightedGraph ans) {
         super();
         //this.add(new PanelelForMe());
         MyPanel myPanel = new MyPanel(ans);

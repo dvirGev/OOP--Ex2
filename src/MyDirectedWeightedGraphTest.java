@@ -9,9 +9,14 @@ public class MyDirectedWeightedGraphTest {
 
     MyDirectedWeightedGraphTest() {
         graph = new MyDirectedWeightedGraph();
+        MyDirectedWeightedGraphAlgorithms algoGraph = new MyDirectedWeightedGraphAlgorithms();
+        algoGraph.init(graph);
+        System.out.println(algoGraph);
         addNodeToGrpth(10);
-        
+
+
     }
+
     @Test
     void testAddNode() {
         System.out.println(graph.nodeSize());
@@ -77,9 +82,9 @@ public class MyDirectedWeightedGraphTest {
         for (int i = 0; i < size; i++) {
             int randId;
             do {
-                randId = rand.nextInt(size+1);
+                randId = rand.nextInt(size + 1);
             } while (graph.getNode(randId) != null);
-            String location = randId + "," + randId + ",0"; 
+            String location = randId + "," + randId + ",0";
             MyNodeData newNode = new MyNodeData(randId, location);
             graph.addNode(newNode);
         }
