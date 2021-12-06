@@ -10,28 +10,26 @@ import gui.MyPanel;
 import java.awt.event.*;
 import java.awt.*;
 
+
 public class AddNode extends JFrame implements ActionListener {
     private JTextField inputKey;
-    private JTextField inputX;
-    private JTextField inputY;
     private JButton button;
     private JLabel textKey;
-    private JLabel textX;
-    private JLabel textY;
 
     private DirectedWeightedGraph graph;
     private MyPanel panel;
+    private int x, y;
 
     // default constructor
-    public AddNode(DirectedWeightedGraph graph, MyPanel panel) {
+    public AddNode(DirectedWeightedGraph graph, MyPanel panel, int x, int y) {
         // create a new frame to store text field and button
         super("Add Node");
         this.graph = graph;
         this.panel = panel;
+        this.x = x;
+        this.y = y;
         // create a label to display text
         textKey = new JLabel("Key:");
-        textX = new JLabel("X:");
-        textY = new JLabel("Y:");
         // create a new button
         button = new JButton("Enter");
         // addActionListener to button
@@ -39,24 +37,6 @@ public class AddNode extends JFrame implements ActionListener {
         // create a object of JTextField with 16 columns
         inputKey = new JTextField(8);
         inputKey.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    inputX.requestFocusInWindow();
-                }
-            }
-        });
-        inputX = new JTextField(8);
-        inputX.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    inputY.requestFocusInWindow();
-                }
-            }
-        });
-        inputY = new JTextField(8);
-        inputY.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -70,10 +50,6 @@ public class AddNode extends JFrame implements ActionListener {
         // add buttons and textfield to panel
         p.add(textKey);
         p.add(inputKey);
-        p.add(textX);
-        p.add(inputX);
-        p.add(textY);
-        p.add(inputY);
         p.add(button);
 
         //p.setPreferredSize(new Dimension(125, 100));
@@ -97,13 +73,10 @@ public class AddNode extends JFrame implements ActionListener {
     }
 
     public void closeWindow() {
-        // set the text of the label to the text of the field
         setVisible(false);
         try {
             int key = Integer.parseInt(inputKey.getText());
-            String loc = inputX.getText() + "," + inputY.getText() + ",0";
-            graph.addNode(new MyNodeData(key, loc));
-            panel.repaint();
+            panel.addNode(key, x, y);
         }
         catch (Exception e) {
             String message = "Something Gets Wrong :(";

@@ -3,6 +3,8 @@ import api.DirectedWeightedGraph;
 import api.EdgeData;
 import api.NodeData;
 
+import codes.MyNodeData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -159,6 +161,15 @@ public class MyPanel extends JPanel {
 
         g.drawLine(x1, y1, x2, y2);
         g.fillPolygon(xpoints, ypoints, 3);
+    }
+
+    public void addNode(int key, int x, int y) {
+        y -= 50;
+        x-=5;
+        double newX = (x-12)/unitX + minX;
+        double newY = (y-12)/unitY + minY;
+        graph.addNode(new MyNodeData(key,newX+","+newY+",0"));
+        repaint();
     }
 
     

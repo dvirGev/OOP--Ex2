@@ -10,7 +10,10 @@ import java.awt.event.*;
 import java.io.*;
 import java.awt.*;
 
-public class MyFrame extends JFrame implements ActionListener {
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+
+public class MyFrame extends JFrame implements ActionListener, MouseListener {
     private MyPanel panel;
     private JMenuBar mb;
 
@@ -25,6 +28,7 @@ public class MyFrame extends JFrame implements ActionListener {
     private JMenuItem edgeSize;
 
     private JMenu grapgAlgoOp;
+    private boolean needToAddNode = false;
 
     private DirectedWeightedGraphAlgorithms graphAlgo;
 
@@ -36,6 +40,7 @@ public class MyFrame extends JFrame implements ActionListener {
         // this.setLayout(new BorderLayout());
         buildBar();
         this.add(panel);
+        this.addMouseListener(this);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -84,7 +89,8 @@ public class MyFrame extends JFrame implements ActionListener {
             new GetEdge(graphAlgo.getGraph());
         }
         else if(e.getSource() == addNode) {
-            new AddNode(graphAlgo.getGraph(), panel);
+            needToAddNode = true;
+            //new AddNode(graphAlgo.getGraph(), panel, e.getX(),e.getY());
         }
         else if(e.getSource() == connect) {
             new Connect(graphAlgo.getGraph(), panel);
@@ -99,8 +105,41 @@ public class MyFrame extends JFrame implements ActionListener {
             String message = "The Size Of The Nodes In The Graph is: " + graphAlgo.getGraph().nodeSize();
             JOptionPane.showMessageDialog(new JFrame(), message, "Size Of Nodes", JOptionPane.DEFAULT_OPTION);
         }
+        else if(e.getSource() == edgeSize) {
+            String message = "The Size Of The Edges In The Graph is: " + graphAlgo.getGraph().edgeSize();
+            JOptionPane.showMessageDialog(new JFrame(), message, "Size Of Edges", JOptionPane.DEFAULT_OPTION);
+        }
+        
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (needToAddNode) {
+            new AddNode(graphAlgo.getGraph(), panel, e.getX(),e.getY());
+            needToAddNode = false;
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
         
     }
 
-    
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
 }
