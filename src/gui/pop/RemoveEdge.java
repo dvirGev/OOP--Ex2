@@ -8,29 +8,41 @@ import gui.MyPanel;
 import java.awt.event.*;
 import java.awt.*;
 
-public class RemoveNode extends JFrame implements ActionListener {
-    private JTextField inputKey;
+public class RemoveEdge extends JFrame implements ActionListener {
+    private JTextField inputSrc;
+    private JTextField inputDest;
     private JButton button;
-    private JLabel textKey;
+    private JLabel textSrc;
+    private JLabel textDest;
 
     private DirectedWeightedGraph graph;
     private MyPanel panel;
 
     // default constructor
-    public RemoveNode(DirectedWeightedGraph graph, MyPanel panel) {
+    public RemoveEdge(DirectedWeightedGraph graph, MyPanel panel) {
         // create a new frame to store text field and button
-        super("Remove Node");
+        super("Remove Edge");
         this.graph = graph;
         this.panel = panel;
         // create a label to display text
-        textKey = new JLabel("Key:");
+        textSrc = new JLabel("Src:");
+        textDest = new JLabel("Dest:");
         // create a new button
         button = new JButton("Enter");
         // addActionListener to button
         button.addActionListener(this);
         // create a object of JTextField with 16 columns
-        inputKey = new JTextField(8);
-        inputKey.addKeyListener(new KeyAdapter() {
+        inputSrc = new JTextField(8);
+        inputSrc.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    inputDest.requestFocusInWindow();
+                }
+            }
+        });
+        inputDest = new JTextField(8);
+        inputDest.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -42,8 +54,10 @@ public class RemoveNode extends JFrame implements ActionListener {
         // create a panel to add buttons and textfield
         JPanel p = new JPanel();
         // add buttons and textfield to panel
-        p.add(textKey);
-        p.add(inputKey);
+        p.add(textSrc);
+        p.add(inputSrc);
+        p.add(textDest);
+        p.add(inputDest);
         p.add(button);
 
         //p.setPreferredSize(new Dimension(125, 100));
@@ -70,9 +84,10 @@ public class RemoveNode extends JFrame implements ActionListener {
         // set the text of the label to the text of the field
         setVisible(false);
         try {
-            int key = Integer.parseInt(inputKey.getText());
-            if (graph.removeNode(key) == null) {
-                String message = "The Node Has Not Found :(";
+            int src = Integer.parseInt(inputSrc.getText());
+            int dest = Integer.parseInt(inputDest.getText());
+            if (graph.removeEdge(src, dest) == null) {
+                String message = "The Edge Has Not Found :(";
                 JOptionPane.showMessageDialog(new JFrame(), message, "Erro", JOptionPane.ERROR_MESSAGE);
             }
             panel.repaint();

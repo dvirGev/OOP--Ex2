@@ -116,7 +116,6 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     @Override
     public EdgeData removeEdge(int src, int dest) {
         Vector<Integer> vector = buildVector(src, dest);
-        edges.remove(vector);
         if (edgeByNode.get(src) != null) {
             edgeByNode.get(src).fromMe.remove(dest);
         }
