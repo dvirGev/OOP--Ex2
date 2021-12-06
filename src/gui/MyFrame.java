@@ -89,6 +89,9 @@ public class MyFrame extends JFrame implements ActionListener {
         else if(e.getSource() == connect) {
             new Connect(graphAlgo.getGraph(), panel);
         }
+        else if(e.getSource() == removeNode) {
+            new RemoveNode(graphAlgo.getGraph(), panel);
+        }
         else if (e.getSource() == nodeSize) {
             String message = "The Size Of The Nodes In The Graph is: " + graphAlgo.getGraph().nodeSize();
             JOptionPane.showMessageDialog(new JFrame(), message, "Size Of Nodes", JOptionPane.DEFAULT_OPTION);

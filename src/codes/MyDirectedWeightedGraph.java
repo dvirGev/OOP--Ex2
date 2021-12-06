@@ -99,12 +99,14 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         Iterator<EdgeData> iter = edgeByNode.get(key).fromMe.values().iterator();
         while (iter.hasNext()) {
             EdgeData edge = iter.next();
-            removeEdge(key, edge.getDest());
+            edges.remove(buildVector(key, edge.getDest()));
+            edgeByNode.get(edge.getDest()).toMe.remove(key);
         }
         iter = edgeByNode.get(key).toMe.values().iterator();
         while (iter.hasNext()) {
             EdgeData edge = iter.next();
-            removeEdge(edge.getSrc(), key);
+            edges.remove(buildVector(edge.getSrc(), key));
+            edgeByNode.get(edge.getSrc()).fromMe.remove(key);
         }
         edgeByNode.remove(key);
         return node;
