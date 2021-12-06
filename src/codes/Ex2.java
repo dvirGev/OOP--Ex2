@@ -24,13 +24,12 @@ import java.util.HashMap;
  */
 
 public class Ex2 {
-    public static String json_file = "data/G1.json";
+    public static String json_file;// = "data/G1.json";
 
     public static void main(String[] args) {
-        DirectedWeightedGraphAlgorithms graphAlgo = getGrapgAlgo("data/G3.json");
-        System.out.println(graphAlgo.center().getKey());
+        DirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
 
-        graphAlgo.init(getGrapg(json_file));
+        //graphAlgo.init(getGrapg(json_file));
         do {
             OpenScreen openScrean = new OpenScreen();
             while (openScrean.isActive()|| openScrean.isVisible());
