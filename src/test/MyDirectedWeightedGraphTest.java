@@ -27,7 +27,7 @@ public class MyDirectedWeightedGraphTest {
 //        for (NodeData node:test.algoGraph.shortestPath(0,10)) {
 //            System.out.println(node.getKey());
 //        }
-        System.out.println(test.algoGraph.center().getKey());
+//        System.out.println(test.algoGraph.center().getKey());
 
 
 
