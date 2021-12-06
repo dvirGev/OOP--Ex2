@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.Map.Entry;
 
+import javax.management.RuntimeErrorException;
+
 import api.DirectedWeightedGraph;
 import api.EdgeData;
 import api.NodeData;
@@ -78,7 +80,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     //crate node iterator
     @Override
     public Iterator<NodeData> nodeIter() {
-        return nodes.values().iterator();
+        return new NodeIterator();
     }
 
     //crate edge iterator
@@ -104,14 +106,12 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         Iterator<EdgeData> iter = edgeByNode.get(key).fromMe.values().iterator();
         while (iter.hasNext()) {
             EdgeData edge = iter.next();
-            edges.remove(edge);
-            edgeByNode.get(edge.getDest()).toMe.remove(key);
+            removeEdge(key, edge.getDest());
         }
         iter = edgeByNode.get(key).toMe.values().iterator();
         while (iter.hasNext()) {
             EdgeData edge = iter.next();
-            edges.remove(edge);
-            edgeByNode.get(key).fromMe.remove(edge.getDest());
+            removeEdge(edge.getSrc(), key);
         }
         edgeByNode.remove(key);
         return node;
@@ -160,11 +160,6 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         return vector;
     }
 
-    private void stam() {
-        Degree temp = new Degree();
-
-    }
-
     // crate the degree all the edges going out from node(vertical) and to the node(vertical)
     private class Degree {
         public HashMap<Integer, EdgeData> fromMe;
@@ -173,6 +168,39 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         public Degree() {
             this.fromMe = new HashMap<>();
             this.toMe = new HashMap<>();
+        }
+    }
+
+    private class NodeIterator implements Iterator<NodeData> {
+        private int myMC;
+        private Iterator<NodeData> iter;
+        private NodeData curr;
+        public NodeIterator() {
+            myMC = mc;
+            iter = (Iterator<NodeData>) nodes.values().iterator();
+        }
+
+        private void isValide() {
+            if (myMC != mc) {
+                throw new RuntimeException("the iterator has change!");
+            }
+        }
+        @Override
+        public boolean hasNext() {
+            isValide();
+            return iter.hasNext();
+        }
+        @Override
+        public NodeData next() {
+            isValide();
+            curr = iter.next();
+            return curr;
+        }
+        @Override
+        public void remove() {
+            ++myMC;
+            removeNode(curr.getKey());
+            iter.remove();
         }
     }
 }
