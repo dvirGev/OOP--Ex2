@@ -32,16 +32,6 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     }
 
     //getter
-    public HashMap<Integer, NodeData> getNodes() {
-        return nodes;
-    }
-
-    //getter
-    public HashMap<Vector<Integer>, EdgeData> getEdges() {
-        return edges;
-    }
-
-    //getter
     @Override
     public NodeData getNode(int key) {
         return nodes.get(key);
@@ -68,6 +58,9 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     //connect between two nodes (verticals)
     @Override
     public void connect(int src, int dest, double w) {
+        if (nodes.get(src) == null || nodes.get(dest) == null) {
+            throw new RuntimeException("The node does not exist");
+        }
         MyEdgeData edge = new MyEdgeData(src, dest, w);
         Vector<Integer> vector = buildVector(src, dest);
         removeEdge(src, dest);

@@ -27,24 +27,24 @@ public class Ex2 {
     public static String json_file;// = "data/G1.json";
 
     public static void main(String[] args) {
-        DirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
+        // DirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
 
-        //graphAlgo.init(getGrapg(json_file));
-        do {
-            OpenScreen openScrean = new OpenScreen();
-            while (openScrean.isActive()|| openScrean.isVisible());
-            System.out.println(json_file);
-            try {
-                MyDirectedWeightedGraph graph = readGRaphFromJson(json_file);
-                graphAlgo.init(graph);
-            } catch (Exception e) {
-                String message = "File name not found :( \n Please try again:";
-                JOptionPane.showMessageDialog(new JFrame(), message, "File Error", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-        } while (graphAlgo.getGraph() == null);
-        new MyFrame(graphAlgo);
-
+        // //graphAlgo.init(getGrapg(json_file));
+        // do {
+        //     OpenScreen openScrean = new OpenScreen();
+        //     while (openScrean.isActive()|| openScrean.isVisible());
+        //     System.out.println(json_file);
+        //     try {
+        //         MyDirectedWeightedGraph graph = readGRaphFromJson(json_file);
+        //         graphAlgo.init(graph);
+        //     } catch (Exception e) {
+        //         String message = "File name not found :( \n Please try again:";
+        //         JOptionPane.showMessageDialog(new JFrame(), message, "File Error", JOptionPane.ERROR_MESSAGE);
+        //         e.printStackTrace();
+        //     }
+        // } while (graphAlgo.getGraph() == null);
+        // new MyFrame(graphAlgo);
+        runGUI("data/G1.json");
 
 
 

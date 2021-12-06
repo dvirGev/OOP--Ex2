@@ -32,7 +32,7 @@ public class MyPanel extends JPanel {
     private DirectedWeightedGraph graph;
 
     //constructor
-    MyPanel(DirectedWeightedGraph ans) {
+    public MyPanel(DirectedWeightedGraph ans) {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(screenSize);
         this.setBackground(Color.GRAY);
