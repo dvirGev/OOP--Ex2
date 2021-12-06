@@ -122,8 +122,14 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     public EdgeData removeEdge(int src, int dest) {
         Vector<Integer> vector = buildVector(src, dest);
         edges.remove(vector);
-        edgeByNode.get(src).fromMe.remove(dest);
-        edgeByNode.get(dest).toMe.remove(src);
+        if (edgeByNode.get(src) != null) {
+            edgeByNode.get(src).fromMe.remove(dest);
+        }
+        if (edgeByNode.get(dest) != null) {
+            edgeByNode.get(dest).toMe.remove(src);
+        }
+//        edgeByNode.get(src).fromMe.remove(dest);
+//        edgeByNode.get(dest).toMe.remove(src);
         ++mc;
         return edges.remove(vector);
     }
