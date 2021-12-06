@@ -86,13 +86,13 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     //crate edge iterator
     @Override
     public Iterator<EdgeData> edgeIter() {
-        return 
+        return new EdgeIterator();
     }
 
     //crate edge iterator
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        return edgeByNode.get(node_id).fromMe.values().iterator();
+        return new EdgeIteratorByNode(node_id);
     }
 
     //remove node(vertical) from the graph
