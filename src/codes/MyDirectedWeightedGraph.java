@@ -199,8 +199,8 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         @Override
         public void remove() {
             ++myMC;
-            removeNode(curr.getKey());
             iter.remove();
+            removeNode(curr.getKey());
         }
     }
 }
