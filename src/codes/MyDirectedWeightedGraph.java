@@ -86,7 +86,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     //crate edge iterator
     @Override
     public Iterator<EdgeData> edgeIter() {
-        return edges.values().iterator();
+        return 
     }
 
     //crate edge iterator
@@ -177,7 +177,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         private NodeData curr;
         public NodeIterator() {
             myMC = mc;
-            iter = (Iterator<NodeData>) nodes.values().iterator();
+            iter = nodes.values().iterator();
         }
 
         private void isValide() {
@@ -201,6 +201,70 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
             ++myMC;
             iter.remove();
             removeNode(curr.getKey());
+        }
+    }
+    private class EdgeIterator implements Iterator<EdgeData> {
+        private int myMC;
+        private Iterator<EdgeData> iter;
+        private EdgeData curr;
+        public EdgeIterator() {
+            myMC = mc;
+            iter = edges.values().iterator();
+        }
+
+        private void isValide() {
+            if (myMC != mc) {
+                throw new RuntimeException("the iterator has change!");
+            }
+        }
+        @Override
+        public boolean hasNext() {
+            isValide();
+            return iter.hasNext();
+        }
+        @Override
+        public EdgeData next() {
+            isValide();
+            curr = iter.next();
+            return curr;
+        }
+        @Override
+        public void remove() {
+            ++myMC;
+            iter.remove();
+            removeEdge(curr.getSrc(), curr.getDest());
+        }
+    }
+    private class EdgeIteratorByNode implements Iterator<EdgeData> {
+        private int myMC;
+        private Iterator<EdgeData> iter;
+        private EdgeData curr;
+        public EdgeIteratorByNode(int node_id) {
+            myMC = mc;
+            iter = edgeByNode.get(node_id).fromMe.values().iterator();
+        }
+
+        private void isValide() {
+            if (myMC != mc) {
+                throw new RuntimeException("the iterator has change!");
+            }
+        }
+        @Override
+        public boolean hasNext() {
+            isValide();
+            return iter.hasNext();
+        }
+        @Override
+        public EdgeData next() {
+            isValide();
+            curr = iter.next();
+            return curr;
+        }
+        @Override
+        public void remove() {
+            ++myMC;
+            iter.remove();
+            removeEdge(curr.getSrc(), curr.getDest());
         }
     }
 }
