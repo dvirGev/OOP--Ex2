@@ -14,6 +14,7 @@ import java.util.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.w3c.dom.traversal.NodeIterator;
 
 /**
  * represents a Directed (positive) Weighted Graph Theory Algorithms including:
@@ -35,14 +36,19 @@ import org.json.simple.JSONObject;
  */
 public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private DirectedWeightedGraph graph;
-    private FloydWarshallAlgorithm floydWarshall;
-    private DijkstraAlgorithm D;
+    private HashMap<Integer, DijkstraAlgorithm> dijkstra;
 
 
     @Override
     public void init(DirectedWeightedGraph g) {
         graph = g;
-//        floydWarshall = new FloydWarshallAlgorithm();
+        dijkstra = new HashMap<>();
+        Iterator<NodeData> iter = graph.nodeIter();
+        int key;
+        while(iter.hasNext()) {
+            key = iter.next().getKey();
+            dijkstra.put(key, new DijkstraAlgorithm(key));
+        }
     }
 
     /**
@@ -126,12 +132,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public double shortestPathDist(int src, int dest) {
-        D = new DijkstraAlgorithm(src,dest);
-        return D.Table.get(src).get(dest);
-//        Vector vector = buildVector(src, dest);
-//        this.floydWarshall.update();
-//        double dist = floydWarshall.shortPathDis.get(vector);
-//        return (dist != Double.MAX_VALUE) ? dist : -1;
+        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(src);
+        dijkstraAlgo.update();
+        return dijkstraAlgo.dists.get(dest);
     }
 
     /**
@@ -145,17 +148,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
-        List<NodeData> Path = new ArrayList<>();
-        D = new DijkstraAlgorithm(src,dest);
-        System.out.println(D.Way.get(src).get(dest).id);
-//        NodeD t = new NodeD(D.Way.get(src).get(dest));
-//        while(t.p!=null)
-//        {
-//            Path.add(0,graph.getNode(t.id));
-//            System.out.println(Path.get(0).getKey());
-//            t = t.p;
-//        }
-        return Path;
+        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(src);
+        dijkstraAlgo.update();
+        return dijkstraAlgo.paths.get(dest);
     }
 
     /**
@@ -177,8 +172,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         if (isConnected()) {
             double min = Double.MAX_VALUE;
             // will be the vertical with the min radios value to the most far vertical.
-            int index = -1;
-            this.floydWarshall.update();  // there is some changes in the graph at the last time we chack the short path.
+            int index = -1; // there is some changes in the graph at the last time we chack the short path.
             Iterator<NodeData> node = graph.nodeIter();
             // will move on every node and check if its potential to be the center
             while (node.hasNext()) {
@@ -386,23 +380,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         vector.add(dest);
         return vector;
     }
-    public class NodeD {
-        int id;
-        double value;
-        NodeD p;
-
-        public NodeD(int id, double v, NodeD p) {
-            this.id = id;
-            this.value = v;
-            this.p =p;
-        }
-        public NodeD(NodeD other)
-        {
-            this.p = other.p;
-            this.id = other.id;
-            this.value = other.value;
-        }
-    }
+    
     private class DijkstraAlgorithm {
         /*
         1. Greedy algo start from the src pos and find the sort path to every other node connected
@@ -411,149 +389,113 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         4. we will save the way "prev" to get the short way. and will return it;
         5. we will add all the short path we found to the HashMap
          */
-        HashMap<Integer,HashMap<Integer,Double>> Table = new HashMap<>();
-        HashMap<Integer, HashMap<Integer,NodeD>> Way = new HashMap<>();
-        HashMap<Integer, Integer> update;
-        PriorityQueue<NodeD> pos;
+        public HashMap<Integer,Double> dists;
+        public HashMap<Integer,List<NodeData>> paths;
+        private int src;
+        private int myMC;
 
-
-        class NodeDCom implements Comparator<NodeD>
-        {
-            @Override
-            public int compare(NodeD n1, NodeD n2) {
-                if (n1.value < n2.value) return -1;
-                if (n1.value == n2.value) return 0;
-                return 1;
-            }
+        DijkstraAlgorithm(int src) {
+            this.src = src;
+            myMC = Integer.MIN_VALUE;
+            dists = new HashMap<>();
+            paths  = new HashMap<>();
         }
-
-
-
-        DijkstraAlgorithm(int src, int dst) {
-            if(Table.get(src)!=null)
-            {
-                return;
-            }
-            alg(src,dst);
-
-        }
-
-        public void alg(int src, int dst) {
-
-            pos = new PriorityQueue<NodeD>(5, new NodeDCom());   /// init the Queue and the comperator
-            update = new HashMap<>();  // init the hashmap of the elements that be in the Q already
-            pos.add(new NodeD(src,0,null));  // put the src in Q
-            Table.put(src,new HashMap<>());  // init the src map
-            Table.get(src).put(src,0.0); //put the first element in the map
-            while(!pos.isEmpty())
-            {
-                NodeD n =pos.poll();
-                update.put(n.id,1);
-                Way.put(src,new HashMap<>());
-                Way.get(src).put(n.id,n);
-                Iterator<EdgeData> temp = graph.edgeIter(n.id);
-                while (temp.hasNext())
-                {
-                    EdgeData t = temp.next();
-                    if(update.get(t.getDest())!=null)
-                    {
-                        continue;
-                    }
-                    if(Table.get(src).get(t.getDest())==null)
-                    {
-                        Table.get(src).put(t.getDest(),n.value +t.getWeight());
-                        pos.add(new NodeD(t.getDest(),n.value+t.getWeight(),n));
-                    }
-                    else {
-                        double val = n.value +t.getWeight();
-                        if(Table.get(src).get(t.getDest()) > val)
-                        {
-                            Table.get(src).remove(t.getDest());
-                            Table.get(src).put(t.getDest(),val);
-                            pos.add(new NodeD(t.getDest(),val,n));
-                        }
-                    }
-                }
-            }
-
-
-        }
-    }
-
-
-
-
-
-
-
-
-    // do Floyd-Warshall Algorithm
-    private class FloydWarshallAlgorithm {
-        public HashMap<Vector<Integer>, Double> shortPathDis;
-        public HashMap<Vector<Integer>, ArrayList<NodeData>> shortPathNodes;
-        int update = -1;
-
-        public FloydWarshallAlgorithm() {
-            doFloyd();
-        }
-
         public void update() {
-            if (update == graph.getMC()){
+            if (myMC == graph.getMC()) {
                 return;
             }
-            doFloyd();
+            myMC = graph.getMC();
+            alg();
         }
 
-        
-
-        private void initMaps() {
-            shortPathDis = new HashMap<>();
-            shortPathNodes = new HashMap<>();
-            Iterator<NodeData> iter1 = graph.nodeIter();
-            while (iter1.hasNext()) {
-                int src = iter1.next().getKey();
-                Iterator<NodeData> iter2 = graph.nodeIter();
-                while (iter2.hasNext()) {
-                    int dest = iter2.next().getKey();
-
-                    Vector vector = buildVector(src, dest);
-                    double weight = (graph.getEdge(src, dest) == null) ? Double.MAX_VALUE : graph.getEdge(src, dest).getWeight();
-
-                    shortPathDis.put(vector, weight);
-                    shortPathNodes.put(vector, new ArrayList<>());
-                    //shortPathNodes.get(vector).add(graph.getNode(src));
-                }
-            }
-        }
-
-        private void doFloyd() {
-            update = graph.getMC();
-            initMaps();
-            //rebuild the HashMaps to check again the shortest path to again
-            Iterator<NodeData> iter1 = graph.nodeIter();
-            while (iter1.hasNext()) {
-                int k = iter1.next().getKey();
-                Iterator<NodeData> iter2 = graph.nodeIter();
-                while (iter2.hasNext()) {
-                    int src = iter2.next().getKey();
-                    Iterator<NodeData> iter3 = graph.nodeIter();
-                    while (iter3.hasNext()) {
-                        int dest = iter3.next().getKey();
-
-                        Vector srcDest = buildVector(src, dest);
-                        Vector srcK = buildVector(src, k);
-                        Vector kDest = buildVector(k, dest);
-                        if (shortPathDis.get(srcK) != Double.MAX_VALUE && shortPathDis.get(kDest) != Double.MAX_VALUE) {
-                            double sum = shortPathDis.get(srcK) + shortPathDis.get(kDest);
-                            if (shortPathDis.get(srcDest) > sum) {
-                                shortPathDis.remove(srcDest);
-                                shortPathDis.put(srcDest, sum);
-                                shortPathNodes.get(srcDest).add(graph.getNode(k));
-                            }
-                        }
+        private void alg() {
+            HashMap<Integer,Integer> dads = new HashMap<>();
+            PriorityQueue<Integer> Q = new PriorityQueue<>(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    double ans = dists.get(o1) - dists.get(o2);
+                    //System.out.println(ans);
+                    if(ans > 0) {
+                        return 1;
                     }
+                    else if(ans < 0) {
+                        return -1;
+                    }
+                    return 0;
+                }
+            });
+            initMaps(dads, Q);
+
+            while (!Q.isEmpty()) {
+                refreshQueue(Q);
+                int u = Q.poll();
+                Iterator<EdgeData> iter = graph.edgeIter(u);
+                while (iter.hasNext()) {
+                    relax(iter.next(), dads);
+                }
+            }
+            finshAlgo(dads);
+        }
+        private void relax(EdgeData edge, HashMap<Integer,Integer> dads) {
+            int u = edge.getSrc();
+            int v = edge.getDest();
+            double newDist = dists.get(u) + edge.getWeight();
+            if (dists.get(v) > newDist) {
+                dists.remove(v);
+                dists.put(v, newDist);
+                dads.remove(v);
+                dads.put(v, u);
+            }
+        }
+        private void finshAlgo(HashMap<Integer, Integer> dads) {
+            Iterator<NodeData> iter = graph.nodeIter();
+            while (iter.hasNext()) {
+                int node = iter.next().getKey();
+                if (paths.get(node).isEmpty()) {
+                    addPath(node, dads);
                 }
             }
         }
+        private void addPath(int node, HashMap<Integer, Integer> dads) {
+            if (node == src) {
+                paths.get(node).add(graph.getNode(node));
+                return;
+            }
+            int dad = dads.get(node);
+            if (dad == Integer.MIN_VALUE) {
+                return;
+            }
+            if(paths.get(dad).isEmpty()) {
+                addPath(dad, dads);
+            }
+            paths.get(node).addAll(paths.get(dad));
+            paths.get(node).add(graph.getNode(node));
+        }
+        private void initMaps(HashMap<Integer,Integer> dads, PriorityQueue<Integer> Q) {
+            Iterator<NodeData> iter = graph.nodeIter();
+            while (iter.hasNext()) {
+                int key = iter.next().getKey();
+                if(key != src) {
+                    dists.put(key, Double.POSITIVE_INFINITY);
+                    dads.put(key, Integer.MIN_VALUE);
+                    Q.add(key);
+                    paths.put(key, new ArrayList<>());
+                }
+            }
+            dads.put(src, src);
+            dists.put(src, 0.0);
+            paths.put(src, new ArrayList<>());
+            Q.add(src);
+        }
+        private void refreshQueue(PriorityQueue<Integer> Q) {
+            ArrayList<Integer> temp = new ArrayList<>();
+            while (!Q.isEmpty()) {
+                temp.add(Q.poll());
+            }
+            while (!temp.isEmpty()) {
+                Q.add(temp.remove(0));
+            }
+        }
+        
     }
 }
