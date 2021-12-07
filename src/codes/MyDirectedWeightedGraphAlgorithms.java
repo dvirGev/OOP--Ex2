@@ -40,7 +40,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public void init(DirectedWeightedGraph g) {
         graph = g;
-        floydWarshall = new FloydWarshallAlgorithm();
+//        floydWarshall = new FloydWarshallAlgorithm();
     }
 
     /**

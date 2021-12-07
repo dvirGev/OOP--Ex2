@@ -24,8 +24,14 @@ public class MyDirectedWeightedGraphTest {
         algoGraph.init(graph);
     }
 
-//    public static void main(String[] args) {
-//        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
+    public static void main(String[] args) {
+        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
+        Iterator<EdgeData> iter = test.algoGraph.getGraph().edgeIter(2);
+        while (iter.hasNext())
+        {
+            EdgeData t =iter.next();
+            System.out.println(t);
+        }
 //        System.out.println(test.graph.nodeSize());
 //        System.out.println(test.algoGraph.isConnected());
 //        System.out.println(test.algoGraph.shortestPathDist(1,7));
@@ -38,7 +44,7 @@ public class MyDirectedWeightedGraphTest {
 
 
 
-//    }
+    }
 
     @Test
     void testGetNode() {
@@ -61,22 +67,19 @@ public class MyDirectedWeightedGraphTest {
         iter.remove();
         assertEquals(null, test1.graph.getNode(key));
         test1.graph.addNode(new MyNodeData(55,"0,0,0"));
-        Exception exception = assertThrows(Exception.class, () -> {
-            iter.next();
-        });
+//        Exception exception = assertThrows(Exception.class, () -> {
+//            iter.next();
+        ;
     }
         @Test
         void testEdgeIterator() {
             MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
-            MyNodeData node = new MyNodeData(0, "0,0,0");
-            Iterator<NodeData> iter = graph.nodeIter();
-            iter.next();
+            MyEdgeData edge = new MyEdgeData(0,1,1);
+            Iterator<EdgeData> iter = test1.graph.edgeIter();
+            int key = iter.next().getSrc();
             iter.remove();
-            //graph.addNode(node);
-            while (iter.hasNext()) {
-                System.out.println(iter.next().getKey());
+            assertEquals(null, test1.graph.getEdge(0,1));
 
-            }
         }
      @Test
      void testConnect() {
