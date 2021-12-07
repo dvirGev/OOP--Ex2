@@ -97,6 +97,7 @@ public class MyPanel extends JPanel {
             g.setColor(Color.BLUE);
             g.fillOval(x, y, 24, 24);
             g.setColor(Color.WHITE);
+            g.setFont(new Font("Ariel", Font.BOLD, 13));
             g.drawString("" + node.getKey(), x + 8, y + 15);
         }
     }
@@ -118,9 +119,14 @@ public class MyPanel extends JPanel {
             destY = ((destY - minY) * unitY) + 12;
 
             g.setColor(Color.CYAN);
-            //g.drawLine((int)srcX, (int)srcY, (int)destX, (int)destY);
             drawArrowLine(g, (int) srcX, (int) srcY, (int) destX, (int) destY, 30, 7);
-            //System.out.println(edge);
+
+            
+            Double weight = edge.getWeight();
+            String weightString = weight.toString().substring(0,weight.toString().indexOf(".")+3);
+            g.setColor(Color.PINK);
+            g.setFont(new Font("Ariel", Font.BOLD, 15));
+            g.drawString(weightString, (int)(srcX*0.25 + destX*0.75),(int)(srcY*0.25 + destY*0.75));
         }
     }
 
