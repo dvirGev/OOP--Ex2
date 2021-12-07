@@ -263,6 +263,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
             ++myMC;
             iter.remove();
             removeEdge(curr.getSrc(), curr.getDest());
+
         }
     }
 }

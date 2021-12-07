@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Random;
 
 import api.*;
@@ -16,17 +17,19 @@ public class MyDirectedWeightedGraphTest {
     MyDirectedWeightedGraphAlgorithms algoGraph;
 
     MyDirectedWeightedGraphTest() {
-        graph = Ex2.getGrapg("C:/Users/dvir_/.vscode/OOP_2021/OOP--Ex2/data/G1.json");
+        //******** important for the tests work *********// |
+        //                                                  V
+        graph = Ex2.getGrapg("data/G1.json"); // enter here the path for G1 json file
         algoGraph = new MyDirectedWeightedGraphAlgorithms();
         algoGraph.init(graph);
     }
 
-    public static void main(String[] args) {
-        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
-        System.out.println(test.graph.nodeSize());
-        System.out.println(test.algoGraph.isConnected());
-        System.out.println(test.algoGraph.shortestPathDist(1,7));
-        System.out.println(test.algoGraph.shortestPath(0,10));
+//    public static void main(String[] args) {
+//        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
+//        System.out.println(test.graph.nodeSize());
+//        System.out.println(test.algoGraph.isConnected());
+//        System.out.println(test.algoGraph.shortestPathDist(1,7));
+//        System.out.println(test.algoGraph.shortestPath(0,10));
 //        for (NodeData node:test.algoGraph.shortestPath(0,10)) {
 //            System.out.println(node.getKey());
 //        }
@@ -35,8 +38,46 @@ public class MyDirectedWeightedGraphTest {
 
 
 
+//    }
+
+    @Test
+    void testGetNode() {
+        MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
+        GeoLocation g = new MyGeoLocation("35.19589389346247,32.10152879327731,0.0");
+        assertEquals(g.toString(), test1.graph.getNode(0).getLocation().toString());
+    }
+    @Test
+    void testGetEdge() {
+        MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
+        assertEquals(1.8015954015822042,test1.graph.getEdge(1,2).getWeight());
+
     }
 
+    @Test
+    void testNodeIterator() {
+        MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
+        Iterator<NodeData> iter = test1.graph.nodeIter();
+        int key = iter.next().getKey();
+        iter.remove();
+        assertEquals(null, test1.graph.getNode(key));
+        test1.graph.addNode(new MyNodeData(55,"0,0,0"));
+        Exception exception = assertThrows(Exception.class, () -> {
+            iter.next();
+        });
+    }
+        @Test
+        void testEdgeIterator() {
+            MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
+            MyNodeData node = new MyNodeData(0, "0,0,0");
+            Iterator<NodeData> iter = graph.nodeIter();
+            iter.next();
+            iter.remove();
+            //graph.addNode(node);
+            while (iter.hasNext()) {
+                System.out.println(iter.next().getKey());
+
+            }
+        }
      @Test
      void testConnect() {
          MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
@@ -71,12 +112,7 @@ public class MyDirectedWeightedGraphTest {
          assertEquals(36, test1.graph.edgeSize());
      }
 
-     @Test
-     void testGetEdge() {
-         MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
-         assertEquals(1.8015954015822042,test1.graph.getEdge(1,2).getWeight());
 
-     }
 
      @Test
      void testGetMC() {
@@ -86,13 +122,6 @@ public class MyDirectedWeightedGraphTest {
          test1.graph.removeEdge(2,1);
          assertEquals(92, test1.graph.getMC());
 
-     }
-
-     @Test
-     void testGetNode() {
-         MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
-         GeoLocation g = new MyGeoLocation("35.19589389346247,32.10152879327731,0.0");
-         assertEquals(g.toString(), test1.graph.getNode(0).getLocation().toString());
      }
 
      @Test
