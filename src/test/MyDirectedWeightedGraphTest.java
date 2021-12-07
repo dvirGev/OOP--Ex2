@@ -34,13 +34,13 @@ public class MyDirectedWeightedGraphTest {
         tsp.add(test.graph.getNode(4));
         tsp.add(test.graph.getNode(5));
         tsp.add(test.graph.getNode(6));
-        for (NodeData n :tsp) {
-            System.out.println(n.getKey());
-        }
+//        for (NodeData n :tsp) {
+//            System.out.println(n.getKey());
+//        }
         for (NodeData n :test.algoGraph.tsp(tsp)) {
             System.out.println(n.getKey());
         }
-        System.out.println(test.algoGraph.tsp(tsp));
+//        System.out.println(test.algoGraph.tsp(tsp));
 //        while (iter.hasNext())
 //        {
 //            EdgeData t =iter.next();
