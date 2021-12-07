@@ -199,6 +199,12 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         }
         return null;
     }
+    public void swapCit(int[] arr, int i , int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
 
     /**
      * Computes a list of consecutive nodes which go over all the nodes in cities.
@@ -209,6 +215,23 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
+        int[] arr = new int[cities.size() -1];
+        int startAndEnd = cities.get(cities.size()).getKey();
+        cities.remove(cities.get(cities.size()));
+        int i = 0;
+        for (NodeData n :cities) {
+            arr[i] = n.getKey();
+            i++;
+        }
+        int indexi;
+        int indexj;
+        do {
+            indexi = (int)(Math.random()* (arr.length-1));
+            indexj = (int)(Math.random()* (arr.length-1));
+        }while (indexi != indexj);
+
+        double bestWay;
+
         return null;
     }
     public double CalWay(int [] pre, int s)
