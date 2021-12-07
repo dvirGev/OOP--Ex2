@@ -85,7 +85,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     //crate edge iterator
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        return new EdgeIteratorByNode(node_id);
+        return edgeByNode.get(node_id).fromMe.values().iterator();
     }
 
     //remove node(vertical) from the graph
@@ -163,6 +163,10 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         public Degree() {
             this.fromMe = new HashMap<>();
             this.toMe = new HashMap<>();
+        }
+
+        public HashMap<Integer, EdgeData> getFromMe() {
+            return fromMe;
         }
     }
 

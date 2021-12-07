@@ -21,6 +21,10 @@ public class MyNodeData implements NodeData {
     private Color c = Color.white;
     private int tag;
 
+    public HashMap<Integer, EdgeData> getFromMe() {
+        return fromMe;
+    }
+
     //constructor
     public MyNodeData(int key, String loc) {
         this.key = key;

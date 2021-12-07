@@ -36,6 +36,8 @@ import org.json.simple.JSONObject;
 public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private DirectedWeightedGraph graph;
     private FloydWarshallAlgorithm floydWarshall;
+    private DijkstraAlgorithm D;
+
 
     @Override
     public void init(DirectedWeightedGraph g) {
@@ -118,15 +120,18 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     /**
      * Computes the length of the shortest path between src to dest
      * Note: if no such path --> returns -1
+     *
      * @param src  - start node
      * @param dest - end (target) node
      */
     @Override
     public double shortestPathDist(int src, int dest) {
-        Vector vector = buildVector(src, dest);
-        this.floydWarshall.update();
-        double dist = floydWarshall.shortPathDis.get(vector);
-        return (dist != Double.MAX_VALUE) ? dist : -1;
+        D = new DijkstraAlgorithm(src,dest);
+        return D.Table.get(src).get(dest);
+//        Vector vector = buildVector(src, dest);
+//        this.floydWarshall.update();
+//        double dist = floydWarshall.shortPathDis.get(vector);
+//        return (dist != Double.MAX_VALUE) ? dist : -1;
     }
 
     /**
@@ -134,14 +139,16 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      * src--> n1-->n2-->...dest
      * see: https://en.wikipedia.org/wiki/Shortest_path_problem
      * Note if no such path --> returns null;
-     * @param src - start node
+     *
+     * @param src  - start node
      * @param dest - end (target) node
      */
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
+
         Vector vector = buildVector(src, dest);
         this.floydWarshall.update();
-         //check if there is any changes in the graph.
+        //check if there is any changes in the graph.
         return floydWarshall.shortPathNodes.get(vector);
 
     }
@@ -176,7 +183,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                 Iterator<NodeData> temp = graph.nodeIter();
                 while (temp.hasNext()) {
                     NodeData dst = temp.next();
-                        max = (shortestPathDist(src.getKey(), dst.getKey()) > max) ? shortestPathDist(src.getKey(),dst.getKey()) : max;
+                    max = (shortestPathDist(src.getKey(), dst.getKey()) > max) ? shortestPathDist(src.getKey(), dst.getKey()) : max;
                 }
                 if (min > max) {
                     min = max;
@@ -374,6 +381,94 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         vector.add(dest);
         return vector;
     }
+    private class DijkstraAlgorithm {
+        /*
+        1. Greedy algo start from the src pos and find the sort path to every other node connected
+        2. There is no negative edge in the graph hence when we check a way from vertical the value will be the min
+        3. Priority Queue will choose the best chose of the next vertical to exam the path from it.
+        4. we will save the way "prev" to get the short way. and will return it;
+        5. we will add all the short path we found to the HashMap
+         */
+        HashMap<Integer,HashMap<Integer,Double>> Table = new HashMap<>();
+        HashMap<Vector<Integer>, ArrayList<NodeData>> Way;
+        HashMap<Integer, Integer> update;
+        PriorityQueue<NodeD> pos;
+
+
+        private class NodeD {
+            int id;
+            double value;
+
+            public NodeD(int id, double v) {
+                this.id = id;
+                this.value = v;
+            }
+        }
+        class NodeDCom implements Comparator<NodeD>
+        {
+            @Override
+            public int compare(NodeD n1, NodeD n2) {
+                if (n1.value < n2.value) return -1;
+                if (n1.value == n2.value) return 0;
+                return 1;
+            }
+        }
+
+
+
+        DijkstraAlgorithm(int src, int dst) {
+            System.out.println("hhh");
+            alg(src,dst);
+
+            //return Table.get(src).get(dst);
+        }
+
+        public void alg(int src, int dst) {
+
+            pos = new PriorityQueue<NodeD>(5, new NodeDCom());
+            update = new HashMap<>();
+            pos.add(new NodeD(src,0));
+            Table.put(src,new HashMap<>());
+            Table.get(src).put(src,0.0);
+            while(!pos.isEmpty())
+            {
+                NodeD n =pos.poll();
+                update.put(n.id,1);
+                Iterator<EdgeData> temp = graph.edgeIter(n.id);
+                while (temp.hasNext())
+                {
+                    EdgeData t = temp.next();
+                    if(update.get(t.getDest())!=null)
+                    {
+                        continue;
+                    }
+                    if(Table.get(src).get(t.getDest())==null)
+                    {
+                        Table.get(src).put(t.getDest(),n.value +t.getWeight());
+                        pos.add(new NodeD(t.getDest(),n.value+t.getWeight()));
+                    }
+                    else {
+                        double val = n.value +t.getWeight();
+                        if(Table.get(src).get(t.getDest()) > val)
+                        {
+                            Table.get(src).remove(t.getDest());
+                            Table.get(src).put(t.getDest(),val);
+                            pos.add(new NodeD(t.getDest(),val));
+                        }
+                    }
+                }
+            }
+
+
+        }
+    }
+
+
+
+
+
+
+
 
     // do Floyd-Warshall Algorithm
     private class FloydWarshallAlgorithm {
