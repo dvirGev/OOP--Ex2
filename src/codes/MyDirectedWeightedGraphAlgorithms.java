@@ -253,6 +253,13 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
         return null;
     }
+    public int[] copy(int[] arr){
+        int[] temp = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            temp[i] = arr[i];
+        }
+        return temp;
+    }
     public double CalWay(int [] pre, int s)
     {
         double sum =0;

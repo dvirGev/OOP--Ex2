@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -25,13 +27,13 @@ public class MyDirectedWeightedGraphTest {
     }
 
     public static void main(String[] args) {
-        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
-        Iterator<EdgeData> iter = test.algoGraph.getGraph().edgeIter(2);
-        while (iter.hasNext())
-        {
-            EdgeData t =iter.next();
-            System.out.println(t);
-        }
+//        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
+//        Iterator<EdgeData> iter = test.algoGraph.getGraph().edgeIter(2);
+//        while (iter.hasNext())
+//        {
+//            EdgeData t =iter.next();
+//            System.out.println(t);
+//        }
 //        System.out.println(test.graph.nodeSize());
 //        System.out.println(test.algoGraph.isConnected());
 //        System.out.println(test.algoGraph.shortestPathDist(1,7));
