@@ -26,10 +26,17 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
     private JMenuItem removeEdge;
     private JMenuItem nodeSize;
     private JMenuItem edgeSize;
-
+    
     private JMenu grapgAlgoOp;
+    private JMenuItem isConnected;
+    private JMenuItem shortestPathDist;
+    private JMenuItem shortestPath;
+    private JMenuItem center;
+    private JMenuItem tsp;//need to do
+    private JMenuItem save;
+    private JMenuItem load;
+    
     private boolean needToAddNode = false;
-
     private DirectedWeightedGraphAlgorithms graphAlgo;
 
     public MyFrame(DirectedWeightedGraphAlgorithms ans) {
@@ -49,7 +56,6 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
 
     private void buildBar() {
         graphOp = new JMenu("Graph");
-        
         getNode = new JMenuItem("Get Node");
         getNode.addActionListener(this);
         getEdge = new JMenuItem("Get Edge");
@@ -67,6 +73,23 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
         edgeSize = new JMenuItem("Size Of Edges");
         edgeSize.addActionListener(this);
 
+        grapgAlgoOp = new JMenu("Algorithms");
+        isConnected = new JMenuItem("Is Connected");
+        isConnected.addActionListener(this);
+        shortestPathDist = new JMenuItem("Shortest Path Dist");
+        shortestPathDist.addActionListener(this);
+        shortestPath = new JMenuItem("Shortest Path");
+        shortestPath.addActionListener(this);
+        center = new JMenuItem("Center");
+        center.addActionListener(this);
+        tsp = new JMenuItem("TSP");
+        tsp.addActionListener(this);
+        save = new JMenuItem("Save");
+        save.addActionListener(this);
+        load = new JMenuItem("Load");
+        load.addActionListener(this);
+
+
         graphOp.add(getNode);
         graphOp.add(getEdge);
         graphOp.add(addNode);
@@ -75,8 +98,19 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
         graphOp.add(removeEdge);
         graphOp.add(nodeSize);
         graphOp.add(edgeSize);
+        
+        grapgAlgoOp.add(isConnected);
+        grapgAlgoOp.add(shortestPathDist);
+        grapgAlgoOp.add(shortestPath);
+        grapgAlgoOp.add(center);
+        grapgAlgoOp.add(tsp);
+        grapgAlgoOp.add(save);
+        grapgAlgoOp.add(load);
+
+
         mb = new JMenuBar();
         mb.add(graphOp);
+        mb.add(grapgAlgoOp);
         setJMenuBar(mb);
     }
 
@@ -90,7 +124,6 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
         }
         else if(e.getSource() == addNode) {
             needToAddNode = true;
-            //new AddNode(graphAlgo.getGraph(), panel, e.getX(),e.getY());
         }
         else if(e.getSource() == connect) {
             new Connect(graphAlgo.getGraph(), panel);
@@ -109,7 +142,26 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
             String message = "The Size Of The Edges In The Graph is: " + graphAlgo.getGraph().edgeSize();
             JOptionPane.showMessageDialog(new JFrame(), message, "Size Of Edges", JOptionPane.DEFAULT_OPTION);
         }
-        
+        else if(e.getSource() == isConnected) {
+            String message;
+            if(graphAlgo.isConnected()) {
+                message = "The Graph Is Connected :)";
+            }
+            else {
+                message = "The Graph Isn't Connected :(";
+            }
+            JOptionPane.showMessageDialog(new JFrame(), message, "Is The Graph Connected", JOptionPane.DEFAULT_OPTION);
+        }
+        else if(e.getSource() == shortestPathDist) {
+            new ShortestPathDist(graphAlgo);
+        }
+        else if(e.getSource() == shortestPath) {
+            new ShortestPath(graphAlgo);
+        }
+        else if(e.getSource() == center) {
+            String message = "The Center Node In The Graph is: " + graphAlgo.center().getKey();
+            JOptionPane.showMessageDialog(new JFrame(), message, "Center In Graph", JOptionPane.DEFAULT_OPTION);
+        }
     }
     @Override
     public void mousePressed(MouseEvent e) {

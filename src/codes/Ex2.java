@@ -44,7 +44,7 @@ public class Ex2 {
         //     }
         // } while (graphAlgo.getGraph() == null);
         // new MyFrame(graphAlgo);
-        runGUI("data/G1.json");
+        runGUI("data/G2.json");
 
 
 
