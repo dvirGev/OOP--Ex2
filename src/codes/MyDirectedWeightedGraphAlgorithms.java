@@ -216,8 +216,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
         int[] arr = new int[cities.size() -1];
-        int startAndEnd = cities.get(cities.size()).getKey();
-        cities.remove(cities.get(cities.size()));
+        int startAndEnd = cities.get(cities.size()-1).getKey();
+        cities.remove(cities.get(cities.size()-1));
         int i = 0;
         for (NodeData n :cities) {
             arr[i] = n.getKey();
@@ -229,8 +229,27 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             indexi = (int)(Math.random()* (arr.length-1));
             indexj = (int)(Math.random()* (arr.length-1));
         }while (indexi != indexj);
+        double T = 100;
+        double bestWay = Double.MAX_VALUE;
+        int [] prev  = new int[arr.length];
+        while(T>0.1)
+        {
+            int[] cur =Arrays.copyOf(arr,arr.length);
+            swap(cur);
+            double curWay = CalWay(cur,startAndEnd);
+            if(curWay < bestWay)
+            {
+                bestWay = curWay;
+            }
+            else if(Math.exp((bestWay-curWay)/T) < Math.random())
+            {
 
-        double bestWay;
+            }
+
+
+
+            T*=0.9;
+        }
 
         return null;
     }
@@ -418,7 +437,13 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     /*
      * simple swap between two index
      */
-    private static void swap(int[] arr, int i, int j) {
+    private static void swap(int[] arr) {
+        int i;
+        int j;
+        do {
+            i = (int)(Math.random()* (arr.length-1));
+            j = (int)(Math.random()* (arr.length-1));
+        }while (i != j);
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
