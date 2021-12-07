@@ -215,7 +215,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
-        int[] arr = new int[cities.size() -1];
+        int[] arr = new int[cities.size()];
         int startAndEnd = cities.get(cities.size()-1).getKey();
         cities.remove(cities.get(cities.size()-1));
         int i = 0;
@@ -272,14 +272,17 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     public double CalWay(int [] pre, int s)
     {
         double sum =0;
-        if(D.Table.get(s).isEmpty())
+        if (this.D == null){
+            D = new DijkstraAlgorithm(s,s);
+        }
+        if(D.Table.get(s) == null)
         {
             D = new DijkstraAlgorithm(s,s);
         }
         sum += D.Table.get(s).get(pre[0]);
         for (int i=0; i<pre.length-1;i++)
         {
-            if(D.Table.get(pre[i]).isEmpty()){
+            if(D.Table.get(pre[i]) == null){
                 D = new DijkstraAlgorithm(pre[i],pre[i]);
             }
             sum += D.Table.get(pre[i]).get(pre[i+1]);

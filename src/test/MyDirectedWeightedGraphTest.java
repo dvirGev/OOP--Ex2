@@ -29,11 +29,18 @@ public class MyDirectedWeightedGraphTest {
         Iterator<NodeData> iter = test.algoGraph.getGraph().nodeIter();
         int i = 0;
         List<NodeData> tsp = new ArrayList<>();
-        while (iter.hasNext() && i++ < 5){
-            NodeData n = iter.next();
-            tsp.add(n);
+            tsp.add(test.graph.getNode(2));
+        tsp.add(test.graph.getNode(3));
+        tsp.add(test.graph.getNode(4));
+        tsp.add(test.graph.getNode(5));
+        tsp.add(test.graph.getNode(6));
+        for (NodeData n :tsp) {
+            System.out.println(n.getKey());
         }
-        test.algoGraph.tsp(tsp);
+        for (NodeData n :test.algoGraph.tsp(tsp)) {
+            System.out.println(n.getKey());
+        }
+        System.out.println(test.algoGraph.tsp(tsp));
 //        while (iter.hasNext())
 //        {
 //            EdgeData t =iter.next();
