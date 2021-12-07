@@ -250,7 +250,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             T*=0.9;
         }
         return create(best, startAndEnd);
-        return null;
     }
     public List<NodeData> create(int [] arr, int s)
     {
