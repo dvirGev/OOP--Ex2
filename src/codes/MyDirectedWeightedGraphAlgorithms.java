@@ -279,7 +279,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     public boolean load(String file) {
         try {
             DirectedWeightedGraph newGraph = Ex2.getGrapg(file);
-            graph = newGraph;
+            init(newGraph);
         } catch (Exception e) {
             return false;
         }
