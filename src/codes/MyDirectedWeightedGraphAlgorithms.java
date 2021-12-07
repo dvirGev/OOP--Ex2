@@ -231,10 +231,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         }while (indexi != indexj);
         double T = 100;
         double bestWay = Double.MAX_VALUE;
-        int [] prev  = new int[arr.length];
+        int [] prev  = new int[arr.length-1];
+        int[] cur = copy(arr);
         while(T>0.1)
         {
-            int[] cur =Arrays.copyOf(arr,arr.length);
+            prev = copy(cur);
             swap(cur);
             double curWay = CalWay(cur,startAndEnd);
             if(curWay < bestWay)
@@ -243,11 +244,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             else if(Math.exp((bestWay-curWay)/T) < Math.random())
             {
-
+                cur = copy(prev);
             }
-
-
-
             T*=0.9;
         }
 
@@ -405,30 +403,30 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      * the algo need just get from the graph nodeSize we can also give him graph,
      * and it takes the nodeSize
      */
-    private static ArrayList<int[]> permutationsMain(int nodesize) {
-        int[] arr = new int[nodesize];
-        ArrayList<int[]> permutations = new ArrayList<int[]>();
-        int k = 0;
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i;
-        }
-        permute(permutations, arr, k);
-        return permutations;
-    }
+//    private static ArrayList<int[]> permutationsMain(int nodesize) {
+//        int[] arr = new int[nodesize];
+//        ArrayList<int[]> permutations = new ArrayList<int[]>();
+//        int k = 0;
+//        for (int i = 0; i < arr.length; i++) {
+//            arr[i] = i;
+//        }
+//        permute(permutations, arr, k);
+//        return permutations;
+//    }
 
     /*
      * the algorithm to add all the permutations to arrayList
      */
-    private static void permute(ArrayList<int[]> arrayList, int[] arr, int k) {
-        for (int i = k; i < arr.length; i++) {
-            swap(arr, i, k);
-            permute(arrayList, arr, k + 1);
-            swap(arr, k, i);
-        }
-        if (k == arr.length - 1) {
-            arrayList.add(deepCopy(arr));
-        }
-    }
+//    private static void permute(ArrayList<int[]> arrayList, int[] arr, int k) {
+//        for (int i = k; i < arr.length; i++) {
+//            swap(arr);
+//            permute(arrayList, arr, k + 1);
+//            swap(arr, k, i);
+//        }
+//        if (k == arr.length - 1) {
+//            arrayList.add(deepCopy(arr));
+//        }
+//    }
 
     /*
      * deep copy just for the array list add new array and not the same array
