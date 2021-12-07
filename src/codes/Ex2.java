@@ -28,7 +28,7 @@ public class Ex2 {
     // = "data/G1.json";
 
     public static void main(String[] args) {
-        String json_file = "data/1000Nodes.json"; //= args[0];
+        String json_file = "data/G1.json"; //= args[0];
         runGUI(json_file);
     }
 

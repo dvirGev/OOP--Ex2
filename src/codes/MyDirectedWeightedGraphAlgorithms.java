@@ -211,7 +211,28 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     public List<NodeData> tsp(List<NodeData> cities) {
         return null;
     }
-
+    public double CalWay(int [] pre, int s)
+    {
+        double sum =0;
+        if(D.Table.get(s).isEmpty())
+        {
+            D = new DijkstraAlgorithm(s,s);
+        }
+        sum += D.Table.get(s).get(pre[0]);
+        for (int i=0; i<pre.length-1;i++)
+        {
+            if(D.Table.get(pre[i]).isEmpty()){
+                D = new DijkstraAlgorithm(pre[i],pre[i]);
+            }
+            sum += D.Table.get(pre[i]).get(pre[i+1]);
+        }
+        if(D.Table.get(pre[pre.length-1])==null)
+        {
+            D = new DijkstraAlgorithm(pre[pre.length-1],pre[pre.length-1]);
+        }
+        sum+=D.Table.get(pre[pre.length-1]).get(s);
+        return sum;
+    }
     /**
      * Saves this weighted (directed) graph to the given
      * file name - in JSON format
@@ -475,8 +496,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                     }
                 }
             }
-
-
         }
     }
 
