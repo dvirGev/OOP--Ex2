@@ -146,6 +146,12 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         List<NodeData> Path = new ArrayList<>();
+        NodeD t = new NodeD(D.Way.get(src).get(dest));
+        while(t.p!=null)
+        {
+            Path.add(0,graph.getNode(t.id));
+            t = t.p;
+        }
         return Path;
     }
 
@@ -377,6 +383,23 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         vector.add(dest);
         return vector;
     }
+    public class NodeD {
+        int id;
+        double value;
+        NodeD p;
+
+        public NodeD(int id, double v, NodeD p) {
+            this.id = id;
+            this.value = v;
+            this.p =p;
+        }
+        public NodeD(NodeD other)
+        {
+            this.p = other.p;
+            this.id = other.id;
+            this.value = other.value;
+        }
+    }
     private class DijkstraAlgorithm {
         /*
         1. Greedy algo start from the src pos and find the sort path to every other node connected
@@ -386,22 +409,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         5. we will add all the short path we found to the HashMap
          */
         HashMap<Integer,HashMap<Integer,Double>> Table = new HashMap<>();
-        //HashMap<Integer, HashMap<Integer,List<NodeData> >> Way = new HashMap<>();
+        HashMap<Integer, HashMap<Integer,NodeD>> Way = new HashMap<>();
         HashMap<Integer, Integer> update;
         PriorityQueue<NodeD> pos;
 
 
-        private class NodeD {
-            int id;
-            double value;
-            NodeD p;
-
-            public NodeD(int id, double v, NodeD p) {
-                this.id = id;
-                this.value = v;
-                this.p =p;
-            }
-        }
         class NodeDCom implements Comparator<NodeD>
         {
             @Override
@@ -434,6 +446,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             {
                 NodeD n =pos.poll();
                 update.put(n.id,1);
+                Way.put(src,new HashMap<>());
+                Way.get(src).put(n.id,n);
                 Iterator<EdgeData> temp = graph.edgeIter(n.id);
                 while (temp.hasNext())
                 {
