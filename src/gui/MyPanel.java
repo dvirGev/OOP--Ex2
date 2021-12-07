@@ -34,16 +34,8 @@ public class MyPanel extends JPanel {
     private DirectedWeightedGraph graph;
 
     //constructor
-    public MyPanel(DirectedWeightedGraph ans) {
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(screenSize);
-        this.setBackground(Color.GRAY);
-        this.setFocusable(true);
-        this.graph = ans;
-        findEdge();
-
-        unitX = screenSize.getWidth() / Math.abs(maxX - minX) * 0.975;
-        unitY = screenSize.getHeight() / Math.abs(maxY - minY) * 0.9;
+    public MyPanel(DirectedWeightedGraph graph) {
+        init(graph);
 
                   
         
@@ -53,6 +45,17 @@ public class MyPanel extends JPanel {
         // System.out.println("maxY " + maxY);
         // System.out.println("unitX " + unitX);
         // System.out.println("unitY " + unitY);
+    }
+    public void init(DirectedWeightedGraph graph) {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setPreferredSize(screenSize);
+        this.setBackground(Color.GRAY);
+        this.setFocusable(true);
+        this.graph = graph;
+        findEdge();
+
+        unitX = screenSize.getWidth() / Math.abs(maxX - minX) * 0.975;
+        unitY = screenSize.getHeight() / Math.abs(maxY - minY) * 0.9;
     }
 
     //find edge to use for the draw

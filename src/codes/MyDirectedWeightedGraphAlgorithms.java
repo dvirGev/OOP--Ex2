@@ -251,7 +251,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             jsonFile.close();
 
         } catch (IOException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
         // } finally {
@@ -278,7 +278,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public boolean load(String file) {
         try {
-            DirectedWeightedGraph newGraph = Ex2.getGrapg(file);
+            DirectedWeightedGraph newGraph = Ex2.readGRaphFromJson(file);
             init(newGraph);
         } catch (Exception e) {
             return false;

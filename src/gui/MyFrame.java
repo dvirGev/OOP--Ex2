@@ -162,6 +162,15 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
             String message = "The Center Node In The Graph is: " + graphAlgo.center().getKey();
             JOptionPane.showMessageDialog(new JFrame(), message, "Center In Graph", JOptionPane.DEFAULT_OPTION);
         }
+        else if(e.getSource() == tsp) {
+            new TSP(graphAlgo);
+        }
+        else if(e.getSource() == save) {
+            new Save(graphAlgo);
+        }
+        else if(e.getSource() == load) {
+            new Load(graphAlgo, panel);
+        }
     }
     @Override
     public void mousePressed(MouseEvent e) {
