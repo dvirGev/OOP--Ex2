@@ -390,7 +390,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         5. we will add all the short path we found to the HashMap
          */
         HashMap<Integer,HashMap<Integer,Double>> Table = new HashMap<>();
-        HashMap<Vector<Integer>, ArrayList<NodeData>> Way;
+        //HashMap<Integer, HashMap<Integer,List<NodeData> >> Way = new HashMap<>();
         HashMap<Integer, Integer> update;
         PriorityQueue<NodeD> pos;
 
@@ -398,10 +398,12 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         private class NodeD {
             int id;
             double value;
+            NodeD p;
 
-            public NodeD(int id, double v) {
+            public NodeD(int id, double v, NodeD p) {
                 this.id = id;
                 this.value = v;
+                this.p =p;
             }
         }
         class NodeDCom implements Comparator<NodeD>
@@ -417,7 +419,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
 
         DijkstraAlgorithm(int src, int dst) {
-            System.out.println("hhh");
+            if(Table.get(src)!=null)
+            {
+                return;
+            }
             alg(src,dst);
 
             //return Table.get(src).get(dst);
@@ -425,11 +430,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
         public void alg(int src, int dst) {
 
-            pos = new PriorityQueue<NodeD>(5, new NodeDCom());
-            update = new HashMap<>();
-            pos.add(new NodeD(src,0));
-            Table.put(src,new HashMap<>());
-            Table.get(src).put(src,0.0);
+            pos = new PriorityQueue<NodeD>(5, new NodeDCom());   /// init the Queue and the comperator
+            update = new HashMap<>();  // init the hashmap of the elements that be in the Q already
+            pos.add(new NodeD(src,0,null));  // put the src in Q
+            Table.put(src,new HashMap<>());  // init the src map
+            Table.get(src).put(src,0.0); //put the first element in the map
             while(!pos.isEmpty())
             {
                 NodeD n =pos.poll();
@@ -445,7 +450,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                     if(Table.get(src).get(t.getDest())==null)
                     {
                         Table.get(src).put(t.getDest(),n.value +t.getWeight());
-                        pos.add(new NodeD(t.getDest(),n.value+t.getWeight()));
+                        pos.add(new NodeD(t.getDest(),n.value+t.getWeight(),n));
                     }
                     else {
                         double val = n.value +t.getWeight();
@@ -453,7 +458,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                         {
                             Table.get(src).remove(t.getDest());
                             Table.get(src).put(t.getDest(),val);
-                            pos.add(new NodeD(t.getDest(),val));
+                            pos.add(new NodeD(t.getDest(),val,n));
                         }
                     }
                 }
