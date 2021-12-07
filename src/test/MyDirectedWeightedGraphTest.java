@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 import api.*;
 import codes.*;
@@ -27,8 +25,15 @@ public class MyDirectedWeightedGraphTest {
     }
 
     public static void main(String[] args) {
-//        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
-//        Iterator<EdgeData> iter = test.algoGraph.getGraph().edgeIter(2);
+        MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
+        Iterator<NodeData> iter = test.algoGraph.getGraph().nodeIter();
+        int i = 0;
+        List<NodeData> tsp = new ArrayList<>();
+        while (iter.hasNext() && i++ < 5){
+            NodeData n = iter.next();
+            tsp.add(n);
+        }
+        test.algoGraph.tsp(tsp);
 //        while (iter.hasNext())
 //        {
 //            EdgeData t =iter.next();
