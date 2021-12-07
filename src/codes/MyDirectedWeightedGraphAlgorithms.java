@@ -145,12 +145,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
-
-        Vector vector = buildVector(src, dest);
-        this.floydWarshall.update();
-        //check if there is any changes in the graph.
-        return floydWarshall.shortPathNodes.get(vector);
-
+        List<NodeData> Path = new ArrayList<>();
+        return Path;
     }
 
     /**
@@ -425,7 +421,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             alg(src,dst);
 
-            //return Table.get(src).get(dst);
         }
 
         public void alg(int src, int dst) {
