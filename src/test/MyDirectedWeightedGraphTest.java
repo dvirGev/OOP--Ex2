@@ -1,11 +1,14 @@
 package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 
 import api.*;
 import codes.*;
 
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 public class MyDirectedWeightedGraphTest {
@@ -13,7 +16,7 @@ public class MyDirectedWeightedGraphTest {
     MyDirectedWeightedGraphAlgorithms algoGraph;
 
     MyDirectedWeightedGraphTest() {
-        graph = Ex2.getGrapg("data/G1.json"); // enter here the path for G1 json
+        graph = Ex2.getGrapg("C:/Users/dvir_/.vscode/OOP_2021/OOP--Ex2/data/G1.json");
         algoGraph = new MyDirectedWeightedGraphAlgorithms();
         algoGraph.init(graph);
     }

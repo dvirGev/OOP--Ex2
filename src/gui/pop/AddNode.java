@@ -72,7 +72,7 @@ public class AddNode extends JFrame implements ActionListener {
         }
     }
 
-    public void closeWindow() {
+    private void closeWindow() {
         setVisible(false);
         try {
             int key = Integer.parseInt(inputKey.getText());

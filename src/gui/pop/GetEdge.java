@@ -79,7 +79,7 @@ public class GetEdge extends JFrame implements ActionListener {
         }
     }
 
-    public void closeWindow() {
+    private void closeWindow() {
         // set the text of the label to the text of the field
         setVisible(false);
         try {

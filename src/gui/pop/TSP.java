@@ -9,12 +9,14 @@ import gui.MyPanel;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.awt.*;
 
 public class TSP extends JFrame implements ActionListener {
     private JTextField inputName;
-    private JButton button;
+    private JButton selectAll;
+    private JButton enter;
     private JLabel textName;
 
     private DirectedWeightedGraphAlgorithms graphAlgo;
@@ -27,16 +29,18 @@ public class TSP extends JFrame implements ActionListener {
         // create a label to display text
         textName = new JLabel("Enter Nodes: \n (For Example: 1,2,3)");
         // create a new button
-        button = new JButton("Enter");
+        selectAll = new JButton("Select All");
+        enter = new JButton("Enter");
         // addActionListener to button
-        button.addActionListener(this);
+        selectAll.addActionListener(this);
+        enter.addActionListener(this);
         // create a object of JTextField with 16 columns
         inputName = new JTextField(8);
         inputName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    closeWindow();
+                    readNodes();
                 }
             }
         });
@@ -46,7 +50,8 @@ public class TSP extends JFrame implements ActionListener {
         // add buttons and textfield to panel
         p.add(textName);
         p.add(inputName);
-        p.add(button);
+        p.add(selectAll);
+        p.add(enter);
 
         //p.setPreferredSize(new Dimension(125, 100));
         // add panel to frame
@@ -64,13 +69,13 @@ public class TSP extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         if (s.equals("Enter")) {
-            closeWindow();
+            readNodes();
+        }
+        else if(s.equals("Select All")) {
+            selectAllNode();
         }
     }
-
-    public void closeWindow() {
-        // set the text of the label to the text of the field
-        setVisible(false);
+    private void readNodes() {
         try {
             String[] nodesId = inputName.getText().split(",");
             List<NodeData> nodes = new ArrayList<>();
@@ -87,24 +92,37 @@ public class TSP extends JFrame implements ActionListener {
                 }
                 nodes.add(node);
             }
-            nodes = graphAlgo.tsp(nodes);
-            if (nodes == null) {
-                String message = "There Is No Path :(";
-                JOptionPane.showMessageDialog(new JFrame(), message, "There Is No Path", JOptionPane.ERROR_MESSAGE);
-                this.dispose();
-                return;
-            }
-            String message = "";
-            for (NodeData nodeData : nodes) {
-                message += nodeData.getKey() + "-> ";
-            }
-            JOptionPane.showMessageDialog(new JFrame(), message, "TSP", JOptionPane.DEFAULT_OPTION);
+            closeWindow(nodes);
         }
         catch (Exception e) {
             e.printStackTrace();
             String message = "Something Gets Wrong :(";
             JOptionPane.showMessageDialog(new JFrame(), message, "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    private void selectAllNode() {
+        List<NodeData> nodes = new ArrayList();
+        Iterator<NodeData> iter = graphAlgo.getGraph().nodeIter();
+        while (iter.hasNext()) {
+            nodes.add(iter.next());
+        }
+        closeWindow(nodes);
+    }
+    private void closeWindow(List<NodeData> nodes) {
+        // set the text of the label to the text of the field
+        setVisible(false);
+        nodes = graphAlgo.tsp(nodes);
+        if (nodes == null) {
+            String message = "There Is No Path :(";
+            JOptionPane.showMessageDialog(new JFrame(), message, "There Is No Path", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+            return;
+        }
+        String message = "";
+        for (NodeData nodeData : nodes) {
+            message += nodeData.getKey() + "-> ";
+        }
+        JOptionPane.showMessageDialog(new JFrame(), message, "TSP", JOptionPane.DEFAULT_OPTION);
         this.dispose();
     }
 }
