@@ -146,12 +146,15 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         List<NodeData> Path = new ArrayList<>();
-        NodeD t = new NodeD(D.Way.get(src).get(dest));
-        while(t.p!=null)
-        {
-            Path.add(0,graph.getNode(t.id));
-            t = t.p;
-        }
+        D = new DijkstraAlgorithm(src,dest);
+        System.out.println(D.Way.get(src).get(dest).id);
+//        NodeD t = new NodeD(D.Way.get(src).get(dest));
+//        while(t.p!=null)
+//        {
+//            Path.add(0,graph.getNode(t.id));
+//            System.out.println(Path.get(0).getKey());
+//            t = t.p;
+//        }
         return Path;
     }
 

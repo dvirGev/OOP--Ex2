@@ -100,10 +100,16 @@ public class MyDirectedWeightedGraphTest {
      void testCenter() {
         MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
         assertEquals(8, test1.algoGraph.center().getKey());
-
     }
     @Test
     void testShortestPath() {
+        MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
+        assertEquals(1, test1.algoGraph.shortestPath(2,3));
+
+    }
+
+    @Test
+    void testShortestPathDis() {
         MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
         assertEquals(1.0631605142699874, test1.algoGraph.shortestPathDist(2,3));
 
