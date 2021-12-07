@@ -231,6 +231,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         }while (indexi != indexj);
         double T = 100;
         double bestWay = Double.MAX_VALUE;
+        int [] best = new int[arr.length-1];
         int [] prev  = new int[arr.length-1];
         int[] cur = copy(arr);
         while(T>0.1)
@@ -248,8 +249,19 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             T*=0.9;
         }
-
+        return create(best, startAndEnd);
         return null;
+    }
+    public List<NodeData> create(int [] arr, int s)
+    {
+        List<NodeData> n = new ArrayList<>();
+        n.add(graph.getNode(s));
+        for (int i=0; i<arr.length;i++)
+        {
+            n.add(graph.getNode(i));
+        }
+        n.add(graph.getNode(s));
+        return n;
     }
     public int[] copy(int[] arr){
         int[] temp = new int[arr.length];
