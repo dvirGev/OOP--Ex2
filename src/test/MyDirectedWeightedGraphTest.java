@@ -3,8 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Random;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import api.*;
 import codes.*;
@@ -26,12 +26,26 @@ public class MyDirectedWeightedGraphTest {
 
     public static void main(String[] args) {
         MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
-        Iterator<EdgeData> iter = test.algoGraph.getGraph().edgeIter(2);
-        while (iter.hasNext())
-        {
-            EdgeData t =iter.next();
-            System.out.println(t);
+        Iterator<NodeData> iter = test.algoGraph.getGraph().nodeIter();
+        int i = 0;
+        List<NodeData> tsp = new ArrayList<>();
+            tsp.add(test.graph.getNode(2));
+        tsp.add(test.graph.getNode(3));
+        tsp.add(test.graph.getNode(4));
+        tsp.add(test.graph.getNode(5));
+        tsp.add(test.graph.getNode(6));
+//        for (NodeData n :tsp) {
+//            System.out.println(n.getKey());
+//        }
+        for (NodeData n :test.algoGraph.tsp(tsp)) {
+            System.out.println(n.getKey());
         }
+//        System.out.println(test.algoGraph.tsp(tsp));
+//        while (iter.hasNext())
+//        {
+//            EdgeData t =iter.next();
+//            System.out.println(t);
+//        }
 //        System.out.println(test.graph.nodeSize());
 //        System.out.println(test.algoGraph.isConnected());
 //        System.out.println(test.algoGraph.shortestPathDist(1,7));

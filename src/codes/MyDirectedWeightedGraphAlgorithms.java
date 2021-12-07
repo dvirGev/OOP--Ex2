@@ -414,7 +414,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                 @Override
                 public int compare(Integer o1, Integer o2) {
                     double ans = dists.get(o1) - dists.get(o2);
-                    //System.out.println(ans);
                     if(ans > 0) {
                         return 1;
                     }
