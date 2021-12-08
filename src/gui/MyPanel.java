@@ -11,7 +11,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-import java.awt.event.*;    
+import java.awt.event.*;
+import java.beans.Expression;
 import java.io.*; 
 
 public class MyPanel extends JPanel {
@@ -122,8 +123,12 @@ public class MyPanel extends JPanel {
             drawArrowLine(g, (int) srcX, (int) srcY, (int) destX, (int) destY, 30, 7);
 
             
-            Double weight = edge.getWeight();
-            String weightString = weight.toString().substring(0,weight.toString().indexOf(".")+3);
+            String weightString = edge.getWeight() + "";
+            try {
+                weightString = weightString.substring(0,weightString.indexOf(".")+3);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
             g.setColor(Color.PINK);
             g.setFont(new Font("Ariel", Font.BOLD, 15));
             g.drawString(weightString, (int)(srcX*0.25 + destX*0.75),(int)(srcY*0.25 + destY*0.75));
