@@ -1,5 +1,6 @@
 package codes;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,7 +19,11 @@ public class Stam {
 //        while (iter.hasNext()) {
 //            System.out.println(iter.next().getKey());
 //        }
-        System.out.println((int)-0.5);
+        int[] arr1 = {1,2,3};
+        int[] arr2 = new int[3];
+        MyDirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
+        graphAlgo.copy(arr2, arr1);
+        System.out.println(Arrays.toString(arr2));
     }
 
 }
