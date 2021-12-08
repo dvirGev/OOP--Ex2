@@ -55,8 +55,7 @@ public class MyPanel extends JPanel {
         this.graph = graph;
         findEdge();
 
-        unitX = screenSize.getWidth() / Math.abs(maxX - minX) * 0.975;
-        unitY = screenSize.getHeight() / Math.abs(maxY - minY) * 0.9;
+        
     }
 
     //find edge to use for the draw
@@ -81,6 +80,8 @@ public class MyPanel extends JPanel {
     //draw the components edges and nodes(verticals)
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        unitX = this.getWidth() / Math.abs(maxX - minX) * 0.975;
+        unitY = this.getHeight() / Math.abs(maxY - minY) * 0.9;
         //drawArrowLine(g, 20, 20, 200, 200, 30, 7);
         //drawLines(g);
         drawEdges(g);

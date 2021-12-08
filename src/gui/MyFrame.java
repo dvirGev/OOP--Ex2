@@ -50,7 +50,7 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
         this.addMouseListener(this);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setVisible(true);
     }
 
