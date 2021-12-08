@@ -26,19 +26,22 @@ public class MyDirectedWeightedGraphTest {
 
     public static void main(String[] args) {
         MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
-        Iterator<NodeData> iter = test.algoGraph.getGraph().nodeIter();
-        int i = 0;
         List<NodeData> tsp = new ArrayList<>();
-            tsp.add(test.graph.getNode(2));
-        tsp.add(test.graph.getNode(3));
-        tsp.add(test.graph.getNode(4));
-        tsp.add(test.graph.getNode(5));
-        tsp.add(test.graph.getNode(6));
-//        for (NodeData n :tsp) {
-//            System.out.println(n.getKey());
-//        }
+        for (int j = 0; j < 10; j++) {
+            tsp.add(test.graph.getNode(j));
+        }
+//        tsp.add(test.graph.getNode(2));
+//        tsp.add(test.graph.getNode(3));
+//        tsp.add(test.graph.getNode(4));
+//        tsp.add(test.graph.getNode(5));
+//        tsp.add(test.graph.getNode(6));
+//        tsp.add(test.graph.getNode(12));
+//        tsp.add(test.graph.getNode(13));
+//        tsp.add(test.graph.getNode(14));
+//        tsp.add(test.graph.getNode(15));
+//        tsp.add(test.graph.getNode(16));
         for (NodeData n :test.algoGraph.tsp(tsp)) {
-            System.out.println(n.getKey());
+            System.out.print(n.getKey() + ",");
         }
 //        System.out.println(test.algoGraph.tsp(tsp));
 //        while (iter.hasNext())

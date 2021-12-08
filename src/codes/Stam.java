@@ -19,10 +19,12 @@ public class Stam {
 //        while (iter.hasNext()) {
 //            System.out.println(iter.next().getKey());
 //        }
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(1,2);
-        map.replace(1,  1);
-        System.out.println(map.values());
+        int[] arr1 = {1,2,3};
+        int[] arr2 = new int[3];
+        MyDirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
+        graphAlgo.copy(arr2, arr1);
+        System.out.println(Arrays.toString(arr2));
+        System.out.println((int)(Math.random() * 5));
     }
 
 }

@@ -168,7 +168,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         Iterator<NodeData> iter1 = graph.nodeIter();
         // will move on every node and check if its potential to be the center
         while (iter1.hasNext()) {
-            node = iter1.next(); 
+            node = iter1.next();
             key = node.getKey();
             dijkstra.get(key).update();
             max = dijkstra.get(key).maxDis;
@@ -184,6 +184,13 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         arr[i] = arr[j];
         arr[j] = temp;
     }
+    public long factorialUsingForLoop(int n) {
+        long fact = 1;
+        for (int i = 2; i <= n; i++) {
+            fact = fact * i;
+        }
+        return fact;
+    }
 
 
     /**
@@ -195,38 +202,55 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
-        int[] arr = new int[cities.size() -1];
-        int startAndEnd = cities.get(cities.size()-1).getKey();
-        cities.remove(cities.get(cities.size()-1));
-        int i = 0;
-        Iterator<NodeData> iter = cities.iterator();
+        int[] arr = new int[cities.size() -1];  // this is the first array we get. is will be the first premutation;
+        int startAndEnd = cities.get(cities.size()-1).getKey(); // the start and end off the euler circle
+        cities.remove(cities.get(cities.size()-1)); // we do the premute to all other cities
+        int i = 0; // counter
+        Iterator<NodeData> iter = cities.iterator();  // get List and move it to arr
         while (iter.hasNext()) {
             NodeData n = iter.next();
             arr[i] = n.getKey();
             i++;
         }
-        double T = 100;
-        double bestWay = Double.MAX_VALUE;
-        int [] best = new int[arr.length];
-        int [] prev  = new int[arr.length];
-        int[] cur = new int[arr.length];
-        copy(cur, arr);
-        while(T>0.1)
+        long T = factorialUsingForLoop(arr.length+2); // the temp will decrease and influence if we will take this permutation next time
+        double bestWay = Double.MAX_VALUE;  // best way will save the cost of the best permutation
+        int [] best = new int[arr.length];  // the best permutation until now
+        int [] prev  = new int[arr.length];  // save the last permutation
+        int[] cur = new int[arr.length]; // save be the next checking permutation
+        copy(cur, arr);  // copy the first per to cur.
+        while(T>0.1)  // while T is big enough
         {
-            copy(prev, cur);
-            swap(cur);
-            double curWay = CalWay(cur,startAndEnd);
-            if(curWay < bestWay)
+            copy(prev, cur);  // copy to prev the cur array
+//            swap(cur);      // make new permutation to cur array
+            int k;
+            int j;
+            do {
+                k = (int)((Math.random()* (arr.length)));
+
+                j = (int)((Math.random()* (arr.length)));
+            }while (k == j);
+            int temp = cur[k];
+            cur[k] = cur[j];
+            cur[j] = temp;
+
+            double curWay = CalWay(cur,startAndEnd);  // save the way it takes to the permutation
+            if(curWay < bestWay) // if it's the best way
             {
                 bestWay = curWay;
                 copy(best, cur);
+
             }
-            else if(Math.exp(Math.abs(bestWay-curWay)*T) < Math.random())
+            else if((Math.exp(curWay-bestWay)/T) <  Math.random())
             {
+                bestWay = curWay;
+
+            }
+            else {
                 copy(prev, cur);
             }
-            T*=0.9;
+            T*=0.96;
         }
+        System.out.println(bestWay);
         return create(best, startAndEnd);
     }
     public List<NodeData> create(int [] arr, int s)
@@ -236,7 +260,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         for (int i=0; i<arr.length;i++)
         {
             n.add(graph.getNode(arr[i]));
-            System.out.println(arr[i] +" this is node" + graph.getNode(arr[i]).getKey());
         }
         n.add(graph.getNode(s));
         return n;
@@ -248,17 +271,17 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     }
     public double CalWay(int [] pre, int s)
     {
-        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(s);
+        DijkstraAlgorithm dijkstraAlgo = getDijkstraAlgorithm(s);
         dijkstraAlgo.update();
         double sum =0;
         sum += dijkstraAlgo.dists.get(pre[0]);
         for (int i=0; i<pre.length-1;i++)
         {
-            DijkstraAlgorithm dijkstraAlgo2 = dijkstra.get(pre[i]);
+            DijkstraAlgorithm dijkstraAlgo2 = getDijkstraAlgorithm(pre[i]);
             dijkstraAlgo2.update();
             sum += dijkstraAlgo2.dists.get(pre[i+1]);
         }
-        DijkstraAlgorithm dijkstraAlgo2 = dijkstra.get(pre[pre.length-1]);
+        DijkstraAlgorithm dijkstraAlgo2 = getDijkstraAlgorithm(pre[pre.length-1]);
         dijkstraAlgo2.update();
         sum += dijkstraAlgo2.dists.get(s);
         return sum;
@@ -546,5 +569,5 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             Q.remove(index);
             return ans;
         }
-    }        
+    }
 }
