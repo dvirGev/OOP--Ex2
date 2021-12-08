@@ -471,8 +471,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             initMaps(dads, Q);
 
             while (!Q.isEmpty()) {
-                sortQ(Q);
-                int u = Q.remove(0);
+                //sortQ(Q);
+                int u = minInList(Q);
                 Iterator<EdgeData> iter = graph.edgeIter(u);
                 while (iter.hasNext()) {
                     relax(iter.next());
@@ -532,20 +532,19 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             paths.put(src, new ArrayList<>());
             Q.add(src);
         }
-        private void sortQ(ArrayList<Integer> Q) {
-            Collections.sort(Q, new Comparator<Integer>() {
-                @Override
-                public int compare(Integer o1, Integer o2) {
-                    double ans = dists.get(o1) - dists.get(o2);
-                    if(ans > 0) {
-                        return 1;
-                    }
-                    else if(ans < 0) {
-                        return -1;
-                    }
-                    return 0;
+        private int minInList(ArrayList<Integer> Q) {
+            double min = Double.MAX_VALUE;
+            int ans = Integer.MIN_VALUE;
+            int index = Integer.MIN_VALUE;
+            for (int i = 0; i < Q.size(); i++) {
+                if (min>dists.get(Q.get(i))) {
+                    ans = Q.get(i);
+                    min = dists.get(Q.get(i));
+                    index = i;
                 }
-            });
+            }
+            Q.remove(index);
+            return ans;
         }
     }        
 }
