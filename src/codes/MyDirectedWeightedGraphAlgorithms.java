@@ -217,7 +217,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             {
 //                System.out.println("##The Very Best:$$ " +value);
                 best = value;
-                permute = cur;
+                permute = cur;;
             }
         }
 
