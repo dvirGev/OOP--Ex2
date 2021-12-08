@@ -168,22 +168,20 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
          * if the graph not connect it will retun NUll.
          */
         double min = Double.MAX_VALUE;
+        double max;
+        int key;
         // will be the vertical with the min radios value to the most far vertical.
-        NodeData ans = null; // there is some changes in the graph at the last time we chack the short path.
+        NodeData ans = null, node; // there is some changes in the graph at the last time we chack the short path.
         Iterator<NodeData> iter1 = graph.nodeIter();
         // will move on every node and check if its potential to be the center
         while (iter1.hasNext()) {
-            double max = Integer.MIN_VALUE;
-            NodeData src = iter1.next();
-            //check the short path with all the other nodes
-            Iterator<NodeData> iter2 = graph.nodeIter();
-            while (iter2.hasNext()) {
-                NodeData dst = iter2.next();
-                max = Math.max(shortestPathDist(src.getKey(), dst.getKey()),  max);
-            }
+            node = iter1.next(); 
+            key = node.getKey();
+            dijkstra.get(key).update();
+            max = dijkstra.get(key).maxDis;
             if (min > max) {
                 min = max;
-                ans = src;
+                ans = node;
             }
         }
         return ans;
@@ -204,34 +202,37 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
-        int[] arr = new int[cities.size()];
+        int[] arr = new int[cities.size() -1];
         int startAndEnd = cities.get(cities.size()-1).getKey();
         cities.remove(cities.get(cities.size()-1));
         int i = 0;
-        for (NodeData n :cities) {
+        Iterator<NodeData> iter = cities.iterator();
+        while (iter.hasNext()) {
+            NodeData n = iter.next();
             arr[i] = n.getKey();
             i++;
         }
         double T = 100;
         double bestWay = Double.MAX_VALUE;
-        int [] best = new int[arr.length-1];
+        int [] best = new int[arr.length];
         int [] prev  = new int[arr.length];
-        int[] cur = copy(arr);
+        int[] cur = new int[arr.length];
+        copy(cur, arr);
         while(T>0.1)
         {
-            prev = copy(cur);
+            copy(prev, cur);
             swap(cur);
             double curWay = CalWay(cur,startAndEnd);
             if(curWay < bestWay)
             {
                 bestWay = curWay;
-                best = copy(cur);
+                copy(best, cur);
             }
-            else if(Math.exp((bestWay-curWay)/T) < Math.random())
+            else if(Math.exp(Math.abs(bestWay-curWay)*T) < Math.random())
             {
-                cur = copy(prev);
+                copy(prev, cur);
             }
-            T*=0.9;;
+            T*=0.9;
         }
         return create(best, startAndEnd);
     }
@@ -242,41 +243,31 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         for (int i=0; i<arr.length;i++)
         {
             n.add(graph.getNode(arr[i]));
-            System.out.println(arr[i] +" this is node");
+            System.out.println(arr[i] +" this is node" + graph.getNode(arr[i]).getKey());
         }
         n.add(graph.getNode(s));
         return n;
     }
-    public int[] copy(int[] arr){
-        int[] temp = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            temp[i] = arr[i];
+    public void copy(int[] to, int[] from){
+        for (int i = 0; i < to.length; i++) {
+            to[i] = from[i];
         }
-        return temp;
     }
     public double CalWay(int [] pre, int s)
     {
+        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(s);
+        dijkstraAlgo.update();
         double sum =0;
-        if (this.D == null){
-            D = new DijkstraAlgorithm(s,s);
-        }
-        if(D.Table.get(s) == null)
-        {
-            D = new DijkstraAlgorithm(s,s);
-        }
-        sum += D.Table.get(s).get(pre[0]);
+        sum += dijkstraAlgo.dists.get(pre[0]);
         for (int i=0; i<pre.length-1;i++)
         {
-            if(D.Table.get(pre[i]) == null){
-                D = new DijkstraAlgorithm(pre[i],pre[i]);
-            }
-            sum += D.Table.get(pre[i]).get(pre[i+1]);
+            DijkstraAlgorithm dijkstraAlgo2 = dijkstra.get(pre[i]);
+            dijkstraAlgo2.update();
+            sum += dijkstraAlgo2.dists.get(pre[i+1]);
         }
-        if(D.Table.get(pre[pre.length-1])==null)
-        {
-            D = new DijkstraAlgorithm(pre[pre.length-1],pre[pre.length-1]);
-        }
-        sum+=D.Table.get(pre[pre.length-1]).get(s);
+        DijkstraAlgorithm dijkstraAlgo2 = dijkstra.get(pre[pre.length-1]);
+        dijkstraAlgo2.update();
+        sum += dijkstraAlgo2.dists.get(s);
         return sum;
     }
     /**
@@ -466,9 +457,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         3. Priority Queue will choose the best chose of the next vertical to exam the path from it.
         4. we will save the way "prev" to get the short way. and will return it;
         5. we will add all the short path we found to the HashMap
-         */
+        */
         public HashMap<Integer,Double> dists;
         public HashMap<Integer,List<NodeData>> paths;
+        public double maxDis;
         private HashMap<Integer,Integer> dads = new HashMap<>();
         private int src;
         private int myMC;
@@ -506,10 +498,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             int v = edge.getDest();
             double newDist = dists.get(u) + edge.getWeight();
             if (dists.get(v) > newDist) {
-                dists.remove(v);
-                dists.put(v, newDist);
-                dads.remove(v);
-                dads.put(v, u);
+                dists.replace(v, newDist);
+                dads.replace(v, u);
             }
         }
         private void finshAlgo() {
@@ -535,8 +525,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             paths.get(node).addAll(paths.get(dad));
             paths.get(node).add(graph.getNode(node));
+            maxDis = Math.max(maxDis, dists.get(node));
         }
         private void initMaps(HashMap<Integer,Integer> dads, ArrayList<Integer> Q) {
+            myMC = Integer.MIN_VALUE;
             Iterator<NodeData> iter = graph.nodeIter();
             while (iter.hasNext()) {
                 int key = iter.next().getKey();
