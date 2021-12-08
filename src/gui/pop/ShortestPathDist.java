@@ -97,6 +97,7 @@ public class ShortestPathDist extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(new JFrame(), message, "Shortest Path Dist", JOptionPane.DEFAULT_OPTION);
         }
         catch (Exception e) {
+            e.printStackTrace();
             String message = "Something Gets Wrong :(";
             JOptionPane.showMessageDialog(new JFrame(), message, "Erro", JOptionPane.ERROR_MESSAGE);
         }
