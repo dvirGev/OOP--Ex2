@@ -168,22 +168,20 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
          * if the graph not connect it will retun NUll.
          */
         double min = Double.MAX_VALUE;
+        double max;
+        int key;
         // will be the vertical with the min radios value to the most far vertical.
-        NodeData ans = null; // there is some changes in the graph at the last time we chack the short path.
+        NodeData ans = null, node; // there is some changes in the graph at the last time we chack the short path.
         Iterator<NodeData> iter1 = graph.nodeIter();
         // will move on every node and check if its potential to be the center
         while (iter1.hasNext()) {
-            double max = Integer.MIN_VALUE;
-            NodeData src = iter1.next();
-            //check the short path with all the other nodes
-            Iterator<NodeData> iter2 = graph.nodeIter();
-            while (iter2.hasNext()) {
-                NodeData dst = iter2.next();
-                max = Math.max(shortestPathDist(src.getKey(), dst.getKey()),  max);
-            }
+            node = iter1.next(); 
+            key = node.getKey();
+            dijkstra.get(key).update();
+            max = dijkstra.get(key).maxDis;
             if (min > max) {
                 min = max;
-                ans = src;
+                ans = node;
             }
         }
         return ans;
@@ -469,6 +467,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
          */
         public HashMap<Integer,Double> dists;
         public HashMap<Integer,List<NodeData>> paths;
+        public double maxDis;
         private HashMap<Integer,Integer> dads = new HashMap<>();
         private int src;
         private int myMC;
@@ -535,8 +534,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             paths.get(node).addAll(paths.get(dad));
             paths.get(node).add(graph.getNode(node));
+            maxDis = Math.max(maxDis, dists.get(node));
         }
         private void initMaps(HashMap<Integer,Integer> dads, ArrayList<Integer> Q) {
+            myMC = Integer.MIN_VALUE;
             Iterator<NodeData> iter = graph.nodeIter();
             while (iter.hasNext()) {
                 int key = iter.next().getKey();
