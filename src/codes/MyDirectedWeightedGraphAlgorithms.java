@@ -95,7 +95,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                 return false;
             }
         }
-        System.out.println();
 
         // set every tag of node to 0 and find the first node in the reverseGraph
         DirectedWeightedGraph myReverseGraph = reverseGraph();
@@ -142,6 +141,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
         DijkstraAlgorithm dijkstraAlgo = getDijkstraAlgorithm(src);
+        dijkstraAlgo.addPath(dest);
         return dijkstraAlgo.paths.get(dest);
     }
 
@@ -161,20 +161,23 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
          * if the graph not connect it will retun NUll.
          */
         double min = Double.MAX_VALUE;
-        double max;
-        int key;
         // will be the vertical with the min radios value to the most far vertical.
-        NodeData ans = null, node; // there is some changes in the graph at the last time we chack the short path.
+        NodeData ans = null; // there is some changes in the graph at the last time we chack the short path.
         Iterator<NodeData> iter1 = graph.nodeIter();
         // will move on every node and check if its potential to be the center
         while (iter1.hasNext()) {
-            node = iter1.next();
-            key = node.getKey();
-            dijkstra.get(key).update();
-            max = dijkstra.get(key).maxDis;
+            double max = Integer.MIN_VALUE;
+            NodeData src = iter1.next();
+            DijkstraAlgorithm dij = getDijkstraAlgorithm(src.getKey());
+            //check the short path with all the other nodes
+            Iterator<NodeData> iter2 = graph.nodeIter();
+            while (iter2.hasNext()) {
+                NodeData dst = iter2.next();
+                max = Math.max(dij.dists.get(dst.getKey()),  max);
+            }
             if (min > max) {
                 min = max;
-                ans = node;
+                ans = src;
             }
         }
         return ans;
@@ -494,14 +497,12 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             initMaps(dads, Q);
 
             while (!Q.isEmpty()) {
-                //sortQ(Q);
                 int u = minInList(Q);
                 Iterator<EdgeData> iter = graph.edgeIter(u);
                 while (iter.hasNext()) {
                     relax(iter.next());
                 }
             }
-            finshAlgo();
         }
         private void relax(EdgeData edge) {
             int u = edge.getSrc();
@@ -510,15 +511,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             if (dists.get(v) > newDist) {
                 dists.replace(v, newDist);
                 dads.replace(v, u);
-            }
-        }
-        private void finshAlgo() {
-            Iterator<NodeData> iter = graph.nodeIter();
-            while (iter.hasNext()) {
-                int node = iter.next().getKey();
-                if (paths.get(node).isEmpty()) {
-                    addPath(node);
-                }
             }
         }
         private void addPath(int node) {
