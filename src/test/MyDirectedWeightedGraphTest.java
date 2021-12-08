@@ -19,7 +19,7 @@ public class MyDirectedWeightedGraphTest {
     MyDirectedWeightedGraphTest() {
         //******** important for the tests work *********// |
         //                                                  V
-        graph = Ex2.getGrapg("data/G1.json"); // enter here the path for G1 json file
+        graph = Ex2.getGrapg("data/G3.json"); // enter here the path for G1 json file
         algoGraph = new MyDirectedWeightedGraphAlgorithms();
         algoGraph.init(graph);
     }
@@ -27,7 +27,7 @@ public class MyDirectedWeightedGraphTest {
     public static void main(String[] args) {
         MyDirectedWeightedGraphTest test = new MyDirectedWeightedGraphTest();
         List<NodeData> tsp = new ArrayList<>();
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < 48; j++) {
             tsp.add(test.graph.getNode(j));
         }
 //        tsp.add(test.graph.getNode(2));
