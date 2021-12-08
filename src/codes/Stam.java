@@ -18,15 +18,7 @@ public class Stam {
 //        while (iter.hasNext()) {
 //            System.out.println(iter.next().getKey());
 //        }
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(1,1);
-        map.put(2,2);
-        map.put(3,3);
-        map.put(4,4);
-        Iterator<Integer> iter = map.values().iterator();
-        System.out.println(iter.next());
-        iter.remove();
-        System.out.println(map.toString());
+        System.out.println((int)-0.5);
     }
 
 }

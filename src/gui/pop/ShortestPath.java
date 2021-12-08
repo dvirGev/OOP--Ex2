@@ -90,7 +90,7 @@ public class ShortestPath extends JFrame implements ActionListener {
             int dest = Integer.parseInt(inputDest.getText());
             List<NodeData> path = graphAlgo.shortestPath(src, dest);
             String message;
-            if (path == null) {
+            if (path.isEmpty()) {
                 message = "There Is No Path Between " + src + " And " + dest;
             }
             else {
@@ -99,9 +99,10 @@ public class ShortestPath extends JFrame implements ActionListener {
                     message += nodeData.getKey() + "->";
                 }
             }
-            JOptionPane.showMessageDialog(new JFrame(), message, "Shortest Path Dist", JOptionPane.DEFAULT_OPTION);
+            JOptionPane.showMessageDialog(new JFrame(), message, "Shortest Path", JOptionPane.DEFAULT_OPTION);
         }
         catch (Exception e) {
+            e.printStackTrace();
             String message = "Something Gets Wrong :(";
             JOptionPane.showMessageDialog(new JFrame(), message, "Erro", JOptionPane.ERROR_MESSAGE);
         }
