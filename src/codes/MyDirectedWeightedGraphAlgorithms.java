@@ -223,12 +223,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             arr[i] = n.getKey();
             i++;
         }
-        int indexi;
-        int indexj;
-        do {
-            indexi = (int)(Math.random()* (arr.length-1));
-            indexj = (int)(Math.random()* (arr.length-1));
-        }while (indexi != indexj );
         double T = 100;
         double bestWay = Double.MAX_VALUE;
         int [] best = new int[arr.length-1];
@@ -242,7 +236,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             if(curWay < bestWay)
             {
                 bestWay = curWay;
-                best= copy(cur);
+                best = copy(cur);
             }
             else if(Math.exp((bestWay-curWay)/T) < Math.random())
             {
@@ -259,6 +253,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         for (int i=0; i<arr.length;i++)
         {
             n.add(graph.getNode(arr[i]));
+            System.out.println(arr[i] +" this is node");
         }
         n.add(graph.getNode(s));
         return n;
