@@ -248,7 +248,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             else {
                 copy(prev, cur);
             }
-            T*=0.99;
+            T*=0.96;
         }
         System.out.println(bestWay);
         return create(best, startAndEnd);
@@ -271,17 +271,17 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     }
     public double CalWay(int [] pre, int s)
     {
-        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(s);
+        DijkstraAlgorithm dijkstraAlgo = getDijkstraAlgorithm(s);
         dijkstraAlgo.update();
         double sum =0;
         sum += dijkstraAlgo.dists.get(pre[0]);
         for (int i=0; i<pre.length-1;i++)
         {
-            DijkstraAlgorithm dijkstraAlgo2 = dijkstra.get(pre[i]);
+            DijkstraAlgorithm dijkstraAlgo2 = getDijkstraAlgorithm(pre[i]);
             dijkstraAlgo2.update();
             sum += dijkstraAlgo2.dists.get(pre[i+1]);
         }
-        DijkstraAlgorithm dijkstraAlgo2 = dijkstra.get(pre[pre.length-1]);
+        DijkstraAlgorithm dijkstraAlgo2 = getDijkstraAlgorithm(pre[pre.length-1]);
         dijkstraAlgo2.update();
         sum += dijkstraAlgo2.dists.get(s);
         return sum;
