@@ -24,6 +24,7 @@ public class Stam {
         MyDirectedWeightedGraphAlgorithms graphAlgo = new MyDirectedWeightedGraphAlgorithms();
         graphAlgo.copy(arr2, arr1);
         System.out.println(Arrays.toString(arr2));
+        System.out.println((int)(Math.random() * 5));
     }
 
 }
