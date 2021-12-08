@@ -215,11 +215,13 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
-        int[] arr = new int[cities.size()];
+        int[] arr = new int[cities.size()-1];
         int startAndEnd = cities.get(cities.size()-1).getKey();
         cities.remove(cities.get(cities.size()-1));
         int i = 0;
-        for (NodeData n :cities) {
+        Iterator<NodeData> iter = cities.iterator();
+        while (iter.hasNext()){
+            NodeData n = iter.next();
             arr[i] = n.getKey();
             i++;
         }
@@ -231,22 +233,35 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         }while (indexi != indexj );
         double T = 100;
         double bestWay = Double.MAX_VALUE;
-        int [] best = new int[arr.length-1];
+        int [] best = new int[arr.length];
         int [] prev  = new int[arr.length];
-        int[] cur = copy(arr);
+        int[] cur = new int[arr.length];
+//        copy(arr,cur);
+        for (int j = 0; j < arr.length; j++) {
+            cur[j] = arr[j];
+        }
         while(T>0.1)
         {
-            prev = copy(cur);
+//            copy(cur,prev);
+            for (int j = 0; j < cur.length; j++) {
+                prev[j] = cur[j];
+            }
             swap(cur);
             double curWay = CalWay(cur,startAndEnd);
             if(curWay < bestWay)
             {
                 bestWay = curWay;
-                best= copy(cur);
+//                copy(cur,best);
+                for (int j = 0; j < cur.length; j++) {
+                    best[j] = cur[j];
+                }
             }
             else if(Math.exp((bestWay-curWay)/T) < Math.random())
             {
-                cur = copy(prev);
+//                copy(prev,cur);
+                for (int j = 0; j < prev.length; j++) {
+                    cur[j] = prev[j];
+                }
             }
             T*=0.9;
         }
@@ -263,12 +278,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         n.add(graph.getNode(s));
         return n;
     }
-    public int[] copy(int[] arr){
-        int[] temp = new int[arr.length];
+    public void copy(int[] arr, int[] cur){
         for (int i = 0; i < arr.length; i++) {
-            temp[i] = arr[i];
+            cur[i] = arr[i];
         }
-        return temp;
     }
     public double CalWay(int [] pre, int s)
     {
