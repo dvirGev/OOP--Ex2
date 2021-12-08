@@ -3,8 +3,6 @@ package gui.pop;
 import javax.swing.*;
 
 import api.DirectedWeightedGraph;
-import codes.MyNodeData;
-import gui.MyFrame;
 import gui.MyPanel;
 
 import java.awt.event.*;

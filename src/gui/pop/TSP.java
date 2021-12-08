@@ -2,10 +2,9 @@ package gui.pop;
 
 import javax.swing.*;
 
-import api.DirectedWeightedGraph;
 import api.DirectedWeightedGraphAlgorithms;
 import api.NodeData;
-import gui.MyPanel;
+
 
 import java.awt.event.*;
 import java.util.ArrayList;

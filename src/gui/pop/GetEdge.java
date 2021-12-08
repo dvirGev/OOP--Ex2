@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import api.DirectedWeightedGraph;
 import api.EdgeData;
-import api.NodeData;
 
 import java.awt.event.*;
 import java.awt.*;
