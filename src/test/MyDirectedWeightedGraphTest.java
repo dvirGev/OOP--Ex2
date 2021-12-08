@@ -19,7 +19,7 @@ public class MyDirectedWeightedGraphTest {
     MyDirectedWeightedGraphTest() {
         //******** important for the tests work *********// |
         //                                                  V
-        graph = Ex2.getGrapg("data/G3.json"); // enter here the path for G1 json file
+        graph = Ex2.getGrapg("data/10000Nodes.json"); // enter here the path for G1 json file
         algoGraph = new MyDirectedWeightedGraphAlgorithms();
         algoGraph.init(graph);
     }

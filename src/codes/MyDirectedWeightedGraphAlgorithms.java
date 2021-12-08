@@ -468,53 +468,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         return newGraph;
     }
 
-    /*
-     * the algo need just get from the graph nodeSize we can also give him graph,
-     * and it takes the nodeSize
-     */
-//    private static ArrayList<int[]> permutationsMain(int nodesize) {
-//        int[] arr = new int[nodesize];
-//        ArrayList<int[]> permutations = new ArrayList<int[]>();
-//        int k = 0;
-//        for (int i = 0; i < arr.length; i++) {
-//            arr[i] = i;
-//        }
-//        permute(permutations, arr, k);
-//        return permutations;
-//    }
-
-    /*
-     * the algorithm to add all the permutations to arrayList
-     */
-//    private static void permute(ArrayList<int[]> arrayList, int[] arr, int k) {
-//        for (int i = k; i < arr.length; i++) {
-//            swap(arr);
-//            permute(arrayList, arr, k + 1);
-//            swap(arr, k, i);
-//        }
-//        if (k == arr.length - 1) {
-//            arrayList.add(deepCopy(arr));
-//        }
-//    }
-
-    /*
-     * deep copy just for the array list add new array and not the same array
-     */
-
-    /*
-     * simple swap between two index
-     */
-    private void swap(int[] arr) {
-        int i;
-        int j;
-        do {
-            i = (int)(Math.random()* (arr.length));
-            j = (int)(Math.random()* (arr.length));
-        }while (i != j);
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
     private DijkstraAlgorithm getDijkstraAlgorithm(int src) {
         if (dijkstra.get(src) == null) {
             dijkstra.put(src, new DijkstraAlgorithm(src));
