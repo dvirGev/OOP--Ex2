@@ -87,42 +87,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         if(!BFS(Gt,check)) return false;
         return true;
     }
-//        // set evry tag of node to 0 and find the first node
-//        Iterator<NodeData> iter = graph.nodeIter();
-//        NodeData first = iter.next();
-//        first.setTag(0);
-//        while (iter.hasNext())
-//            iter.next().setTag(0);
-//
-//        // apply DFS on the graph
-//        DFSUtil(graph, first);
-//        // Checks if there is a node that has not been visited
-//        iter = graph.nodeIter();
-//        while (iter.hasNext()) {
-//            if (iter.next().getTag() == 0) {
-//                return false;
-//            }
-//        }
-//
-//        // set every tag of node to 0 and find the first node in the reverseGraph
-//        DirectedWeightedGraph myReverseGraph = reverseGraph();
-//        iter = myReverseGraph.nodeIter();
-//        first = iter.next();
-//        first.setTag(0);
-//        while (iter.hasNext())
-//            iter.next().setTag(0);
-//        // apply DFS on the reverseGraph
-//        DFSUtil(myReverseGraph, first);
-//        // Checks if there is a node that has not been visited in the reverseGraph
-//        iter = myReverseGraph.nodeIter();
-//        while (iter.hasNext()) {
-//            if (iter.next().getTag() == 0) {
-//                return false;
-//            }
-//        }
-//
-//        return true;
-//    }
 
     /**
      * Computes the length of the shortest path between src to dest
