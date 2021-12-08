@@ -79,42 +79,50 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public boolean isConnected() {
-        // set evry tag of node to 0 and find the first node
-        Iterator<NodeData> iter = graph.nodeIter();
-        NodeData first = iter.next();
-        first.setTag(0);
-        while (iter.hasNext())
-            iter.next().setTag(0);
-
-        // apply DFS on the graph
-        DFSUtil(graph, first);
-        // Checks if there is a node that has not been visited
-        iter = graph.nodeIter();
-        while (iter.hasNext()) {
-            if (iter.next().getTag() == 0) {
-                return false;
-            }
-        }
-
-        // set every tag of node to 0 and find the first node in the reverseGraph
-        DirectedWeightedGraph myReverseGraph = reverseGraph();
-        iter = myReverseGraph.nodeIter();
-        first = iter.next();
-        first.setTag(0);
-        while (iter.hasNext())
-            iter.next().setTag(0);
-        // apply DFS on the reverseGraph
-        DFSUtil(myReverseGraph, first);
-        // Checks if there is a node that has not been visited in the reverseGraph
-        iter = myReverseGraph.nodeIter();
-        while (iter.hasNext()) {
-            if (iter.next().getTag() == 0) {
-                return false;
-            }
-        }
-
+        Iterator<NodeData> n = graph.nodeIter();
+        if(!n.hasNext()) return false;
+        NodeData check = n.next();
+        if(!BFS(this.graph,check)) return false;
+        DirectedWeightedGraph Gt= reverseGraph();
+        if(!BFS(Gt,check)) return false;
         return true;
     }
+//        // set evry tag of node to 0 and find the first node
+//        Iterator<NodeData> iter = graph.nodeIter();
+//        NodeData first = iter.next();
+//        first.setTag(0);
+//        while (iter.hasNext())
+//            iter.next().setTag(0);
+//
+//        // apply DFS on the graph
+//        DFSUtil(graph, first);
+//        // Checks if there is a node that has not been visited
+//        iter = graph.nodeIter();
+//        while (iter.hasNext()) {
+//            if (iter.next().getTag() == 0) {
+//                return false;
+//            }
+//        }
+//
+//        // set every tag of node to 0 and find the first node in the reverseGraph
+//        DirectedWeightedGraph myReverseGraph = reverseGraph();
+//        iter = myReverseGraph.nodeIter();
+//        first = iter.next();
+//        first.setTag(0);
+//        while (iter.hasNext())
+//            iter.next().setTag(0);
+//        // apply DFS on the reverseGraph
+//        DFSUtil(myReverseGraph, first);
+//        // Checks if there is a node that has not been visited in the reverseGraph
+//        iter = myReverseGraph.nodeIter();
+//        while (iter.hasNext()) {
+//            if (iter.next().getTag() == 0) {
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
 
     /**
      * Computes the length of the shortest path between src to dest
@@ -434,7 +442,30 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         }
         return true;
     }
-
+    public boolean BFS(DirectedWeightedGraph myGraph, NodeData node)
+    {
+        boolean color[] = new boolean[graph.nodeSize()];
+        int count =1;
+        color[node.getKey()] = true;
+        LinkedList<NodeData> Q = new LinkedList<>();
+        Q.add(node);
+        while (!Q.isEmpty())
+        {
+            NodeData cur = Q.pollFirst();
+            Iterator<EdgeData> iter = graph.edgeIter(cur.getKey());
+            while(iter.hasNext())
+            {
+                EdgeData e =iter.next();
+                if(color[e.getDest()]==false){
+                    count++;
+                    color[e.getDest()]=true;
+                    Q.add(graph.getNode(e.getDest()));
+                }
+            }
+        }
+        if(count==color.length) return true;
+        return false;
+    }
     // do DFS Algorithms
     private void DFSUtil(DirectedWeightedGraph myGraph, NodeData node) {
         // Mark the current node as visited and print it
