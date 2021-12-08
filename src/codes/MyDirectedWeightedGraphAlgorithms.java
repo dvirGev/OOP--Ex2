@@ -242,7 +242,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             {
                 cur = copy(prev);
             }
-            T*=0.9;
+            T*=0.9;;
         }
         return create(best, startAndEnd);
     }
