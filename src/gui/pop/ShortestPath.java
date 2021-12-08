@@ -2,13 +2,12 @@ package gui.pop;
 
 import javax.swing.*;
 
-import api.DirectedWeightedGraph;
+
 import api.DirectedWeightedGraphAlgorithms;
-import api.EdgeData;
+
 import api.NodeData;
 
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 

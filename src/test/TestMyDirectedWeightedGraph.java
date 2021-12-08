@@ -1,5 +1,7 @@
 package test;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Iterator;
@@ -37,12 +39,23 @@ public class TestMyDirectedWeightedGraph {
 
     @Test
     void testEdgeIter() {
+        EdgeData edge = null;
         Iterator<EdgeData> iter = graph.edgeIter();
         if (iter.hasNext()) {
-            EdgeData edge = iter.next();
+            edge = iter.next();
             iter.remove();
-            graph.getEdge(edge.getSrc(), edge.getDest());
+            assertEquals(null, graph.getEdge(edge.getSrc(), edge.getDest()));
         }
+        graph.connect(edge.getSrc(), edge.getDest(), edge.getWeight());
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            iter.next();
+        });
+    
+        String expectedMessage = "the iterator has change!";
+        String actualMessage = exception.getMessage();
+    
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test

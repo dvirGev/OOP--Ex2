@@ -43,11 +43,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         graph = g;
         dijkstra = new HashMap<>();
         Iterator<NodeData> iter = graph.nodeIter();
-        int key;
-        while(iter.hasNext()) {
-            key = iter.next().getKey();
-            dijkstra.put(key, new DijkstraAlgorithm(key));
-        }
     }
 
     /**
@@ -131,8 +126,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public double shortestPathDist(int src, int dest) {
-        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(src);
-        dijkstraAlgo.update();
+        DijkstraAlgorithm dijkstraAlgo = getDijkstraAlgorithm(src);
         return dijkstraAlgo.dists.get(dest);
     }
 
@@ -147,8 +141,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
      */
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
-        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(src);
-        dijkstraAlgo.update();
+        DijkstraAlgorithm dijkstraAlgo = getDijkstraAlgorithm(src);
         return dijkstraAlgo.paths.get(dest);
     }
 
@@ -444,13 +437,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     /*
      * deep copy just for the array list add new array and not the same array
      */
-    private static int[] deepCopy(int[] arr) {
-        int[] newArr = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            newArr[i] = arr[i];
-        }
-        return newArr;
-    }
 
     /*
      * simple swap between two index
@@ -459,19 +445,20 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         int i;
         int j;
         do {
-            i = (int)(Math.random()* (arr.length-1));
-            j = (int)(Math.random()* (arr.length-1));
+            i = (int)(Math.random()* (arr.length));
+            j = (int)(Math.random()* (arr.length));
         }while (i != j);
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
-
-    private Vector<Integer> buildVector(int src, int dest) {
-        Vector<Integer> vector = new Vector<>();
-        vector.add(src);
-        vector.add(dest);
-        return vector;
+    private DijkstraAlgorithm getDijkstraAlgorithm(int src) {
+        if (dijkstra.get(src) == null) {
+            dijkstra.put(src, new DijkstraAlgorithm(src));
+        }
+        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(src);
+        dijkstraAlgo.update();
+        return dijkstraAlgo;
     }
     private class DijkstraAlgorithm {
         /*
@@ -541,6 +528,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             int dad = dads.get(node);
             if (dad == Integer.MIN_VALUE) {
+                dists.replace(node, -1.0);
                 return;
             }
             if(paths.get(dad).isEmpty()) {

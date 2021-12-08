@@ -7,56 +7,30 @@ import codes.MyNodeData;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Vector;
 
-import java.awt.event.*;
-import java.beans.Expression;
-import java.io.*; 
+import java.util.Iterator;
+
 
 public class MyPanel extends JPanel {
-    // static int SCREEN_WIDTH;
-    // static int SCREEN_HIGHT;
-    // static int UNIT_SIZE ;
     private double minX;
     private double minY;
     private double maxX;
     private double maxY;
     private double unitX;
     private double unitY;
-    private Dimension screenSize;
 
-    
-    // private int FRAME_ZISE;
-    // private double FRAME_SIZE;
-
-    //static int GAME_UNITS;
     private DirectedWeightedGraph graph;
 
     //constructor
     public MyPanel(DirectedWeightedGraph graph) {
-        init(graph);
-
-                  
-        
-        // System.out.println("minX " + minX);
-        // System.out.println("minY " + minY);
-        // System.out.println("maxX " + maxX);
-        // System.out.println("maxY " + maxY);
-        // System.out.println("unitX " + unitX);
-        // System.out.println("unitY " + unitY);
-    }
-    public void init(DirectedWeightedGraph graph) {
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(screenSize);
+        this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         this.setBackground(Color.GRAY);
         this.setFocusable(true);
+        init(graph);
+    }
+    public void init(DirectedWeightedGraph graph) {
         this.graph = graph;
         findEdge();
-
-        unitX = screenSize.getWidth() / Math.abs(maxX - minX) * 0.975;
-        unitY = screenSize.getHeight() / Math.abs(maxY - minY) * 0.9;
     }
 
     //find edge to use for the draw
@@ -81,6 +55,8 @@ public class MyPanel extends JPanel {
     //draw the components edges and nodes(verticals)
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        unitX = this.getWidth() / Math.abs(maxX - minX) * 0.975;
+        unitY = this.getHeight() / Math.abs(maxY - minY) * 0.9;
         //drawArrowLine(g, 20, 20, 200, 200, 30, 7);
         //drawLines(g);
         drawEdges(g);
@@ -134,17 +110,6 @@ public class MyPanel extends JPanel {
             g.drawString(weightString, (int)(srcX*0.25 + destX*0.75),(int)(srcY*0.25 + destY*0.75));
         }
     }
-
-    // draw lines for the Edges
-    public void drawLines(Graphics g) {
-        for (int i = 0; i < screenSize.width * maxX; i += unitX) {
-            g.drawLine(i, 0, i, (int) screenSize.getHeight());
-        }
-        for (int i = 0; i < screenSize.getHeight() * maxY; i += unitY) {
-            g.drawLine(0, i, (int) screenSize.getWidth(), i);
-        }
-    }
-
     /**
      * Draw an arrow line between two points.
      *

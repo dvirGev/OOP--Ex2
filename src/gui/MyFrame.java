@@ -1,14 +1,12 @@
 package gui;
 
-import api.DirectedWeightedGraph;
-//import api.NodeData;
+
 import api.DirectedWeightedGraphAlgorithms;
 import gui.pop.*;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.*;
-import java.awt.*;
+
 
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -50,7 +48,7 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
         this.addMouseListener(this);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setVisible(true);
     }
 
