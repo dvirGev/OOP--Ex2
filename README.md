@@ -47,7 +47,7 @@ on the window we have buttons of two different subjects we can use on the graph:
 - Graph algorithm buttons
 - changing Graph Properties buttons
 <br />
-  ![this is an image](https://i.ibb.co/gDh9Rj5/image.png)  <br />
+  ![this is an image](https://i.ibb.co/6mP87Nw/image.png)  <br />
 
 ##Algorithms<br />
 
