@@ -1,6 +1,7 @@
-﻿#Graph Properties
+﻿#Assiment 2 - making a Directed Graph
+![this is an image](https://static.scientificamerican.com/blogs/cache/file/1127EF51-F6B3-40BE-84D591F0CBD9F254_source.png?w=590&h=800&82189013-244C-4E7C-8DBA061961637719)
  ##*In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.*
-![this is an image](https://i.pinimg.com/564x/00/48/55/0048555fa7d573b8a9d1771a80b194ee.jpg)
+
 -------------------------------------------------------------------------------------------------
 
 #Input Files
@@ -15,7 +16,7 @@ To make the graph running, the program need to get input about the verticals, an
 #our code
 The main idea was to use the exclusive id that every node have and to access him with complexity if o(1) with Hashmap.<br />
 The graph will save all the relevant data about each vertical and edge in the graph,<br /> so we can check some algorithm with a better complexity.
-
+-------------------------------------------------------------------------------------------------
 ##classes
 1. **MyGeoLocation** - this class saved The Location of the node.
    <br /><br />
@@ -33,7 +34,7 @@ The graph will save all the relevant data about each vertical and edge in the gr
 - The ideal center of the graph.
 - Tsp problem for a group of verticals in the graph
   <br />
-  
+  -------------------------------------------------------------------------------------------------
 ## Gui
 This classes generate a windows that show the graph with all its properties.<br />
 <photo>
@@ -42,14 +43,15 @@ you can load to the graph with Json file that define the verticals and edges of 
 - Graph algorithm buttons
 - changing Graph Properties buttons
 <photo>
+-------------------------------------------------------------------------------------------------
 
-##Algorithms 
-
+Algorithms 
+-------------------------------------------------------------------------------------------------
 ##UML Diagram
 
-
-##Algorithms Results
-
+-------------------------------------------------------------------------------------------------
+Algorithms Results
+-------------------------------------------------------------------------------------------------
 ## how to run the program
 
 
