@@ -47,9 +47,12 @@ on the window we have buttons of two different subjects we can use on the graph:
 - Graph algorithm buttons
 - changing Graph Properties buttons
 <br />
-  ![this is an image](https://i.ibb.co/6mP87Nw/image.png)  <br />
+  
+![this is an image](https://i.ibb.co/6mP87Nw/image.png)  <br />
 
-##Algorithms<br />
+
+
+## Algorithms<br />
 
 The algorithm we execute:
 - **IsConnected** - in this algorithm we want to check is we can get to each vertices from another one. <br />
