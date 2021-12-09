@@ -63,20 +63,24 @@ The algorithm we execute:
 - **Dijkstra** - this algorithm get src to check the path from it to all other nodes. first it check if the this List off values is exist and updated. if isn't we run the algorithem and save the stations that represent the shortest path between each node from our src input.<br /><br />
 - **Center** - find the Node on the graph that will arrive fastest to the most distance from him. <br />
 we doing Dijkstra on each node and save the max dis from it. thaen we check the node with the lowest max weight. <br /><br />
-- **tsp** - will find the best way to do circle on group of nodes in the graph. 
-  this solution algorithem takes exspo Time and can't be calculate on a group that have more then 15 nodes. so we execute greedy algorithm that check the nearest next nodes and check
-   להמשיך לכתוב פה מה שצריךך!!! <br /><br />
-  - 
+
+- **tsp** -it will find the best way to do circle on group of nodes in the graph. 
+  this solution algorithem will be in factorial complicity Time and can't be calculated for more to 15 nodes. <br />
+  then we execute a greedy algorithm that check the nearest next node from my current node.
+  i am saving the permutation for each starting node and find the node that will be the best to start from.
+  for finding the lowest weight between all two nodes in the group, we need to run Dijkstra to this node (if it never calculate it yet).
+  
 
 
 ## UML Diagram <br />
 bkakak<br />
 
 ##Algorithms Results<br />
+![this is an image](https://i.ibb.co/yftKZ9d/result.png)
 ## how to run the program <br />
 
 
-![this is an image](https://static.scientificamerican.com/blogs/cache/file/1127EF51-F6B3-40BE-84D591F0CBD9F254_source.png?w=590&h=800&82189013-244C-4E7C-8DBA061961637719)
+
 
 
 
