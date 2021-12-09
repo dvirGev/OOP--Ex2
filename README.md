@@ -54,7 +54,7 @@ on the window we have buttons of two different subjects we can use on the graph:
 
 ## Algorithms<br />
 
-The algorithm we execute:
+The algorithms we execute:
 - **IsConnected** - in this algorithm we want to check is we can get to each vertices from another one. <br />
   for checking it we choose randomly one of the vertical on the graph and do BFS(Breadth-first-search) and check if the number of different Node we can arrive equal to the number of the node in the graph. if its True, we make G transpose graph and run BFS again.
   if its work again its mean that we can arrive from this node to each other one and from each node to our chosen node.
@@ -81,6 +81,8 @@ bkakak<br />
 ##Algorithms Results<br />
 ![this is an image](https://i.ibb.co/yftKZ9d/result.png)
 ## how to run the program <br />
+
+example of Graph Json file you can find in the [data folder](https://github.com/dvirGev/OOP--Ex2/tree/main/data)  <br />
 
 
 
