@@ -79,7 +79,8 @@ we're doing Dijkstra on each node and save the max distance from it. then we che
 
 
 ## UML Diagram <br />
-bkakak<br />
+![this is an image](https://i.ibb.co/VT6ZSNZ/Ex2.png)
+<br />
 
 ## Algorithms Results<br />
 ![this is an image](https://i.ibb.co/yftKZ9d/result.png) <br />
