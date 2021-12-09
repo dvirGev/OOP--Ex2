@@ -82,7 +82,7 @@ we're doing Dijkstra on each node and save the max distance from it. then we che
 bkakak<br />
 
 ## Algorithms Results<br />
-![this is an image](https://i.ibb.co/yftKZ9d/result.png)
+![this is an image](https://i.ibb.co/yftKZ9d/result.png) <br />
 ## how to run the program <br />
 
 example of Graph Json file you can find in the [data folder](https://github.com/dvirGev/OOP--Ex2/tree/main/data)  <br />
