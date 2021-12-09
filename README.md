@@ -1,4 +1,7 @@
-﻿# Making a Directed Graph
+﻿<p align="center">
+
+# Making a Directed Graph
+</p>
 <br /> 
 
 
