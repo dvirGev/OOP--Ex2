@@ -81,7 +81,7 @@ we're doing Dijkstra on each node and save the max distance from it. then we che
 ## UML Diagram <br />
 bkakak<br />
 
-##Algorithms Results<br />
+## Algorithms Results<br />
 ![this is an image](https://i.ibb.co/yftKZ9d/result.png)
 ## how to run the program <br />
 
