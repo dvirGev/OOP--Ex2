@@ -44,12 +44,14 @@ you can load to the graph with Json file that define the verticals and edges of 
 - Graph algorithm buttons
 - changing Graph Properties buttons
 <photo>
-  Algorithms
+
+##Algorithms
 
 
 ## UML Diagram <br />
+bkakak
 
-Algorithms Results
+##Algorithms Results
 ## how to run the program <br />
 
 
