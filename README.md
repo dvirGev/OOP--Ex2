@@ -1,5 +1,4 @@
 ﻿#Assiment 2 - making a Directed Graph
-![this is an image](https://static.scientificamerican.com/blogs/cache/file/1127EF51-F6B3-40BE-84D591F0CBD9F254_source.png?w=590&h=800&82189013-244C-4E7C-8DBA061961637719)
 <br /> 
 ##*In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.*
 
@@ -56,6 +55,7 @@ Algorithms Results
 ## how to run the program
 
 
+![this is an image](https://static.scientificamerican.com/blogs/cache/file/1127EF51-F6B3-40BE-84D591F0CBD9F254_source.png?w=590&h=800&82189013-244C-4E7C-8DBA061961637719)
 
 
 
