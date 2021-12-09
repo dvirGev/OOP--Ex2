@@ -42,7 +42,6 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
         graphAlgo = ans;
 
         panel = new MyPanel(ans.getGraph());
-        // this.setLayout(new BorderLayout());
         buildBar();
         this.add(panel);
         this.addMouseListener(this);
@@ -173,7 +172,7 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if (needToAddNode) {
-            new AddNode(graphAlgo.getGraph(), panel, e.getX(),e.getY());
+            new AddNode(panel, e.getX(),e.getY());
             needToAddNode = false;
         }
     }

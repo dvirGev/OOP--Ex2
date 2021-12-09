@@ -1,13 +1,8 @@
 package codes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Vector;
-import java.util.Map.Entry;
-
-import javax.management.RuntimeErrorException;
 
 import api.DirectedWeightedGraph;
 import api.EdgeData;
@@ -123,8 +118,6 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         if (edgeByNode.get(dest) != null) {
             edgeByNode.get(dest).toMe.remove(src);
         }
-//        edgeByNode.get(src).fromMe.remove(dest);
-//        edgeByNode.get(dest).toMe.remove(src);
         ++mc;
         return edges.remove(vector);
     }
@@ -163,10 +156,6 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         public Degree() {
             this.fromMe = new HashMap<>();
             this.toMe = new HashMap<>();
-        }
-
-        public HashMap<Integer, EdgeData> getFromMe() {
-            return fromMe;
         }
     }
 
