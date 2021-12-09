@@ -29,7 +29,7 @@ The graph will save all the relevant data about each vertical and edge in the gr
       <br />
 3. **MyEdgeData** - contains to every edge The id source, id detention and the wight of the edge.<br /><br />
 4. **MyDirectedGraph** - contains List of the nodes in the graph(MyNodeData) and all the edges(MyEdgeDate).<br /><br />
-5. **MyDirectedGraphAlgorithm** - this class get MyDirectedGraph and can calculate the next list of algorithems:
+5. **MyDirectedGraphAlgorithm** - this class get MyDirectedGraph and can calculate the next list of algorithms:
 - If the graph is connected.
 - A shorted path between 2 verticals.
 - The ideal center of the graph.
@@ -46,6 +46,23 @@ you can load to the graph with Json file that define the verticals and edges of 
 <photo><br />
 
 ##Algorithms<br />
+
+The algorithm we execute:
+- **IsConnected** - in this algorithm we want to check is we can get to each vertices from another one. <br />
+  for checking it we choose randomly one of the vertical on the graph and do BFS(Breadth-first-search) and check if the number of different Node we can arrive equal to the number of the node in the graph. if its True, we make G transpose graph and run BFS again.
+  if its work again its mean that we can arrive from this node to each other one and from each node to our chosen node.
+    
+
+- **ShortPathDis** - this algoritem check what is the best lower wight we can spend to arive from a vertex to another one (if they are connect).
+  we use Dijkstra algorithem to find the wight and using Dynamic programing to save already all the wights from this node to the another connect one. <br /><br />
+- **ShortPath** - return the station that make the shortest Path. we save it when we run the Dijkstra algorithm. <br /><br />
+- **Dijkstra** - this algorithm get src to check the path from it to all other nodes. first it check if the this List off values is exist and updated. if isn't we run the algorithem and save the stations that represent the shortest path between each node from our src input.<br /><br />
+- **Center** - find the Node on the graph that will arrive fastest to the most distance from him. <br />
+we doing Dijkstra on each node and save the max dis from it. thaen we check the node with the lowest max weight. <br /><br />
+- **tsp** - will find the best way to do circle on group of nodes in the graph. 
+  this solution algorithem takes exspo Time and can't be calculate on a group that have more then 15 nodes. so we execute greedy algorithm that check the nearest next nodes and check
+   להמשיך לכתוב פה מה שצריךך!!! <br /><br />
+  - 
 
 
 ## UML Diagram <br />
