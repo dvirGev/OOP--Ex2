@@ -62,7 +62,7 @@ we doing Dijkstra on each node and save the max dis from it. thaen we check the 
 - **tsp** - will find the best way to do circle on group of nodes in the graph. 
   this solution algorithem takes exspo Time and can't be calculate on a group that have more then 15 nodes. so we execute greedy algorithm that check the nearest next nodes and check
    להמשיך לכתוב פה מה שצריךך!!! <br /><br />
-  - 
+    - 
 
 
 ## UML Diagram <br />
