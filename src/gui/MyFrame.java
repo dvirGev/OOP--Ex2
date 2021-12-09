@@ -30,7 +30,7 @@ public class MyFrame extends JFrame implements ActionListener, MouseListener {
     private JMenuItem shortestPathDist;
     private JMenuItem shortestPath;
     private JMenuItem center;
-    private JMenuItem tsp;//need to do
+    private JMenuItem tsp;
     private JMenuItem save;
     private JMenuItem load;
     
