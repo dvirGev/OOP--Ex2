@@ -1,4 +1,4 @@
-﻿# making a Directed Graph
+﻿# Making a Directed Graph
 <br /> 
 
 
