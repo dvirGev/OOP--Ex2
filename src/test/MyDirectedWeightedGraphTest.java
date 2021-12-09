@@ -15,7 +15,7 @@ public class MyDirectedWeightedGraphTest {
     MyDirectedWeightedGraphTest() {
         //******** important for the tests work *********// |
         //                                                  V
-        graph = Ex2.getGrapg("data/1000Nodes.json"); // enter here the path for G1 json file
+        graph = Ex2.getGrapg("data/G1.json"); // enter here the path for G1 json file
         algoGraph = new MyDirectedWeightedGraphAlgorithms();
         algoGraph.init(graph);
     }
@@ -81,7 +81,7 @@ public class MyDirectedWeightedGraphTest {
     @Test
      void testCenter() {
         MyDirectedWeightedGraphTest test1 = new MyDirectedWeightedGraphTest();
-        assertEquals(362, test1.algoGraph.center().getKey());
+        assertEquals(8, test1.algoGraph.center().getKey());
     }
     @Test
     void testShortestPath() {
