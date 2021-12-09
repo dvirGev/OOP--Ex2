@@ -16,7 +16,7 @@ To make the graph running, the program need to get input about the verticals, an
 
 # our code <br />
 The main idea was to use the exclusive id that every node have and to access him with complexity if o(1) with Hashmap.<br />
-The graph will save all the relevant data about each vertical and edge in the graph,<br /> so we can check some algorithm with a better complexity.
+The graph will save all the relevant data about each vertical and edge in the graph, so we can check some algorithm with a better complexity.
 
 ## classes <br />
 1. **MyGeoLocation** - this class saved The Location of the node.
