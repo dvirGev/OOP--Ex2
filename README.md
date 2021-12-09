@@ -45,7 +45,7 @@ you can load to the graph with Json file that define the verticals and edges of 
 - changing Graph Properties buttons
 <photo><br />
 
-##Algorithms<br />
+  ##Algorithms
 
 The algorithm we execute:
 - **IsConnected** - in this algorithm we want to check is we can get to each vertices from another one. <br />
