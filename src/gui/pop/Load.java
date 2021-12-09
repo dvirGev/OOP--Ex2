@@ -46,7 +46,6 @@ public class Load extends JFrame implements ActionListener {
         p.add(inputName);
         p.add(button);
 
-        //p.setPreferredSize(new Dimension(125, 100));
         // add panel to frame
         add(p);
 

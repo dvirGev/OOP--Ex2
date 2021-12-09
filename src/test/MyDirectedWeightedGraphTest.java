@@ -1,15 +1,11 @@
 package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 import api.*;
 import codes.*;
 
-import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 public class MyDirectedWeightedGraphTest {
@@ -30,37 +26,9 @@ public class MyDirectedWeightedGraphTest {
         for (int j = 0; j < 48; j++) {
             tsp.add(test.graph.getNode(j));
         }
-//        tsp.add(test.graph.getNode(2));
-//        tsp.add(test.graph.getNode(3));
-//        tsp.add(test.graph.getNode(4));
-//        tsp.add(test.graph.getNode(5));
-//        tsp.add(test.graph.getNode(6));
-//        tsp.add(test.graph.getNode(12));
-//        tsp.add(test.graph.getNode(13));
-//        tsp.add(test.graph.getNode(14));
-//        tsp.add(test.graph.getNode(15));
-//        tsp.add(test.graph.getNode(16));
         for (NodeData n :test.algoGraph.tsp(tsp)) {
             System.out.print(n.getKey() + ",");
         }
-//        System.out.println(test.algoGraph.tsp(tsp));
-//        while (iter.hasNext())
-//        {
-//            EdgeData t =iter.next();
-//            System.out.println(t);
-//        }
-//        System.out.println(test.graph.nodeSize());
-//        System.out.println(test.algoGraph.isConnected());
-//        System.out.println(test.algoGraph.shortestPathDist(1,7));
-//        System.out.println(test.algoGraph.shortestPath(0,10));
-//        for (NodeData node:test.algoGraph.shortestPath(0,10)) {
-//            System.out.println(node.getKey());
-//        }
-//        System.out.println(test.algoGraph.center().getKey());
-
-
-
-
     }
 
     @Test
@@ -84,9 +52,6 @@ public class MyDirectedWeightedGraphTest {
         iter.remove();
         assertEquals(null, test1.graph.getNode(key));
         test1.graph.addNode(new MyNodeData(55,"0,0,0"));
-//        Exception exception = assertThrows(Exception.class, () -> {
-//            iter.next();
-        ;
     }
         @Test
         void testEdgeIterator() {

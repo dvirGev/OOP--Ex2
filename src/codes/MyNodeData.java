@@ -1,13 +1,9 @@
 package codes;
 
 import api.*;
-import codes.*;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Vector;
+
+
 
 /**
  * represents the set of operations applicable on a
@@ -16,21 +12,13 @@ import java.util.Vector;
 public class MyNodeData implements NodeData {
     private int key;
     private GeoLocation location;
-    private HashMap<Integer, EdgeData> fromMe;
-    private HashMap<Integer, EdgeData> toMe;
-    private Color c = Color.white;
     private int tag;
 
-    public HashMap<Integer, EdgeData> getFromMe() {
-        return fromMe;
-    }
 
     //constructor
     public MyNodeData(int key, String loc) {
         this.key = key;
         location = new MyGeoLocation(loc);
-        fromMe = new HashMap<>();
-        toMe = new HashMap<>();
         tag = 0;
     }
 
@@ -38,7 +26,6 @@ public class MyNodeData implements NodeData {
     public MyNodeData(NodeData other) {
         this.key = other.getKey();
         location = new MyGeoLocation(other.getLocation());
-        toMe = new HashMap<>();
     }
 
     //return key

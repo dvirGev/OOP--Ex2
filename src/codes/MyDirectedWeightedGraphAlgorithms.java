@@ -8,8 +8,6 @@ import api.NodeData;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.http.HttpHeaders;
-import java.sql.Array;
 import java.util.*;
 
 import org.json.simple.JSONArray;
@@ -42,7 +40,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     public void init(DirectedWeightedGraph g) {
         graph = g;
         dijkstra = new HashMap<>();
-        Iterator<NodeData> iter = graph.nodeIter();
     }
 
     /**
@@ -187,63 +184,12 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             value = checkGreedy(i, new ArrayList<>(cities), cur);
             if(value < best)
             {
-//                System.out.println("##The Very Best:$$ " +value);
                 best = value;
                 permute = cur;
             }
         }
 
         return permute;
-//        int[] arr = new int[cities.size() -1];  // this is the first array we get. is will be the first premutation;
-//        int startAndEnd = cities.get(cities.size()-1).getKey(); // the start and end off the euler circle
-//        cities.remove(cities.get(cities.size()-1)); // we do the premute to all other cities
-//        int i = 0; // counter
-//        Iterator<NodeData> iter = cities.iterator();  // get List and move it to arr
-//        while (iter.hasNext()) {
-//            NodeData n = iter.next();
-//            arr[i] = n.getKey();
-//            i++;
-//        }
-//        long T = factorialUsingForLoop(arr.length+2); // the temp will decrease and influence if we will take this permutation next time
-//        double bestWay = Double.MAX_VALUE;  // best way will save the cost of the best permutation
-//        int [] best = new int[arr.length];  // the best permutation until now
-//        int [] prev  = new int[arr.length];  // save the last permutation
-//        int[] cur = new int[arr.length]; // save be the next checking permutation
-//        copy(cur, arr);  // copy the first per to cur.
-//        while(T>0.1)  // while T is big enough
-//        {
-//            copy(prev, cur);  // copy to prev the cur array
-////            swap(cur);      // make new permutation to cur array
-//            int k;
-//            int j;
-//            do {
-//                k = (int)((Math.random()* (arr.length)));
-//
-//                j = (int)((Math.random()* (arr.length)));
-//            }while (k == j);
-//            int temp = cur[k];
-//            cur[k] = cur[j];
-//            cur[j] = temp;
-//
-//            double curWay = CalWay(cur,startAndEnd);  // save the way it takes to the permutation
-//            if(curWay < bestWay) // if it's the best way
-//            {
-//                bestWay = curWay;
-//                copy(best, cur);
-//
-//            }
-//            else if((Math.exp(curWay-bestWay)/T) <  Math.random())
-//            {
-//                bestWay = curWay;
-//
-//            }
-//            else {
-//                copy(prev, cur);
-//            }
-//            T*=0.96;
-//        }
-//        System.out.println(bestWay);
-//        return create(best, startAndEnd);
     }
 
     public double checkGreedy(NodeData i, List<NodeData> c, List<NodeData> ins)
@@ -281,11 +227,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
         ins.add(first);
         sum+= getDijkstraAlgorithm(i.getKey()).dists.get(first.getKey());
-//        for (NodeData n : ins) {
-//            System.out.print(n.getKey() + ",");
-//        }
-//        System.out.printf(" : " + sum);
-//        System.out.println();
         return sum;
     }
     public List<NodeData> create(int [] arr, int s)

@@ -1,7 +1,6 @@
 package codes;
 
 import api.*;
-import codes.*;
 import gui.*;
 
 import org.json.simple.JSONArray;
@@ -13,24 +12,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import java.sql.Time;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Timer;
 
 /**
  * This class is the main class for Ex2 - your implementation will be tested
  * using this class.
+ * for run: java -jar Ex2.jar data/G1.json
  */
 
 public class Ex2 {
-    // = "data/G1.json";
-
     public static void main(String[] args) {
-        String json_file = "data/1000Nodes.json"; //= args[0];
+        String json_file = args[0];
         runGUI(json_file);
     }
 
