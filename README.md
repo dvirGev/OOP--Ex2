@@ -1,10 +1,11 @@
 ﻿#Assiment 2 - making a Directed Graph
 <br /> 
+
 ##*In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.*
 
 -------------------------------------------------------------------------------------------------
 
-#Input Files
+#Input Files <br />
 To make the graph running, the program need to get input about the verticals, and the edges the graph contains.
 
 - we get from the consumer interfaces of the Graph, vertical data, Coordinate position of vertical, edge properties and algorithms of the graph .
@@ -13,11 +14,11 @@ To make the graph running, the program need to get input about the verticals, an
   
 -------------------------------------------------------------------------------------------------
 
-#our code
+#our code <br />
 The main idea was to use the exclusive id that every node have and to access him with complexity if o(1) with Hashmap.<br />
 The graph will save all the relevant data about each vertical and edge in the graph,<br /> so we can check some algorithm with a better complexity.
 -------------------------------------------------------------------------------------------------
-##classes
+##classes <br />
 1. **MyGeoLocation** - this class saved The Location of the node.
    <br /><br />
 2. **MyNodeData** - this class save information about each vertical:
@@ -35,7 +36,7 @@ The graph will save all the relevant data about each vertical and edge in the gr
 - Tsp problem for a group of verticals in the graph
   <br />
   -------------------------------------------------------------------------------------------------
-## Gui
+## Gui <br />
 This classes generate a windows that show the graph with all its properties.<br />
 <photo>
 you can load to the graph with Json file that define the verticals and edges of the graph, and it will load and show it on the screen.
@@ -45,14 +46,14 @@ you can load to the graph with Json file that define the verticals and edges of 
 <photo>
 -------------------------------------------------------------------------------------------------
 
-Algorithms 
+Algorithms  <br />
 -------------------------------------------------------------------------------------------------
-##UML Diagram
+##UML Diagram <br />
 
 -------------------------------------------------------------------------------------------------
-Algorithms Results
+Algorithms Results <br />
 -------------------------------------------------------------------------------------------------
-## how to run the program
+## how to run the program <br />
 
 
 ![this is an image](https://static.scientificamerican.com/blogs/cache/file/1127EF51-F6B3-40BE-84D591F0CBD9F254_source.png?w=590&h=800&82189013-244C-4E7C-8DBA061961637719)
