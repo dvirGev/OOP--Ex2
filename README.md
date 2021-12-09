@@ -1,7 +1,9 @@
-﻿# Assiment 2 - making a Directed Graph
+﻿# making a Directed Graph
 <br /> 
 
-## *In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.*
+
+![this is an image](https://i.ibb.co/G5ynrVT/0-hdx0-WTASo-HI5jy-ZJ.jpg)  <br />
+### In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui. 
 
 
 
@@ -47,7 +49,7 @@ on the window we have buttons of two different subjects we can use on the graph:
 - Graph algorithm buttons
 - changing Graph Properties buttons
 <br />
-  
+
 ![this is an image](https://i.ibb.co/6mP87Nw/image.png)  <br />
 
 
