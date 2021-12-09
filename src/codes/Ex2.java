@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class Ex2 {
     public static void main(String[] args) {
-        String json_file = args[0];
+        String json_file = "data/G2.json";
         runGUI(json_file);
     }
 
