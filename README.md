@@ -1,11 +1,11 @@
-﻿#Assiment 2 - making a Directed Graph
+﻿# Assiment 2 - making a Directed Graph
 <br /> 
 
-##*In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.*
+## *In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.*
 
 -------------------------------------------------------------------------------------------------
 
-#Input Files <br />
+# Input Files <br />
 To make the graph running, the program need to get input about the verticals, and the edges the graph contains.
 
 - we get from the consumer interfaces of the Graph, vertical data, Coordinate position of vertical, edge properties and algorithms of the graph .
@@ -14,11 +14,11 @@ To make the graph running, the program need to get input about the verticals, an
   
 -------------------------------------------------------------------------------------------------
 
-#our code <br />
+# our code <br />
 The main idea was to use the exclusive id that every node have and to access him with complexity if o(1) with Hashmap.<br />
 The graph will save all the relevant data about each vertical and edge in the graph,<br /> so we can check some algorithm with a better complexity.
 -------------------------------------------------------------------------------------------------
-##classes <br />
+## classes <br />
 1. **MyGeoLocation** - this class saved The Location of the node.
    <br /><br />
 2. **MyNodeData** - this class save information about each vertical:
@@ -48,7 +48,7 @@ you can load to the graph with Json file that define the verticals and edges of 
 
 Algorithms  <br />
 -------------------------------------------------------------------------------------------------
-##UML Diagram <br />
+## UML Diagram <br />
 
 -------------------------------------------------------------------------------------------------
 Algorithms Results <br />
