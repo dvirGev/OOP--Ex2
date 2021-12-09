@@ -1,7 +1,7 @@
 ﻿# Assiment 2 - making a Directed Graph
 <br /> 
 
-## *In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.*
+In this assignment we were asked to program a directed Graph,checking Properties about it with some algorithms and draw it with Gui.
 
 
 
@@ -45,7 +45,7 @@ you can load to the graph with Json file that define the verticals and edges of 
 - changing Graph Properties buttons
 <photo><br />
 
-  ##Algorithms
+## Algorithms
 
 The algorithm we execute:
 - **IsConnected** - in this algorithm we want to check is we can get to each vertices from another one. <br />
