@@ -1,7 +1,5 @@
-﻿<p align="center">
-
+﻿
 # Making a Directed Graph
-</p>
 <br /> 
 
 
@@ -60,20 +58,20 @@ on the window we have buttons of two different subjects we can use on the graph:
 ## Algorithms<br />
 
 The algorithms we execute:
-- **IsConnected** - in this algorithm we want to check is we can get to each vertices from another one. <br />
+- **IsConnected** - in this algorithm we want to check is we can get to each vertex from another one. <br />
   for checking it we choose randomly one of the vertical on the graph and do BFS(Breadth-first-search) and check if the number of different Node we can arrive equal to the number of the node in the graph. if its True, we make G transpose graph and run BFS again.
   if its work again its mean that we can arrive from this node to each other one and from each node to our chosen node.
     
 
-- **ShortPathDis** - this algoritem check what is the best lower wight we can spend to arive from a vertex to another one (if they are connect).
-  we use Dijkstra algorithem to find the wight and using Dynamic programing to save already all the wights from this node to the another connect one. <br /><br />
+- **ShortPathDis** - this algorithm check what is the best lower wight we can spend to arrive from a vertex to another one (if they are connect).
+  we use Dijkstra algorithm to find the wight and using Dynamic programing to save already all the wights from this node to the another connect one. <br /><br />
 - **ShortPath** - return the station that make the shortest Path. we save it when we run the Dijkstra algorithm. <br /><br />
-- **Dijkstra** - this algorithm get src to check the path from it to all other nodes. first it check if the this List off values is exist and updated. if isn't we run the algorithem and save the stations that represent the shortest path between each node from our src input.<br /><br />
+- **Dijkstra** - this algorithm get src to check the path from it to all other nodes. first it checks if the List off values is exist and updated. if isn't we run the algorithem and save the stations that represent the shortest path between each node from our src input.<br /><br />
 - **Center** - find the Node on the graph that will arrive fastest to the most distance from him. <br />
-we doing Dijkstra on each node and save the max dis from it. thaen we check the node with the lowest max weight. <br /><br />
+we're doing Dijkstra on each node and save the max distance from it. then we check the node with the lowest max weight. <br /><br />
 
-- **tsp** -it will find the best way to do circle on group of nodes in the graph. 
-  this solution algorithem will be in factorial complicity Time and can't be calculated for more to 15 nodes. <br />
+- **Tsp** - will find the best way to do circle on group of nodes in the graph. 
+  this solution algorithm will be in factorial complicity Time and can't be calculated for more to 15 nodes. <br />
   then we execute a greedy algorithm that check the nearest next node from my current node.
   i am saving the permutation for each starting node and find the node that will be the best to start from.
   for finding the lowest weight between all two nodes in the group, we need to run Dijkstra to this node (if it never calculate it yet).
