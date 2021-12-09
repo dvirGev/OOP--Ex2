@@ -40,10 +40,14 @@ The graph will save all the relevant data about each vertical and edge in the gr
 This classes generate a windows that show the graph with all its properties.<br />
 <photo>
 you can load to the graph with Json file that define the verticals and edges of the graph, and it will load and show it on the screen.
-<br /> on the window we have buttons of two different subjects we can use on the graph:
+<br />
+![this is an image](https://i.ibb.co/gDh9Rj5/image.png)  <br /> 
+
+on the window we have buttons of two different subjects we can use on the graph:
 - Graph algorithm buttons
 - changing Graph Properties buttons
-<photo><br />
+<br />
+  ![this is an image](https://i.ibb.co/gDh9Rj5/image.png)  <br />
 
 ##Algorithms<br />
 
