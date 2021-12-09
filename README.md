@@ -15,7 +15,8 @@ To make the graph running, the program need to get input about the verticals, an
 -------------------------------------------------------------------------------------------------
 
 # our code <br />
-The main idea was to use the exclusive id that every node have and to access him with complexity if o(1) with Hashmap.<br />
+
+### The main idea was to use the exclusive id that every node have and to access him with complexity if o(1) with Hashmap.<br />
 The graph will save all the relevant data about each vertical and edge in the graph,<br /> so we can check some algorithm with a better complexity.
 -------------------------------------------------------------------------------------------------
 ## classes <br />
@@ -33,7 +34,7 @@ The graph will save all the relevant data about each vertical and edge in the gr
 - If the graph is connected.
 - A shorted path between 2 verticals.
 - The ideal center of the graph.
-- Tsp problem for a group of verticals in the graph
+### - Tsp problem for a group of verticals in the graph
   <br />
   -------------------------------------------------------------------------------------------------
 ## Gui <br />
@@ -44,7 +45,7 @@ you can load to the graph with Json file that define the verticals and edges of 
 - Graph algorithm buttons
 - changing Graph Properties buttons
 <photo>
--------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 
 Algorithms  <br />
 -------------------------------------------------------------------------------------------------
