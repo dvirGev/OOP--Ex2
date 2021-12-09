@@ -447,6 +447,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
             while (!Q.isEmpty()) {
                 int u = minInList(Q);
+                if (u == Integer.MIN_VALUE) {
+                    return;
+                }
                 Iterator<EdgeData> iter = graph.edgeIter(u);
                 while (iter.hasNext()) {
                     relax(iter.next());
@@ -507,7 +510,9 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                     index = i;
                 }
             }
-            Q.remove(index);
+            if (index != Integer.MIN_VALUE) {
+                Q.remove(index);
+            }
             return ans;
         }
     }
