@@ -16,8 +16,10 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Timer;
 
 /**
  * This class is the main class for Ex2 - your implementation will be tested
