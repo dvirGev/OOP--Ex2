@@ -83,8 +83,15 @@ bkakak<br />
 
 ## Algorithms Results<br />
 ![this is an image](https://i.ibb.co/yftKZ9d/result.png) <br />
+
 ## how to run the program <br />
 
+1. Download The project from the here. <br />
+2. open the folder of the project and run terminal from this address <br />
+3. write this Line in the terminal command: <br />
+> java -jar Ex2.jar Graph_json.json
+
+![this is an image](https://i.ibb.co/VVg20tf/2021-12-09-160508.png) <br />
 example of Graph Json file you can find in the [data folder](https://github.com/dvirGev/OOP--Ex2/tree/main/data)  <br />
 
 
