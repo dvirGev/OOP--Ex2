@@ -43,15 +43,15 @@ you can load to the graph with Json file that define the verticals and edges of 
 <br /> on the window we have buttons of two different subjects we can use on the graph:
 - Graph algorithm buttons
 - changing Graph Properties buttons
-<photo>
+<photo><br />
 
-##Algorithms
+##Algorithms<br />
 
 
 ## UML Diagram <br />
-bkakak
+bkakak<br />
 
-##Algorithms Results
+##Algorithms Results<br />
 ## how to run the program <br />
 
 
