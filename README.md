@@ -45,8 +45,6 @@ you can load to the graph with Json file that define the verticals and edges of 
 - changing Graph Properties buttons
 <photo><br />
 
-![this is an image](https://i.ibb.co/gDh9Rj5/image.png)
-
 ##Algorithms<br />
 
 The algorithm we execute:
@@ -64,7 +62,7 @@ we doing Dijkstra on each node and save the max dis from it. thaen we check the 
 - **tsp** - will find the best way to do circle on group of nodes in the graph. 
   this solution algorithem takes exspo Time and can't be calculate on a group that have more then 15 nodes. so we execute greedy algorithm that check the nearest next nodes and check
    להמשיך לכתוב פה מה שצריךך!!! <br /><br />
-    - 
+  - 
 
 
 ## UML Diagram <br />
@@ -73,13 +71,12 @@ bkakak<br />
 ##Algorithms Results<br />
 ## how to run the program <br />
 
-you can see example for Json File in the [data folder](https://github.com/dvirGev/OOP--Ex2/tree/main/data) <br />
-
 
 ![this is an image](https://static.scientificamerican.com/blogs/cache/file/1127EF51-F6B3-40BE-84D591F0CBD9F254_source.png?w=590&h=800&82189013-244C-4E7C-8DBA061961637719)
 
 
-![GitHub Dark](https://github.com/github-dark.png#gh-light-mode-only)
+
+
 
 
 
