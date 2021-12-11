@@ -18,7 +18,7 @@ public class Test10000 {
         //******** important for the tests work *********// |
         //                                                  V
         //graph = Ex2.getGrapg("data/G1.json"); // enter here the path for G1 json file
-        algoGraph = Ex2.getGrapgAlgo("C:/Users/dvir_/.vscode/OOP_2021/OOP--Ex2/data/1000Nodes.json");
+        algoGraph = Ex2.getGrapgAlgo("C:\\Users\\dvir_\\.vscode\\OOP_2021\\OOP--Ex2\\data\\10000Nodes.json");
         //algoGraph.init(graph);
     }
     @Test

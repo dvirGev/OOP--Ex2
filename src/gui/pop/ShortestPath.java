@@ -93,7 +93,7 @@ public class ShortestPath extends JFrame implements ActionListener {
                 message = "There Is No Path Between " + src + " And " + dest;
             }
             else {
-                message = "The Distance Between " + src + " And " + dest + " Is:\n";
+                message = "The Shortest Path Between " + src + " And " + dest + " Is:\n";
                 for (NodeData nodeData : path) {
                     message += nodeData.getKey() + "->";
                 }

@@ -33,13 +33,13 @@ import org.json.simple.JSONObject;
  */
 public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private DirectedWeightedGraph graph;
-    private HashMap<Integer, DijkstraAlgorithm> dijkstra;
+    private DijkstraAlgorithm dijkstra;
 
 
     @Override
     public void init(DirectedWeightedGraph g) {
         graph = g;
-        dijkstra = new HashMap<>();
+        dijkstra = new DijkstraAlgorithm(graph.nodeIter().next().getKey()); //not realy do somthing
     }
 
     /**
@@ -95,7 +95,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public double shortestPathDist(int src, int dest) {
         DijkstraAlgorithm dijkstraAlgo = getDijkstraAlgorithm(src);
-        return dijkstraAlgo.dists.get(dest);
+        double valiue = dijkstraAlgo.dists.get(dest);
+        if (Double.isInfinite(valiue)) {
+            return -1;
+        }
+        return valiue;
     }
 
     /**
@@ -129,13 +133,13 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
          * 3. save this index and return him.
          * if the graph not connect it will retun NUll.
          */
-        double min = Double.MAX_VALUE;
+        double min = Double.POSITIVE_INFINITY   ;
         // will be the vertical with the min radios value to the most far vertical.
         NodeData ans = null; // there is some changes in the graph at the last time we chack the short path.
         Iterator<NodeData> iter1 = graph.nodeIter();
         // will move on every node and check if its potential to be the center
         while (iter1.hasNext()) {
-            double max = Integer.MIN_VALUE;
+            double max = Double.MIN_VALUE;
             NodeData src = iter1.next();
             DijkstraAlgorithm dij = getDijkstraAlgorithm(src.getKey());
             //check the short path with all the other nodes
@@ -144,7 +148,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                 NodeData dst = iter2.next();
                 max = Math.max(dij.dists.get(dst.getKey()),  max);
             }
-            if (min > max) {
+            if (min >= max) {
                 min = max;
                 ans = src;
             }
@@ -405,12 +409,11 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     }
 
     private DijkstraAlgorithm getDijkstraAlgorithm(int src) {
-        if (dijkstra.get(src) == null) {
-            dijkstra.put(src, new DijkstraAlgorithm(src));
+        if (dijkstra.src != src) {
+            dijkstra = new DijkstraAlgorithm(src);
         }
-        DijkstraAlgorithm dijkstraAlgo = dijkstra.get(src);
-        dijkstraAlgo.update();
-        return dijkstraAlgo;
+        dijkstra.update();
+        return dijkstra;
     }
     private class DijkstraAlgorithm {
         /*
@@ -422,9 +425,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         */
         public HashMap<Integer,Double> dists;
         public HashMap<Integer,List<NodeData>> paths;
-        public double maxDis;
+        public int src;
         private HashMap<Integer,Integer> dads = new HashMap<>();
-        private int src;
         private int myMC;
 
         DijkstraAlgorithm(int src) {
@@ -472,7 +474,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             int dad = dads.get(node);
             if (dad == Integer.MIN_VALUE) {
-                dists.replace(node, -1.0);
                 return;
             }
             if(paths.get(dad).isEmpty()) {
@@ -480,7 +481,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
             paths.get(node).addAll(paths.get(dad));
             paths.get(node).add(graph.getNode(node));
-            maxDis = Math.max(maxDis, dists.get(node));
         }
         private void initMaps(HashMap<Integer,Integer> dads, ArrayList<Integer> Q) {
             myMC = Integer.MIN_VALUE;
