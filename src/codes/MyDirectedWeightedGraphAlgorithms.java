@@ -468,6 +468,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             }
         }
         private void addPath(int node) {
+            paths.put(node, new ArrayList<>());
             if (node == src) {
                 paths.get(node).add(graph.getNode(node));
                 return;
@@ -476,7 +477,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             if (dad == Integer.MIN_VALUE) {
                 return;
             }
-            if(paths.get(dad).isEmpty()) {
+            if(paths.get(dad) == null) {
                 addPath(dad);
             }
             paths.get(node).addAll(paths.get(dad));
@@ -491,12 +492,10 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
                     dists.put(key, Double.POSITIVE_INFINITY);
                     dads.put(key, Integer.MIN_VALUE);
                     Q.add(key);
-                    paths.put(key, new ArrayList<>());
                 }
             }
             dads.put(src, src);
             dists.put(src, 0.0);
-            paths.put(src, new ArrayList<>());
             Q.add(src);
         }
         private int minInList(ArrayList<Integer> Q) {
